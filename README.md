@@ -5,9 +5,9 @@ Jev-onlyを研究profileとして比較可能に保ちつつ、製品profileで�
 DeepSeekを会話・open-set proposalへ利用する。身体・安全・権限・実行は決定論的コードが担う。
 jevのapiキーは、.envに"jev_api_key": "value"という形で保存されている。
 
-現在はResident本体の実装前に、body候補とGate Aの成立性を査定する
-**M0 — Gate A Discovery** にある。`mc_aiplayer`は採用済み上流ではなく、
-EXTEND / PERMANENT_FORK / SELECTIVE_PORT / REJECT / DEFERを判断する第三者部品候補として扱う。
+Resident本体の実装前調査である **M0 — Gate A Discovery** は完了した。
+Gate A v1はfreezeしたが、Gate A自体はまだ通過していない。`mc_aiplayer`の採用判断は期限付き`DEFER`であり、
+次は **M1 — Gate A Gap Closure** の独立black-box decision trancheから開始する。
 
 ## 調査・設計
 

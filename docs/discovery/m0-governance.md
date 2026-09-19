@@ -1,6 +1,6 @@
 # M0 — Gate A Discovery governance
 
-状態: Active after this document is merged into `main`.
+状態: Completed by GA-005 on 2026-09-19. Gate A itself is not yet passed; implementation moves next to the M1 decision tranche.
 
 Baseline source commit: `8501f453b938517d91ff1edd4fcd78a307c8b9ef`
 
