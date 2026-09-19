@@ -17,6 +17,7 @@ EXTEND / PERMANENT_FORK / SELECTIVE_PORT / REJECT / DEFERを判断する第三�
 - [`mc_aiplayer` provenance / execution-safety audit](docs/discovery/mc-aiplayer-supply-chain-audit.md)
 - [Pinned `mc_aiplayer` baseline reproduction](docs/discovery/pinned-baseline-results.md)
 - [Gate A body candidate matrix](docs/discovery/body-candidate-matrix.md)
+- [ADR-0001: Minecraft body strategy](docs/adr/0001-body-strategy.md)
 - [Minecraft Resident 実装計画 v2（Architecture RFC）](docs/research/resident-implementation-plan-v2.md)
 - [Jev-only Minecraft 疑似プレイヤー 調査・実現計画](docs/research/jev-only-minecraft-resident-research.md)
 - [Jev live functional probes (2026-09-19)](docs/research/jev-live-probes-2026-09-19.md)
