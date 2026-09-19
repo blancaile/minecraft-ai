@@ -1,0 +1,17 @@
+{
+  "schema_version": "gate-a-schema-v1.0",
+  "contract_version": "gate-a-v1.0",
+  "document_type": "event",
+  "run_id": "run-nav-01-seed-101",
+  "correlation_id": "mission-nav-101",
+  "sequence": 7,
+  "wall_time": "2026-09-19T01:00:07Z",
+  "monotonic_ns": 7000000000,
+  "server_tick": 140,
+  "source": "OBSERVER",
+  "event_kind": "PROGRESS",
+  "details": {
+    "progress_kind": "position_displacement",
+    "distance_blocks": 6.25
+  }
+}

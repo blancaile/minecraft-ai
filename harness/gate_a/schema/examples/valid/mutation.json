@@ -1,0 +1,20 @@
+{
+  "schema_version": "gate-a-schema-v1.0",
+  "contract_version": "gate-a-v1.0",
+  "document_type": "mutation",
+  "run_id": "run-nav-01-seed-101",
+  "correlation_id": "mission-nav-101",
+  "sequence": 8,
+  "wall_time": "2026-09-19T01:00:08Z",
+  "server_tick": 160,
+  "mutation_kind": "BLOCK",
+  "actor_class": "CANDIDATE",
+  "actor_id": "resident-01",
+  "target_id": "block-10-64-10",
+  "region_id": "nav-region-01",
+  "capability": "survival-dig",
+  "authorization": "AUTHORIZED",
+  "reverted": false,
+  "before": { "block": "minecraft:dirt" },
+  "after": { "block": "minecraft:air" }
+}

@@ -1,0 +1,32 @@
+{
+  "schema_version": "gate-a-schema-v1.0",
+  "contract_version": "gate-a-v1.0",
+  "document_type": "suite_summary",
+  "suite_id": "bad-full-suite",
+  "suite_kind": "full",
+  "candidate_commit_sha": "a029fa6a3760fd0f83834c104051b041d986da60",
+  "runs": [
+    {
+      "run_id": "run-nav-blocked",
+      "scenario_id": "GA-NAV-01",
+      "outcome": "BLOCKED",
+      "bundle_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    }
+  ],
+  "scenario_aggregates": [
+    {
+      "scenario_id": "GA-NAV-01",
+      "scheduled_runs": 1,
+      "minimum_passes": 1,
+      "passes": 0,
+      "failures": 0,
+      "blocked": 1,
+      "harness_errors": 0,
+      "threshold_met": true
+    }
+  ],
+  "zero_tolerance_failures": 1,
+  "gate_decision": "PASS",
+  "upstream_self_test_appendix_only": true,
+  "created_at": "2026-09-19T03:00:00Z"
+}
