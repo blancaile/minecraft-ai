@@ -6,12 +6,14 @@ DeepSeekを会話・open-set proposalへ利用する。身体・安全・権限�
 jevのapiキーは、.envに"jev_api_key": "value"という形で保存されている。
 
 現在はResident本体の実装前に、body候補とGate Aの成立性を査定する
-**M0 — Gate A Discovery** の準備段階にある。`mc_aiplayer`は採用済み上流ではなく、
+**M0 — Gate A Discovery** にある。`mc_aiplayer`は採用済み上流ではなく、
 EXTEND / PERMANENT_FORK / SELECTIVE_PORT / REJECT / DEFERを判断する第三者部品候補として扱う。
 
 ## 調査・設計
 
-- [Minecraft Resident 実装計画 v2（現行）](docs/research/resident-implementation-plan-v2.md)
+- [M0 — Gate A Discovery governance](docs/discovery/m0-governance.md)
+- [Pre-M0 repository inventory](docs/discovery/repository-inventory.md)
+- [Minecraft Resident 実装計画 v2（Architecture RFC）](docs/research/resident-implementation-plan-v2.md)
 - [Jev-only Minecraft 疑似プレイヤー 調査・実現計画](docs/research/jev-only-minecraft-resident-research.md)
 - [Jev live functional probes (2026-09-19)](docs/research/jev-live-probes-2026-09-19.md)
 - [DeepSeek live functional probe (2026-09-19)](docs/research/deepseek-live-probe-2026-09-19.md)
