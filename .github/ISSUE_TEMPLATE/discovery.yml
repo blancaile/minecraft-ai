@@ -1,0 +1,99 @@
+name: M0 Discovery work item
+description: Evidence-bearing work for M0 — Gate A Discovery
+title: "[GA-XXX] "
+labels:
+  - m0
+  - type:discovery
+body:
+  - type: markdown
+    attributes:
+      value: |
+        M0 issues investigate whether a body candidate should be adopted. They do not implement the Resident or assume that `mc_aiplayer` will be selected.
+
+  - type: textarea
+    id: objective
+    attributes:
+      label: Objective
+      description: State the single decision or uncertainty this issue resolves.
+    validations:
+      required: true
+
+  - type: textarea
+    id: hypothesis-risk
+    attributes:
+      label: Hypothesis / Risk
+      description: State what is being tested and what could invalidate it.
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: List the work that belongs to this issue.
+    validations:
+      required: true
+
+  - type: textarea
+    id: out-of-scope
+    attributes:
+      label: Out of scope
+      description: Explicitly list adjacent work that must not be pulled into this issue.
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: Use objectively verifiable checkboxes.
+      placeholder: |
+        - [ ] Criterion one
+        - [ ] Criterion two
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Identify the report, command output, artifact, checksum, commit, or external source required to close the issue.
+    validations:
+      required: true
+
+  - type: textarea
+    id: failure-behavior
+    attributes:
+      label: Failure behavior
+      description: Define how failure, partial results, timeouts, and blocked states will be recorded.
+    validations:
+      required: true
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: List predecessor issues, fixed commits, tools, or environment assumptions. Use "None" when empty.
+    validations:
+      required: true
+
+  - type: textarea
+    id: decision-finding
+    attributes:
+      label: Decision / Finding
+      description: Before closing, replace the initial placeholder with what was learned and how it affects the next decision.
+      value: "Pending — must be completed before this issue is closed."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: m0-boundaries
+    attributes:
+      label: M0 boundaries
+      options:
+        - label: This issue does not implement Resident production features.
+          required: true
+        - label: This issue does not assume that `mc_aiplayer` will be adopted.
+          required: true
+        - label: Evidence will not contain API keys, credentials, or unredacted private player data.
+          required: true
