@@ -11,7 +11,7 @@ from urllib.request import Request, urlopen
 
 
 API_URL = "https://api.typesafe.ai/v1/systemone"
-ENV_PATH = Path(__file__).with_name(".env")
+ENV_PATH = Path(__file__).resolve().parents[2] / ".env"
 
 
 def load_jev_api_key(env_path: Path = ENV_PATH) -> str:
