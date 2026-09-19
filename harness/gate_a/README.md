@@ -10,6 +10,48 @@ This directory is the candidate-neutral contract boundary for [Gate A Contract v
 - valid and intentionally invalid fixtures
 - schema/instance/example validation CLI
 
+## Implemented in M1-002
+
+`fixture.py` provides a candidate-neutral isolation boundary before a server or
+body process is connected:
+
+- verifies the sealed Minecraft 1.21.3 / Fabric Loader 0.18.4 / Fabric API
+  0.114.1+1.21.3 fixture and its SHA-256 inventory;
+- copies the pristine payload to an exclusively created directory for every
+  run and records a canonical reset digest;
+- records the observed Java 21 executable hash, OS, game/Fabric versions,
+  dependency-lock hash, and effective-config hash in `.gate-a/provenance.json`;
+- requires loopback-only server binding and disables query, RCON, operator
+  broadcasts, proxy connections, and online authentication in the isolated
+  test fixture;
+- rejects symlinks, special files, secret-like files/content/environment
+  variables, payload drift, reused run IDs, and unsafe cleanup targets;
+- owns a concrete subprocess handle and stops that exact PID. It never searches
+  or kills processes by name.
+
+Verify and prepare the checked-in fixture from the repository root:
+
+```powershell
+python -m harness.gate_a.fixture verify `
+  --fixture harness/gate_a/fixtures/server-1.21.3-v1
+python -m harness.gate_a.fixture prepare `
+  --fixture harness/gate_a/fixtures/server-1.21.3-v1 `
+  --runs-root harness/gate_a/runs `
+  --run-id local-reset-probe
+python -m harness.gate_a.fixture cleanup `
+  --runs-root harness/gate_a/runs `
+  --run-id local-reset-probe
+```
+
+`seal` creates a new fixture version and refuses to overwrite one. Dependency
+binaries are not committed; their official HTTPS locations, byte sizes, and
+SHA-256 values are pinned in `dependencies.lock.json`. This is the top-level
+input lock; M1-004 must capture the complete runtime-resolved dependency set
+before executing evidence runs. M1-004 also owns actual server orchestration,
+port discovery, readiness, and fault injection. M1-005 owns candidate launch
+integration. This fixture layer does not claim that a Minecraft scenario or
+Gate A has passed.
+
 The schema carries both `schema_version=gate-a-schema-v1.0` and `contract_version=gate-a-v1.0`. A breaking field or semantic change requires a new schema version. A changed Gate threshold/scenario requires a new contract version. Producers must not write unknown fields; every evidence object uses `additionalProperties: false` except explicitly open observation payloads such as event details and before/after values.
 
 Candidate-specific class names, internal task phases, log messages, or evidence verdicts are forbidden as required fields. `candidate` provenance and raw adapter output may be recorded, but only `OUR_BLACK_BOX` is accepted as result evidence independence.
