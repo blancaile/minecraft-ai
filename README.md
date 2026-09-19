@@ -13,6 +13,7 @@ EXTEND / PERMANENT_FORK / SELECTIVE_PORT / REJECT / DEFERを判断する第三�
 
 - [M0 — Gate A Discovery governance](docs/discovery/m0-governance.md)
 - [Pre-M0 repository inventory](docs/discovery/repository-inventory.md)
+- [Gate A Intent Contract（NOT FINAL ACCEPTANCE CONTRACT）](docs/gates/gate-a-intent.md)
 - [Minecraft Resident 実装計画 v2（Architecture RFC）](docs/research/resident-implementation-plan-v2.md)
 - [Jev-only Minecraft 疑似プレイヤー 調査・実現計画](docs/research/jev-only-minecraft-resident-research.md)
 - [Jev live functional probes (2026-09-19)](docs/research/jev-live-probes-2026-09-19.md)
