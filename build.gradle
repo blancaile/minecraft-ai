@@ -1,0 +1,36 @@
+plugins {
+    id 'fabric-loom' version '1.9.2'
+}
+
+version = '0.1.0'
+group = 'io.github.blancaile'
+base { archivesName = 'jev-control' }
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://api.modrinth.com/maven' }
+}
+
+dependencies {
+    minecraft 'com.mojang:minecraft:1.21.3'
+    mappings loom.officialMojangMappings()
+    modImplementation 'net.fabricmc:fabric-loader:0.18.4'
+    modImplementation 'net.fabricmc.fabric-api:fabric-api:0.114.1+1.21.3'
+    include 'net.fabricmc.fabric-api:fabric-api:0.114.1+1.21.3'
+    modImplementation 'maven.modrinth:carpet:ZF8ufR9V'
+    include 'maven.modrinth:carpet:ZF8ufR9V'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.11.4'
+}
+
+java { toolchain.languageVersion = JavaLanguageVersion.of(21) }
+tasks.withType(JavaCompile).configureEach { options.release = 21; options.encoding = 'UTF-8' }
+processResources {
+    inputs.property 'version', project.version
+    filesMatching('fabric.mod.json') { expand version: project.version }
+}
+test { useJUnitPlatform() }
+jar {
+    from('THIRD_PARTY_NOTICES.md')
+    from('licenses') { into 'licenses' }
+}

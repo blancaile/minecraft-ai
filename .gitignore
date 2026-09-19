@@ -3,3 +3,9 @@ __pycache__/
 *.py[cod]
 harness/gate_a/.cache/
 harness/gate_a/runs/
+.gradle/
+build/
+run/
+config/jev-control.json
+logs/jev-control/
+*.log
