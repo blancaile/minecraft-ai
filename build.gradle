@@ -1,24 +1,20 @@
 plugins {
-    id 'fabric-loom' version '1.9.2'
+    id 'java'
+    id 'io.papermc.paperweight.userdev' version '2.0.0-beta.23'
 }
 
-version = '0.1.0'
+version = '0.2.0'
 group = 'io.github.blancaile'
-base { archivesName = 'jev-control' }
+base { archivesName = 'jev-control-paper' }
 
 repositories {
     mavenCentral()
-    maven { url = 'https://api.modrinth.com/maven' }
+    maven { url = 'https://repo.papermc.io/repository/maven-public/' }
 }
 
 dependencies {
-    minecraft 'com.mojang:minecraft:1.21.3'
-    mappings loom.officialMojangMappings()
-    modImplementation 'net.fabricmc:fabric-loader:0.18.4'
-    modImplementation 'net.fabricmc.fabric-api:fabric-api:0.114.1+1.21.3'
-    include 'net.fabricmc.fabric-api:fabric-api:0.114.1+1.21.3'
-    modImplementation 'maven.modrinth:carpet:ZF8ufR9V'
-    include 'maven.modrinth:carpet:ZF8ufR9V'
+    paperweight.paperDevBundle('1.21.11-R0.1-20260215.191825-75')
+    testImplementation 'com.google.code.gson:gson:2.11.0'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.11.4'
 }
@@ -27,10 +23,11 @@ java { toolchain.languageVersion = JavaLanguageVersion.of(21) }
 tasks.withType(JavaCompile).configureEach { options.release = 21; options.encoding = 'UTF-8' }
 processResources {
     inputs.property 'version', project.version
-    filesMatching('fabric.mod.json') { expand version: project.version }
+    filesMatching('plugin.yml') { expand version: project.version }
 }
 test { useJUnitPlatform() }
 jar {
+    manifest { attributes('paperweight-mappings-namespace': 'mojang') }
     from('THIRD_PARTY_NOTICES.md')
-    from('licenses') { into 'licenses' }
 }
+paperweight.reobfArtifactConfiguration = io.papermc.paperweight.userdev.ReobfArtifactConfiguration.getMOJANG_PRODUCTION()

@@ -1,0 +1,13 @@
+name: JevControl
+version: '${version}'
+main: io.github.blancaile.jevcontrol.JevControlPlugin
+api-version: '1.21.11'
+description: Bounded Jev control of one Paper fake player
+load: POSTWORLD
+commands:
+  jev:
+    description: Jev control and key-free body diagnostics
+    permission: jev.admin
+permissions:
+  jev.admin:
+    default: op

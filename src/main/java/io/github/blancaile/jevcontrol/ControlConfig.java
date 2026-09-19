@@ -68,7 +68,7 @@ public record ControlConfig(String apiKey, String model, int actionTicks, int ti
     }
 
     public void requireKey() {
-        if (apiKey.isBlank()) throw new IllegalStateException("Set apiKey in config/jev-control.json before /jev start");
+        if (apiKey.isBlank()) throw new IllegalStateException("Set apiKey in plugins/JevControl/jev-control.json before /jev start");
     }
 
     @Override public String toString() { return "ControlConfig[credentials redacted]"; }

@@ -1,7 +1,7 @@
 # Jev主導Minecraft制御：閉ループPoCから共同目標達成へ
 
 更新日: 2026-09-19  
-状態: P0の配布MODを実装。導入・検証手順は [quickstart](../operations/jev-control-quickstart.md)。実Jevによる攻略評価は未実施。
+状態: 共有Paperサーバー向けプラグインへ移行。Paper 1.21.11 build 116 / Java 21。導入・検証手順は [quickstart](../operations/jev-control-quickstart.md)。実Jevによる攻略評価は未実施。
 
 - 親計画: [#37](https://github.com/blancaile/minecraft-ai/issues/37)
 - 最初の実装: [#38 — P0](https://github.com/blancaile/minecraft-ai/issues/38)
@@ -28,7 +28,7 @@ Jevを意思決定主体として、1体以上の疑似プレイヤーがMinecra
 - 認証失敗、API timeout、不正response、欠損観測、stale responseはERRORとして返す。別モデル・ルール・ランダム・既定操作へ切り替えない。
 - Rules/Randomは明示的に選ぶ独立比較run。Jevの失敗時に切り替える制御系ではない。
 
-分岐時のmainには評価harnessと単発probeだけがあった。このブランチでは `src/main/java/io/github/blancaile/jevcontrol/` にFabric MODとして身体・観測・Jev・有限入力を接続した。
+分岐時のmainには評価harnessと単発probeだけがあった。旧Fabric実装は `be2833f8` に残る。共有サーバーの既存Paper/Bukkitプラグインと共存するため、現在は `src/main/java/io/github/blancaile/jevcontrol/` をPaperプラグインとして配布する。参加者のクライアントMODは不要。Spigot単体・Folia・他のMinecraft versionは対象外。
 
 ## 3. 最小構成
 
@@ -44,9 +44,11 @@ flowchart TD
 
 ### Body
 
-第一検証案はCarpet fake playerと薄いFabric adapter。既存fixtureのMinecraft 1.21.3を起点に、対応version・依存・APIと停止挙動を確認して固定する。Carpetは1.4.158（Modrinth version `ZF8ufR9V`）を固定し配布JARへ同梱する。現行Carpetのソースにはforward/strafe/turnと入力解除の低レベル操作が存在するが、対象versionで同じ形のAPIが使えると仮定しない。
+Paper NMS `ServerPlayer` と独自の有限入力adapterを使う。追加のCitizens/Fabric/Carpet依存はない。共有サーバーの起動設定 `paper-1.21.11-116.jar` を確認し、開発bundleを `1.21.11-R0.1-20260215.191825-75` に固定する。ローカルの同じPaper build 116で配布JARを実行する。
 
-Carpetを最終製品bodyに決定するものではない。失敗した場合は具体的な不足を記録し、body選定を明示的に更新する。実行時の別bodyへの自動切替は作らない。
+生成時だけ座標を指定する。移動はforward/strafe入力とVanillaのPlayer/LivingEntity tick、ジャンプは標準のjumpFromGroundを使用し、経路teleport・velocity直書き・Navigatorを使わない。API待ち中も物理tickは継続する。onDisableは入力解除・HTTP取消・bot除去・task停止を行う。reload後は手動でspawn/goalをやり直す。
+
+NMSはversion依存。クライアントのログイン経路やネットワーク由来のPlayerMoveEventと完全に同一ではなく、共有サーバーの保護・NPC判定・アンチチート等との共存は別途確認する。成立しない場合は不足を記録し、実行時の別bodyへの自動切替は作らない。
 
 `mc_aiplayer@a029fa6a3760fd0f83834c104051b041d986da60` は参照候補。確認した境界:
 
@@ -130,7 +132,7 @@ ERROR、死亡、取消、予算切れ、目標達成を別statusで保存する
 | [shantanugoel/mario-jev](https://github.com/shantanugoel/mario-jev/tree/14f0c289e48cd99e3b5b91353d0456fb1f32d499) | 短い入力、着地での区間中断、遷移履歴、入力再生。READMEはfull-level completion未実証と明記 | 履歴と結果feedbackを参照。API待ちでemulatorを止めるのでMinecraftの非同期性とは条件が違う |
 | [AmoghCreator/doom-jev](https://github.com/AmoghCreator/doom-jev/tree/b27663fc0fa386f9d15ad6ea3c8f15374b855479) | 非同期loop、可視性制限。`composition_dag.py` に最近傍敵への代替・自動照準・自動射撃 | 観測/推論分離を参照。これらの自動選択や継続保持をそのまま採用しない |
 | [mc_aiplayer固定SHA](https://github.com/zoyluoblue/mc_aiplayer/tree/a029fa6a3760fd0f83834c104051b041d986da60) | 低レベルmovement APIと観測filterを確認 | 身体/観測の参考。高級Skillの成功をJev自身の攻略能力と数えない |
-| [Fabric Carpet](https://github.com/gnembon/fabric-carpet) | 現行sourceにfake playerのforward/strafe/turn/stop等がある | P0 body候補。対象Minecraft versionと依存SHAは実装時に検証・固定する |
+| [Fabric Carpet](https://github.com/gnembon/fabric-carpet) | 旧Fabric PoCでfake playerの生成・有限入力を確認 | 過去の参照。現在のPaper配布物には含めない |
 
 MineDojo / Mineflayer / Baritone / Voyager / AltoClefとの全体比較は#36で継続する。MarioやDoomの「遊べる」と「完全攻略が再現された」は区別する。
 
@@ -171,4 +173,4 @@ semantic decision coverageだけではJevの寄与を証明できない。候補
 
 ## 10. 次に行うこと
 
-[導入手順](../operations/jev-control-quickstart.md)に従って配布JARを配置し、#38の実Jev runを計測する。未解決の設計項目は実測で絞り、P0終了時にFindingと次のP1 Issueを起票する。
+[導入手順](../operations/jev-control-quickstart.md)のskillでbuild→deploy→activation→command→log/trace回収を再現する。共有サーバーは空き検証領域と共存条件を確認後に配置する。ローカルsmokeの成功と共有環境での成功を区別し、実Jevの3run/100cyclesは別途計測する。一時診断コードは修正後に削除して最終ビルドを検査し、他プラグインのログは削除しない。

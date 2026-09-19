@@ -1,0 +1,10 @@
+{
+  "note": "Replace coordinates/world with an agreed loaded flat test area. This does not create terrain.",
+  "steps": [
+    {"command": "jev spawn 0.5 81 0.5 world", "expect": "Spawned JevBot"},
+    {"command": "jev observe", "expect": "Observation written"},
+    {"command": "jev smoke", "expect": "state=SMOKE_PASSED"},
+    {"command": "jev step TURN_LEFT", "expect": "state=MANUAL_COMPLETED"},
+    {"command": "jev observe", "expect": "Observation written"}
+  ]
+}

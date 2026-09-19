@@ -16,7 +16,7 @@ final class Observation {
 
     static Capture capture(ServerPlayer bot, Vec3 goal, long tick, String run, String request,
                            ControlConfig config, JsonObject previous) {
-        var world = bot.serverLevel();
+        var world = bot.level();
         var state = new JsonObject();
         state.addProperty("schema_version", "jev-control-v1");
         state.addProperty("episode_id", run);
@@ -24,7 +24,7 @@ final class Observation {
         state.addProperty("bot_id", bot.getUUID().toString());
         state.addProperty("server_tick", tick);
         state.addProperty("observed_at", Instant.now().toString());
-        state.addProperty("dimension", world.dimension().location().toString());
+        state.addProperty("dimension", world.dimension().identifier().toString());
         state.addProperty("action_ticks", config.actionTicks());
         state.addProperty("coordinate_convention", "+x east, +y up, +z south; yaw 0=south, 90=west, 180=north, -90=east");
         state.add("self", self(bot));

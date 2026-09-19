@@ -5,7 +5,11 @@ harness/gate_a/.cache/
 harness/gate_a/runs/
 .gradle/
 build/
+!.github/skills/build/
+!.github/skills/build/SKILL.md
 run/
 config/jev-control.json
 logs/jev-control/
 *.log
+.runtime-harness/
+deploy.local.env

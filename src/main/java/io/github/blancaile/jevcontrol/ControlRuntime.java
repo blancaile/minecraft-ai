@@ -1,8 +1,6 @@
 package io.github.blancaile.jevcontrol;
 
-import carpet.patches.EntityPlayerMPFake;
 import com.google.gson.*;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.phys.Vec3;
@@ -16,7 +14,10 @@ final class ControlRuntime {
     private final MinecraftServer server;
     private final Path configPath;
     private final Path logs;
-    private EntityPlayerMPFake bot;
+    private FakePlayerBody bot;
+    private final String version;
+    private final String artifactHash;
+    private final java.util.logging.Logger logger;
     private Vec3 spawn;
     private Vec3 goal;
     private String dimension;
@@ -47,10 +48,13 @@ final class ControlRuntime {
         Run(ControlConfig config, String policy) { this.config = config; this.policy = policy; }
     }
 
-    ControlRuntime(MinecraftServer server) {
+    ControlRuntime(MinecraftServer server, Path configPath, Path logs, String version, String artifactHash, java.util.logging.Logger logger) {
         this.server = server;
-        configPath = FabricLoader.getInstance().getConfigDir().resolve("jev-control.json");
-        logs = FabricLoader.getInstance().getGameDir().resolve("logs/jev-control");
+        this.configPath = configPath;
+        this.logs = logs;
+        this.version = version;
+        this.artifactHash = artifactHash;
+        this.logger = logger;
     }
 
     void spawn(ServerLevel world, Vec3 position, float yaw) {
@@ -58,14 +62,15 @@ final class ControlRuntime {
         bot = FakePlayerBody.spawn(server, world, position, yaw);
         spawn = position;
         goal = null;
-        dimension = world.dimension().location().toString();
+        dimension = world.dimension().identifier().toString();
         status = "READY";
         lastReason = "Bot spawned; set /jev goal x y z";
     }
 
-    void goal(Vec3 target) {
+    void goal(ServerLevel world, Vec3 target) {
         requireBot();
         requireIdle();
+        if (world != bot.level()) throw new IllegalArgumentException("Goal must be in the bot's world");
         if (!Double.isFinite(target.x) || !Double.isFinite(target.y) || !Double.isFinite(target.z))
             throw new IllegalArgumentException("Goal must be finite");
         goal = target;
@@ -121,9 +126,10 @@ final class ControlRuntime {
             var metadata = new JsonObject();
             metadata.addProperty("run_id", next.lease.runId());
             metadata.addProperty("policy", policy);
-            metadata.addProperty("minecraft", "1.21.3");
-            metadata.addProperty("carpet", "1.4.158");
-            metadata.addProperty("mod_version", FabricLoader.getInstance().getModContainer("jev_control").orElseThrow().getMetadata().getVersion().getFriendlyString());
+            metadata.addProperty("minecraft", "1.21.11");
+            metadata.addProperty("body", "PAPER_SERVER_PLAYER");
+            metadata.addProperty("plugin_version", version);
+            metadata.addProperty("artifact_sha256", artifactHash);
             var publicConfig = new Gson().toJsonTree(config).getAsJsonObject();
             publicConfig.remove("apiKey");
             metadata.add("config", publicConfig);
@@ -144,7 +150,7 @@ final class ControlRuntime {
             if (bot == null || bot.isRemoved() || !bot.isAlive() || server.getPlayerList().getPlayer(bot.getUUID()) != bot) {
                 finish("DEAD_OR_DISCONNECTED", "Managed bot no longer present/alive"); return;
             }
-            if (!dimension.equals(bot.serverLevel().dimension().location().toString())) {
+            if (!dimension.equals(bot.level().dimension().identifier().toString())) {
                 finish("ERROR", "Dimension changed"); return;
             }
             if (bot.position().distanceTo(spawn) > run.config.maxDistanceFromSpawn()) {
@@ -269,7 +275,7 @@ final class ControlRuntime {
                 try { ended.log.close(); }
                 catch (IOException ex) { status = "ERROR"; lastReason = "Trace close failed"; }
             }
-            JevControlMod.LOGGER.info("Jev run {} ended {}: {}", ended.lease.runId(), status, lastReason);
+            logger.info("Jev run " + ended.lease.runId() + " ended " + status + ": " + lastReason);
         }
     }
 
@@ -295,6 +301,6 @@ final class ControlRuntime {
     private void requireIdle() { if (run != null) throw new IllegalStateException("Stop the active run first"); }
     private ControlConfig readConfig() throws IOException {
         try { return ControlConfig.read(configPath); }
-        catch (RuntimeException ex) { throw new IOException("Invalid config/jev-control.json; check required fields and ranges"); }
+        catch (RuntimeException ex) { throw new IOException("Invalid plugins/JevControl/jev-control.json; check required fields and ranges"); }
     }
 }
