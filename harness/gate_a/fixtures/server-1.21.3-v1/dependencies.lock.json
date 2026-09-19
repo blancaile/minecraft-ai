@@ -1,0 +1,41 @@
+{
+  "schema_version": "gate-a-dependencies-v1.0",
+  "versions": {
+    "minecraft": "1.21.3",
+    "fabric_loader": "0.18.4",
+    "fabric_api": "0.114.1+1.21.3",
+    "java_major": 21
+  },
+  "artifacts": [
+    {
+      "name": "minecraft-server-1.21.3",
+      "source": "https://piston-data.mojang.com/v1/objects/45810d238246d90e811d896f87b14695b7fb6839/server.jar",
+      "bytes": 56122038,
+      "sha256": "e153b89b02c0839cdf5e8c1d57c80dd42a3fffb80c60817632080c041bf8afb5"
+    },
+    {
+      "name": "fabric-loader-0.18.4",
+      "source": "https://maven.fabricmc.net/net/fabricmc/fabric-loader/0.18.4/fabric-loader-0.18.4.jar",
+      "bytes": 1944518,
+      "sha256": "ea300b841949a290641db8c137e3da205462a089a7472d8f1657179fd23bcf4a"
+    },
+    {
+      "name": "fabric-intermediary-1.21.3",
+      "source": "https://maven.fabricmc.net/net/fabricmc/intermediary/1.21.3/intermediary-1.21.3.jar",
+      "bytes": 693060,
+      "sha256": "c595ab903ddac4472aac65bd9883b2fccf9095e1a6a62a52f4d7d0f79eaf730e"
+    },
+    {
+      "name": "fabric-api-0.114.1+1.21.3",
+      "source": "https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-api/0.114.1+1.21.3/fabric-api-0.114.1+1.21.3.jar",
+      "bytes": 2380714,
+      "sha256": "357a4fe24c7a7248320d2099b8567b65fd2f4271a3faf9c7f369dd2c18ab4157"
+    },
+    {
+      "name": "temurin-jdk-21.0.12.1+1-linux-x64",
+      "source": "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.12.1%2B1/OpenJDK21U-jdk_x64_linux_hotspot_21.0.12.1_1.tar.gz",
+      "bytes": 207473347,
+      "sha256": "ce79869e1307ed8ee1e2baa86a412b1eb5b75d10a01006d788a6f968bcfaee94"
+    }
+  ]
+}

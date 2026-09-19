@@ -1,4 +1,5 @@
 .env
 __pycache__/
 *.py[cod]
-
+harness/gate_a/.cache/
+harness/gate_a/runs/

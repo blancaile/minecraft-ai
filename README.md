@@ -20,6 +20,7 @@ Gate A v1はfreezeしたが、Gate A自体はまだ通過していない。`mc_a
 - [Gate A body candidate matrix](docs/discovery/body-candidate-matrix.md)
 - [ADR-0001: Minecraft body strategy](docs/adr/0001-body-strategy.md)
 - [Gate A schema and runner interface](harness/gate_a/README.md)
+- [M1-002 hermetic fixture and provenance evidence](docs/discovery/evidence/m1-002/hermetic-fixture-results.md)
 - [Minecraft Resident 実装計画 v2（Architecture RFC）](docs/research/resident-implementation-plan-v2.md)
 - [Jev-only Minecraft 疑似プレイヤー 調査・実現計画](docs/research/jev-only-minecraft-resident-research.md)
 - [Jev live functional probes (2026-09-19)](docs/research/jev-live-probes-2026-09-19.md)
