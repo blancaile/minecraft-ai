@@ -14,6 +14,7 @@ EXTEND / PERMANENT_FORK / SELECTIVE_PORT / REJECT / DEFERを判断する第三�
 - [M0 — Gate A Discovery governance](docs/discovery/m0-governance.md)
 - [Pre-M0 repository inventory](docs/discovery/repository-inventory.md)
 - [Gate A Intent Contract（NOT FINAL ACCEPTANCE CONTRACT）](docs/gates/gate-a-intent.md)
+- [Gate A Contract v1.0](docs/gates/gate-a-v1.md)
 - [`mc_aiplayer` provenance / execution-safety audit](docs/discovery/mc-aiplayer-supply-chain-audit.md)
 - [Pinned `mc_aiplayer` baseline reproduction](docs/discovery/pinned-baseline-results.md)
 - [Gate A body candidate matrix](docs/discovery/body-candidate-matrix.md)
