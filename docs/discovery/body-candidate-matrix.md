@@ -166,4 +166,3 @@ GA-004/005で採用戦略が決まった後、次をM1候補へ変換する。�
 - [`PlayerCommand`](https://github.com/gnembon/fabric-carpet/blob/199efb19a9bc327bbea5cfed4209d9b0762aa865/src/main/java/carpet/commands/PlayerCommand.java)
 - [Scarpet Entities API](https://github.com/gnembon/fabric-carpet/blob/199efb19a9bc327bbea5cfed4209d9b0762aa865/docs/scarpet/api/Entities.md)
 - [Scarpet overview and command permission](https://github.com/gnembon/fabric-carpet/blob/199efb19a9bc327bbea5cfed4209d9b0762aa865/docs/scarpet/api/Overview.md)
-
