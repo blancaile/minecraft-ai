@@ -144,4 +144,3 @@ GA-005でGate A v1と、次の順序を持つM1 backlogを確定する。
 3. unchanged `mc_aiplayer` fixed-SHA decision run
 4. coupling/patch inventory only if the unchanged candidate fails in a potentially repairable way
 5. ADR-0001 superseding decision: `EXTEND / PERMANENT_FORK / SELECTIVE_PORT / REJECT`
-
