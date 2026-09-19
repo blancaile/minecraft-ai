@@ -1,0 +1,2 @@
+scenario	requested_seed	actual_seed	result	passed	total	exit_code	summary
+capability_profile+runtime_control_suite+mining_contract_suite	20260610	20260610	PASS	9	9	0	[AIBot Verify] summary 9/9 PASS: {capability_profile=PASS, cancel_no_resurrection=PASS, cancel_current_queue=PASS, replace_queued_goal=PASS, replace_action_only=PASS, replace_start_failure=PASS, pause_resume_safety_stack=PASS, diamond_stack_64_controlled=PASS, obsidian_half_stack_32_controlled=PASS}
