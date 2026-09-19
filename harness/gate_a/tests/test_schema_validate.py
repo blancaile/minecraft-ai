@@ -88,11 +88,24 @@ class GateASchemaTests(unittest.TestCase):
         errors = validation_errors(document, self.schema)
         self.assertTrue(any("fixed seed" in error for error in errors))
 
+    def test_manifest_component_names_must_be_unique(self) -> None:
+        document = load_json(EXAMPLES_DIR / "valid" / "run-manifest.json")
+        document["harness_components"][0]["name"] = document["candidate"]["name"]
+        errors = validation_errors(document, self.schema)
+        self.assertTrue(any("component names must be unique" in error for error in errors))
+
     def test_gate_pass_rejects_decision_subset(self) -> None:
         document = load_json(EXAMPLES_DIR / "valid" / "suite-summary.json")
         document["suite_kind"] = "decision"
+        document["gate_decision"] = "PASS"
         errors = validation_errors(document, self.schema)
         self.assertTrue(any("suite_kind full" in error for error in errors))
+
+    def test_gate_pass_rejects_incomplete_scenario_set(self) -> None:
+        document = load_json(EXAMPLES_DIR / "valid" / "suite-summary.json")
+        document["gate_decision"] = "PASS"
+        errors = validation_errors(document, self.schema)
+        self.assertTrue(any("exact v1 scenario set" in error for error in errors))
 
     def test_summary_counts_must_match_listed_runs(self) -> None:
         document = load_json(EXAMPLES_DIR / "valid" / "suite-summary.json")

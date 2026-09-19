@@ -18,6 +18,20 @@ from jsonschema import Draft202012Validator, FormatChecker
 PACKAGE_DIR = Path(__file__).resolve().parent
 SCHEMA_PATH = PACKAGE_DIR / "schema" / "gate-a-v1.schema.json"
 EXAMPLES_DIR = PACKAGE_DIR / "schema" / "examples"
+REQUIRED_GATE_SCENARIOS = {
+    "GA-LIF-01",
+    "GA-OBS-01",
+    "GA-CTL-01",
+    "GA-NAV-01",
+    "GA-NAV-02",
+    "GA-RES-01",
+    "GA-INT-01",
+    "GA-BLD-01",
+    "GA-AUTH-01",
+    "GA-REC-01",
+    "GA-RST-01",
+    "GA-SOAK-01",
+}
 
 
 class DocumentValidationError(ValueError):
@@ -49,7 +63,9 @@ def schema_errors(document: Any, schema: dict[str, Any] | None = None) -> list[s
     )
     return [
         f"{_format_path(error.absolute_path)}: {error.message}"
-        for error in sorted(validator.iter_errors(document), key=lambda item: list(item.absolute_path))
+        for error in sorted(
+            validator.iter_errors(document), key=lambda item: _format_path(item.absolute_path)
+        )
     ]
 
 
@@ -75,6 +91,11 @@ def _contract_errors(document: dict[str, Any]) -> list[str]:
 
 def _manifest_errors(document: dict[str, Any]) -> list[str]:
     errors: list[str] = []
+    component_names = [document["candidate"]["name"]] + [
+        component["name"] for component in document["harness_components"]
+    ]
+    if len(component_names) != len(set(component_names)):
+        errors.append("$.harness_components: candidate and component names must be unique")
     if (
         document["seed"]["policy"] == "fixed"
         and document["seed"]["requested"] != document["seed"]["actual"]
@@ -183,6 +204,13 @@ def _summary_errors(document: dict[str, Any]) -> list[str]:
             for item in document["scenario_aggregates"]
         ):
             errors.append("$.scenario_aggregates: Gate PASS forbids blocked or harness errors")
+        if identifiers != REQUIRED_GATE_SCENARIOS:
+            missing = sorted(REQUIRED_GATE_SCENARIOS - identifiers)
+            extra = sorted(identifiers - REQUIRED_GATE_SCENARIOS)
+            errors.append(
+                "$.scenario_aggregates: Gate PASS requires exact v1 scenario set "
+                f"(missing={missing}, extra={extra})"
+            )
     return errors
 
 

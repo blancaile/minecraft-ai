@@ -63,10 +63,11 @@ M1-004 owns the external controller implementation. M1-015 owns immutable bundle
 `schema_validate.py` rejects these cross-field contradictions:
 
 - duplicate scenario or aggregate IDs;
+- duplicate candidate/harness component names;
 - `threshold.total_runs != valid_runs` or minimum passes above total;
 - requested/actual mismatch for a fixed seed;
 - a `PASS` without `COMPLETED`, with a failed postcondition/violation/safety counter, or beyond recovery budget;
-- aggregate outcome counts that do not equal scheduled runs;
-- a Gate `PASS` for a decision subset, failed threshold, blocked run, harness error, or zero-tolerance failure.
+- aggregate outcome counts that do not equal the individually listed runs;
+- a Gate `PASS` for a decision subset, incomplete/extra v1 scenario set, failed threshold, blocked run, harness error, or zero-tolerance failure.
 
 These checks validate records. They do not observe Minecraft, prove a postcondition, attribute a mutation, or decide whether an event is truthful; those responsibilities remain with the independent observer and verifier Issues.

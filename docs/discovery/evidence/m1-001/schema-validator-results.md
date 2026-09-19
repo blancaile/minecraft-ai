@@ -28,7 +28,7 @@ Pinned Python requirements are recorded in `harness/gate_a/requirements.txt`. He
 |---|---|
 | `python -m harness.gate_a.schema_validate schema` | PASS — schema is valid Draft 2020-12 |
 | `python -m harness.gate_a.schema_validate examples` | PASS — 7 valid documents accepted, 4 intentionally invalid documents rejected |
-| `python -m unittest discover -s harness/gate_a/tests -v` | PASS — 12/12 tests |
+| `python -m unittest discover -s harness/gate_a/tests -v` | PASS — 14/14 tests |
 | `python -m compileall -q harness` | PASS |
 | `python -m pip install --dry-run --disable-pip-version-check -r harness/gate_a/requirements.txt` | PASS — all five exact requirements resolve in the test environment |
 
