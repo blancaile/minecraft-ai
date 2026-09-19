@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "profile": "strict_survival",
+  "operatorCapabilities": {
+    "hiddenBlockScan": false,
+    "emergencyTeleport": false,
+    "forcedPickup": false,
+    "manualTeleport": false
+  },
+  "deepseek": {
+    "enabled": false,
+    "apiKey": "<redacted:unset>"
+  },
+  "server": {
+    "onlineMode": false,
+    "gamemode": "survival",
+    "difficulty": "easy",
+    "viewDistance": 10,
+    "simulationDistance": 10
+  }
+}

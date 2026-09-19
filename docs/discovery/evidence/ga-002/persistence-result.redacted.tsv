@@ -1,0 +1,7 @@
+result	PASS
+profile	strict_survival
+checkpoint	non_default_exact_restore
+stale_lease	reopened
+resume	completed_with_postcondition
+phase1	<GA002_ROOT>/persistence-restart/phase1.log
+phase2	<GA002_ROOT>/persistence-restart/phase2.log
