@@ -1,0 +1,43 @@
+{
+  "schema_version": "gate-a-schema-v1.0",
+  "contract_version": "gate-a-v1.0",
+  "document_type": "result",
+  "run_id": "run-nav-false-pass",
+  "scenario_id": "GA-NAV-01",
+  "correlation_id": "mission-nav-false-pass",
+  "outcome": "PASS",
+  "reason_code": "candidate-claimed-complete",
+  "evidence_independence": "OUR_BLACK_BOX",
+  "candidate_terminal": null,
+  "postconditions": [
+    {
+      "postcondition_id": "target-position",
+      "passed": false,
+      "expected": true,
+      "actual": false,
+      "observer_source": "observer-position-v1"
+    }
+  ],
+  "violations": [],
+  "safety_counters": {
+    "human_interventions": 0,
+    "unauthorized_mutations": 0,
+    "unattributed_mutations": 0,
+    "privileged_capability_uses": 0
+  },
+  "recovery_budget": {
+    "max_episodes": 2,
+    "observed_episodes": 3,
+    "max_seconds": 60,
+    "observed_seconds": 61
+  },
+  "timing": {
+    "mission_timeout_seconds": 180,
+    "elapsed_seconds": 240,
+    "stall_window_seconds": 30,
+    "max_no_progress_seconds": 45,
+    "settle_window_seconds": 5
+  },
+  "started_at": "2026-09-19T01:00:00Z",
+  "ended_at": "2026-09-19T01:04:00Z"
+}

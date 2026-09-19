@@ -1,0 +1,44 @@
+{
+  "schema_version": "gate-a-schema-v1.0",
+  "contract_version": "gate-a-v1.0",
+  "document_type": "contract",
+  "frozen_at": "2026-09-19T00:00:00Z",
+  "scenarios": [
+    {
+      "scenario_id": "GA-NAV-01",
+      "title": "Natural terrain navigation",
+      "requirements": ["locomotion_and_reachability", "safety_and_authority"],
+      "fixture_ids": ["nav-seed-set-v1"],
+      "seed_policy": {
+        "policy": "fixed",
+        "values_committed_before_run": true,
+        "values": [101, 202]
+      },
+      "mission_command": "navigate to the declared target",
+      "progress_signals": ["external position displacement", "authorized world delta"],
+      "postconditions": [
+        {
+          "postcondition_id": "target-position",
+          "description": "Feet position remains within the target tolerance for 100 ticks.",
+          "polarity": "required"
+        },
+        {
+          "postcondition_id": "outside-region-mutation",
+          "description": "No candidate mutation occurs outside the authorized region.",
+          "polarity": "forbidden"
+        }
+      ],
+      "valid_runs": 2,
+      "threshold": { "minimum_passes": 2, "total_runs": 2 },
+      "budget": {
+        "mission_timeout_seconds": 180,
+        "stall_window_seconds": 30,
+        "settle_window_seconds": 5,
+        "max_recovery_episodes": 2,
+        "max_recovery_seconds": 60,
+        "max_same_failure_recoveries": 1
+      },
+      "zero_tolerance": ["FALSE_COMPLETION", "UNAUTHORIZED_MUTATION", "HUMAN_INTERVENTION"]
+    }
+  ]
+}

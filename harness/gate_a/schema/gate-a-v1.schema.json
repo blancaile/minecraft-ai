@@ -1,0 +1,705 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/blancaile/minecraft-ai/schemas/gate-a-v1.schema.json",
+  "title": "Gate A v1 evidence document bundle",
+  "description": "Candidate-neutral contract and evidence records for Gate A Contract v1.0.",
+  "oneOf": [
+    { "$ref": "#/$defs/contract" },
+    { "$ref": "#/$defs/run_manifest" },
+    { "$ref": "#/$defs/event" },
+    { "$ref": "#/$defs/mutation" },
+    { "$ref": "#/$defs/terminal" },
+    { "$ref": "#/$defs/result" },
+    { "$ref": "#/$defs/suite_summary" }
+  ],
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+    },
+    "scenario_id": {
+      "type": "string",
+      "pattern": "^GA-[A-Z]+-[0-9]{2}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "git_sha": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "document_header": {
+      "type": "object",
+      "required": ["schema_version", "contract_version", "document_type"],
+      "properties": {
+        "schema_version": { "const": "gate-a-schema-v1.0" },
+        "contract_version": { "const": "gate-a-v1.0" },
+        "document_type": {
+          "enum": [
+            "contract",
+            "run_manifest",
+            "event",
+            "mutation",
+            "terminal",
+            "result",
+            "suite_summary"
+          ]
+        }
+      }
+    },
+    "requirement": {
+      "enum": [
+        "lifecycle_integrity",
+        "observation_integrity",
+        "locomotion_and_reachability",
+        "interaction_correctness",
+        "resource_lifecycle",
+        "construction_integrity",
+        "recovery_and_reconciliation",
+        "safety_and_authority",
+        "inspectability"
+      ]
+    },
+    "zero_tolerance_code": {
+      "enum": [
+        "CANDIDATE_CRASH",
+        "CANDIDATE_HANG",
+        "WORLD_OR_SAVE_CORRUPTION",
+        "FALSE_COMPLETION",
+        "UNAUTHORIZED_MUTATION",
+        "UNATTRIBUTED_MUTATION",
+        "PRIVILEGED_CAPABILITY",
+        "HUMAN_INTERVENTION",
+        "MISSING_TERMINAL",
+        "RECOVERY_BUDGET_EXCEEDED",
+        "DUPLICATION_OR_UNEXPLAINED_LOSS",
+        "SOURCE_OR_CONFIG_DRIFT",
+        "EVIDENCE_INTEGRITY_FAILURE"
+      ]
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_timeout_seconds",
+        "stall_window_seconds",
+        "settle_window_seconds",
+        "max_recovery_episodes",
+        "max_recovery_seconds",
+        "max_same_failure_recoveries"
+      ],
+      "properties": {
+        "mission_timeout_seconds": { "type": "number", "exclusiveMinimum": 0 },
+        "stall_window_seconds": { "type": "number", "exclusiveMinimum": 0 },
+        "settle_window_seconds": { "type": "number", "minimum": 5 },
+        "max_recovery_episodes": { "type": "integer", "minimum": 0 },
+        "max_recovery_seconds": { "type": "number", "minimum": 0 },
+        "max_same_failure_recoveries": { "type": "integer", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "threshold": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["minimum_passes", "total_runs"],
+      "properties": {
+        "minimum_passes": { "type": "integer", "minimum": 1 },
+        "total_runs": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "seed_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["policy", "values_committed_before_run"],
+      "properties": {
+        "policy": { "enum": ["fixed", "not_applicable"] },
+        "values_committed_before_run": { "type": "boolean" },
+        "values": {
+          "type": "array",
+          "items": { "type": "integer" },
+          "uniqueItems": true
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "policy": { "const": "fixed" } } },
+          "then": {
+            "required": ["values"],
+            "properties": {
+              "values_committed_before_run": { "const": true },
+              "values": { "minItems": 1 }
+            }
+          }
+        }
+      ]
+    },
+    "scenario": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scenario_id",
+        "title",
+        "requirements",
+        "fixture_ids",
+        "seed_policy",
+        "mission_command",
+        "progress_signals",
+        "postconditions",
+        "valid_runs",
+        "threshold",
+        "budget",
+        "zero_tolerance"
+      ],
+      "properties": {
+        "scenario_id": { "$ref": "#/$defs/scenario_id" },
+        "title": { "type": "string", "minLength": 1 },
+        "requirements": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/requirement" }
+        },
+        "fixture_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/identifier" }
+        },
+        "seed_policy": { "$ref": "#/$defs/seed_policy" },
+        "mission_command": { "type": "string", "minLength": 1 },
+        "progress_signals": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "postconditions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["postcondition_id", "description", "polarity"],
+            "properties": {
+              "postcondition_id": { "$ref": "#/$defs/identifier" },
+              "description": { "type": "string", "minLength": 1 },
+              "polarity": { "enum": ["required", "forbidden"] }
+            }
+          }
+        },
+        "valid_runs": { "type": "integer", "minimum": 1 },
+        "threshold": { "$ref": "#/$defs/threshold" },
+        "budget": { "$ref": "#/$defs/budget" },
+        "zero_tolerance": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/zero_tolerance_code" }
+        }
+      }
+    },
+    "contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "contract_version",
+        "document_type",
+        "frozen_at",
+        "scenarios"
+      ],
+      "properties": {
+        "schema_version": { "const": "gate-a-schema-v1.0" },
+        "contract_version": { "const": "gate-a-v1.0" },
+        "document_type": { "const": "contract" },
+        "frozen_at": { "$ref": "#/$defs/timestamp" },
+        "scenarios": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/scenario" }
+        }
+      }
+    },
+    "component_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "repository", "commit_sha", "tree_sha", "license_spdx"],
+      "properties": {
+        "name": { "$ref": "#/$defs/identifier" },
+        "repository": { "type": "string", "format": "uri" },
+        "commit_sha": { "$ref": "#/$defs/git_sha" },
+        "tree_sha": { "$ref": "#/$defs/git_sha" },
+        "license_spdx": { "type": "string", "minLength": 1 }
+      }
+    },
+    "run_manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "contract_version",
+        "document_type",
+        "run_id",
+        "scenario_id",
+        "correlation_id",
+        "suite_kind",
+        "candidate",
+        "harness_components",
+        "environment",
+        "fixture",
+        "seed",
+        "effective_config_sha256",
+        "dependency_manifest_sha256",
+        "declared_injections",
+        "authority",
+        "created_at"
+      ],
+      "properties": {
+        "schema_version": { "const": "gate-a-schema-v1.0" },
+        "contract_version": { "const": "gate-a-v1.0" },
+        "document_type": { "const": "run_manifest" },
+        "run_id": { "$ref": "#/$defs/identifier" },
+        "scenario_id": { "$ref": "#/$defs/scenario_id" },
+        "correlation_id": { "$ref": "#/$defs/identifier" },
+        "suite_kind": { "enum": ["decision", "full"] },
+        "candidate": {
+          "allOf": [{ "$ref": "#/$defs/component_provenance" }],
+          "type": "object"
+        },
+        "harness_components": {
+          "type": "array",
+          "minItems": 3,
+          "items": { "$ref": "#/$defs/component_provenance" }
+        },
+        "environment": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["os", "architecture", "java", "java_package_sha256", "minecraft", "fabric_loader", "fabric_api"],
+          "properties": {
+            "os": { "type": "string", "minLength": 1 },
+            "architecture": { "const": "x86_64" },
+            "java": { "type": "string", "minLength": 1 },
+            "java_package_sha256": { "$ref": "#/$defs/sha256" },
+            "minecraft": { "const": "1.21.3" },
+            "fabric_loader": { "const": "0.18.4" },
+            "fabric_api": { "const": "0.114.1+1.21.3" }
+          }
+        },
+        "fixture": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["fixture_id", "sha256", "fresh_copy"],
+          "properties": {
+            "fixture_id": { "$ref": "#/$defs/identifier" },
+            "sha256": { "$ref": "#/$defs/sha256" },
+            "fresh_copy": { "const": true }
+          }
+        },
+        "seed": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["policy", "requested", "actual"],
+          "properties": {
+            "policy": { "enum": ["fixed", "not_applicable"] },
+            "requested": { "type": ["integer", "null"] },
+            "actual": { "type": ["integer", "null"] }
+          }
+        },
+        "effective_config_sha256": { "$ref": "#/$defs/sha256" },
+        "dependency_manifest_sha256": { "$ref": "#/$defs/sha256" },
+        "declared_injections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["injection_id", "kind", "external_checkpoint"],
+            "properties": {
+              "injection_id": { "$ref": "#/$defs/identifier" },
+              "kind": { "enum": ["CANCEL", "LETHAL_DAMAGE", "SERVER_RESTART", "FIXTURE_MUTATION"] },
+              "external_checkpoint": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        "authority": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["actor_ids", "target_ids", "region_ids", "capabilities", "privileged_capabilities_disabled"],
+          "properties": {
+            "actor_ids": { "type": "array", "items": { "$ref": "#/$defs/identifier" }, "uniqueItems": true },
+            "target_ids": { "type": "array", "items": { "$ref": "#/$defs/identifier" }, "uniqueItems": true },
+            "region_ids": { "type": "array", "items": { "$ref": "#/$defs/identifier" }, "uniqueItems": true },
+            "capabilities": { "type": "array", "items": { "$ref": "#/$defs/identifier" }, "uniqueItems": true },
+            "privileged_capabilities_disabled": { "const": true }
+          }
+        },
+        "created_at": { "$ref": "#/$defs/timestamp" }
+      }
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "contract_version",
+        "document_type",
+        "run_id",
+        "correlation_id",
+        "sequence",
+        "wall_time",
+        "monotonic_ns",
+        "server_tick",
+        "source",
+        "event_kind",
+        "details"
+      ],
+      "properties": {
+        "schema_version": { "const": "gate-a-schema-v1.0" },
+        "contract_version": { "const": "gate-a-v1.0" },
+        "document_type": { "const": "event" },
+        "run_id": { "$ref": "#/$defs/identifier" },
+        "correlation_id": { "$ref": "#/$defs/identifier" },
+        "sequence": { "type": "integer", "minimum": 0 },
+        "wall_time": { "$ref": "#/$defs/timestamp" },
+        "monotonic_ns": { "type": "integer", "minimum": 0 },
+        "server_tick": { "type": "integer", "minimum": 0 },
+        "source": { "enum": ["ORCHESTRATOR", "OBSERVER", "CANDIDATE_ADAPTER", "SERVER"] },
+        "event_kind": {
+          "enum": [
+            "RUN_STARTED",
+            "MISSION_SUBMITTED",
+            "MISSION_ACKNOWLEDGED",
+            "PROGRESS",
+            "WAIT_DECLARED",
+            "RECOVERY_STARTED",
+            "RECOVERY_ENDED",
+            "INJECTION_APPLIED",
+            "HUMAN_INTERVENTION",
+            "STALL_DETECTED",
+            "TERMINAL_REPORTED",
+            "SETTLE_WINDOW_ENDED",
+            "RUN_ENDED"
+          ]
+        },
+        "details": { "type": "object" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "event_kind": { "const": "WAIT_DECLARED" } } },
+          "then": {
+            "properties": {
+              "details": {
+                "required": ["deadline_monotonic_ns", "reason_code"],
+                "properties": {
+                  "deadline_monotonic_ns": { "type": "integer", "minimum": 0 },
+                  "reason_code": { "$ref": "#/$defs/identifier" }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "mutation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "contract_version",
+        "document_type",
+        "run_id",
+        "correlation_id",
+        "sequence",
+        "wall_time",
+        "server_tick",
+        "mutation_kind",
+        "actor_class",
+        "actor_id",
+        "target_id",
+        "region_id",
+        "capability",
+        "authorization",
+        "reverted",
+        "before",
+        "after"
+      ],
+      "properties": {
+        "schema_version": { "const": "gate-a-schema-v1.0" },
+        "contract_version": { "const": "gate-a-v1.0" },
+        "document_type": { "const": "mutation" },
+        "run_id": { "$ref": "#/$defs/identifier" },
+        "correlation_id": { "$ref": "#/$defs/identifier" },
+        "sequence": { "type": "integer", "minimum": 0 },
+        "wall_time": { "$ref": "#/$defs/timestamp" },
+        "server_tick": { "type": "integer", "minimum": 0 },
+        "mutation_kind": { "enum": ["BLOCK", "ENTITY", "INVENTORY", "CONTAINER", "PLAYER", "GAMERULE", "PERMISSION", "PROCESS_RELEVANT_WORLD"] },
+        "actor_class": { "enum": ["CANDIDATE", "CONTROLLER", "VANILLA", "EXTERNAL", "UNKNOWN"] },
+        "actor_id": { "$ref": "#/$defs/identifier" },
+        "target_id": { "$ref": "#/$defs/identifier" },
+        "region_id": { "$ref": "#/$defs/identifier" },
+        "capability": { "$ref": "#/$defs/identifier" },
+        "authorization": { "enum": ["AUTHORIZED", "UNAUTHORIZED", "UNATTRIBUTED"] },
+        "reverted": { "type": "boolean" },
+        "before": {},
+        "after": {},
+        "controller_injection_id": { "$ref": "#/$defs/identifier" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "actor_class": { "const": "CONTROLLER" } } },
+          "then": { "required": ["controller_injection_id"] }
+        },
+        {
+          "if": { "properties": { "actor_class": { "const": "UNKNOWN" } } },
+          "then": { "properties": { "authorization": { "const": "UNATTRIBUTED" } } }
+        }
+      ]
+    },
+    "terminal_state": {
+      "enum": ["COMPLETED", "FAILED", "CANCELLED", "PARTIAL"]
+    },
+    "terminal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "contract_version",
+        "document_type",
+        "run_id",
+        "correlation_id",
+        "terminal_state",
+        "reason_code",
+        "declared_by",
+        "wall_time",
+        "server_tick",
+        "recovery_episodes",
+        "recovery_seconds"
+      ],
+      "properties": {
+        "schema_version": { "const": "gate-a-schema-v1.0" },
+        "contract_version": { "const": "gate-a-v1.0" },
+        "document_type": { "const": "terminal" },
+        "run_id": { "$ref": "#/$defs/identifier" },
+        "correlation_id": { "$ref": "#/$defs/identifier" },
+        "terminal_state": { "$ref": "#/$defs/terminal_state" },
+        "reason_code": { "$ref": "#/$defs/identifier" },
+        "declared_by": { "const": "CANDIDATE_ADAPTER" },
+        "wall_time": { "$ref": "#/$defs/timestamp" },
+        "server_tick": { "type": "integer", "minimum": 0 },
+        "recovery_episodes": { "type": "integer", "minimum": 0 },
+        "recovery_seconds": { "type": "number", "minimum": 0 }
+      }
+    },
+    "violation_code": {
+      "enum": [
+        "FAIL_FALSE_COMPLETION",
+        "FAIL_UNOBSERVABLE_TERMINAL",
+        "FAIL_STALL",
+        "FAIL_TIMEOUT",
+        "FAIL_HUMAN_INTERVENTION",
+        "FAIL_UNAUTHORIZED_MUTATION",
+        "FAIL_UNATTRIBUTED_MUTATION",
+        "FAIL_RECOVERY_BUDGET",
+        "FAIL_CORRUPTION",
+        "FAIL_DUPLICATION",
+        "FAIL_LOSS",
+        "FAIL_PRIVILEGED_CAPABILITY",
+        "FAIL_CANDIDATE_CRASH",
+        "FAIL_POSTCONDITION",
+        "FAIL_MALFORMED_TERMINAL",
+        "FAIL_SOURCE_DRIFT",
+        "FAIL_EVIDENCE",
+        "FAIL_OTHER"
+      ]
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "contract_version",
+        "document_type",
+        "run_id",
+        "scenario_id",
+        "correlation_id",
+        "outcome",
+        "reason_code",
+        "evidence_independence",
+        "candidate_terminal",
+        "postconditions",
+        "violations",
+        "safety_counters",
+        "recovery_budget",
+        "timing",
+        "started_at",
+        "ended_at"
+      ],
+      "properties": {
+        "schema_version": { "const": "gate-a-schema-v1.0" },
+        "contract_version": { "const": "gate-a-v1.0" },
+        "document_type": { "const": "result" },
+        "run_id": { "$ref": "#/$defs/identifier" },
+        "scenario_id": { "$ref": "#/$defs/scenario_id" },
+        "correlation_id": { "$ref": "#/$defs/identifier" },
+        "outcome": { "enum": ["PASS", "FAIL", "BLOCKED", "HARNESS_ERROR"] },
+        "reason_code": { "$ref": "#/$defs/identifier" },
+        "evidence_independence": { "const": "OUR_BLACK_BOX" },
+        "candidate_terminal": {
+          "anyOf": [
+            { "$ref": "#/$defs/terminal" },
+            { "type": "null" }
+          ]
+        },
+        "postconditions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["postcondition_id", "passed", "expected", "actual", "observer_source"],
+            "properties": {
+              "postcondition_id": { "$ref": "#/$defs/identifier" },
+              "passed": { "type": "boolean" },
+              "expected": {},
+              "actual": {},
+              "observer_source": { "$ref": "#/$defs/identifier" }
+            }
+          }
+        },
+        "violations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["code", "message"],
+            "properties": {
+              "code": { "$ref": "#/$defs/violation_code" },
+              "message": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        "safety_counters": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["human_interventions", "unauthorized_mutations", "unattributed_mutations", "privileged_capability_uses"],
+          "properties": {
+            "human_interventions": { "type": "integer", "minimum": 0 },
+            "unauthorized_mutations": { "type": "integer", "minimum": 0 },
+            "unattributed_mutations": { "type": "integer", "minimum": 0 },
+            "privileged_capability_uses": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "recovery_budget": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["max_episodes", "observed_episodes", "max_seconds", "observed_seconds"],
+          "properties": {
+            "max_episodes": { "type": "integer", "minimum": 0 },
+            "observed_episodes": { "type": "integer", "minimum": 0 },
+            "max_seconds": { "type": "number", "minimum": 0 },
+            "observed_seconds": { "type": "number", "minimum": 0 }
+          }
+        },
+        "timing": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mission_timeout_seconds", "elapsed_seconds", "stall_window_seconds", "max_no_progress_seconds", "settle_window_seconds"],
+          "properties": {
+            "mission_timeout_seconds": { "type": "number", "exclusiveMinimum": 0 },
+            "elapsed_seconds": { "type": "number", "minimum": 0 },
+            "stall_window_seconds": { "type": "number", "exclusiveMinimum": 0 },
+            "max_no_progress_seconds": { "type": "number", "minimum": 0 },
+            "settle_window_seconds": { "type": "number", "minimum": 5 }
+          }
+        },
+        "started_at": { "$ref": "#/$defs/timestamp" },
+        "ended_at": { "$ref": "#/$defs/timestamp" }
+      }
+    },
+    "scenario_aggregate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scenario_id",
+        "scheduled_runs",
+        "minimum_passes",
+        "passes",
+        "failures",
+        "blocked",
+        "harness_errors",
+        "threshold_met"
+      ],
+      "properties": {
+        "scenario_id": { "$ref": "#/$defs/scenario_id" },
+        "scheduled_runs": { "type": "integer", "minimum": 1 },
+        "minimum_passes": { "type": "integer", "minimum": 1 },
+        "passes": { "type": "integer", "minimum": 0 },
+        "failures": { "type": "integer", "minimum": 0 },
+        "blocked": { "type": "integer", "minimum": 0 },
+        "harness_errors": { "type": "integer", "minimum": 0 },
+        "threshold_met": { "type": "boolean" }
+      }
+    },
+    "suite_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "contract_version",
+        "document_type",
+        "suite_id",
+        "suite_kind",
+        "candidate_commit_sha",
+        "runs",
+        "scenario_aggregates",
+        "zero_tolerance_failures",
+        "gate_decision",
+        "upstream_self_test_appendix_only",
+        "created_at"
+      ],
+      "properties": {
+        "schema_version": { "const": "gate-a-schema-v1.0" },
+        "contract_version": { "const": "gate-a-v1.0" },
+        "document_type": { "const": "suite_summary" },
+        "suite_id": { "$ref": "#/$defs/identifier" },
+        "suite_kind": { "enum": ["decision", "full"] },
+        "candidate_commit_sha": { "$ref": "#/$defs/git_sha" },
+        "runs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["run_id", "scenario_id", "outcome", "bundle_sha256"],
+            "properties": {
+              "run_id": { "$ref": "#/$defs/identifier" },
+              "scenario_id": { "$ref": "#/$defs/scenario_id" },
+              "outcome": { "enum": ["PASS", "FAIL", "BLOCKED", "HARNESS_ERROR"] },
+              "bundle_sha256": { "$ref": "#/$defs/sha256" },
+              "infrastructure_rerun_of": {
+                "anyOf": [
+                  { "$ref": "#/$defs/identifier" },
+                  { "type": "null" }
+                ]
+              }
+            }
+          }
+        },
+        "scenario_aggregates": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/scenario_aggregate" }
+        },
+        "zero_tolerance_failures": { "type": "integer", "minimum": 0 },
+        "gate_decision": { "enum": ["PASS", "FAIL", "BLOCKED", "NOT_EVALUATED"] },
+        "upstream_self_test_appendix_only": { "const": true },
+        "created_at": { "$ref": "#/$defs/timestamp" }
+      }
+    }
+  }
+}

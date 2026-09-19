@@ -1,0 +1,14 @@
+{
+  "schema_version": "gate-a-schema-v1.0",
+  "contract_version": "gate-a-v1.0",
+  "document_type": "event",
+  "run_id": "run-1",
+  "correlation_id": "mission-1",
+  "sequence": 0,
+  "wall_time": "2026-09-19T01:00:00Z",
+  "monotonic_ns": 0,
+  "server_tick": 0,
+  "source": "OBSERVER",
+  "event_kind": "CANDIDATE_INTERNAL_RETRY_LOOP",
+  "details": {}
+}

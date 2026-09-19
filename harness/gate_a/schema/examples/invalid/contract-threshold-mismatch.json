@@ -1,0 +1,31 @@
+{
+  "schema_version": "gate-a-schema-v1.0",
+  "contract_version": "gate-a-v1.0",
+  "document_type": "contract",
+  "frozen_at": "2026-09-19T00:00:00Z",
+  "scenarios": [
+    {
+      "scenario_id": "GA-LIF-01",
+      "title": "Lifecycle",
+      "requirements": ["lifecycle_integrity"],
+      "fixture_ids": ["lifecycle-v1"],
+      "seed_policy": { "policy": "not_applicable", "values_committed_before_run": true },
+      "mission_command": "spawn and despawn",
+      "progress_signals": ["player joined"],
+      "postconditions": [
+        { "postcondition_id": "one-player", "description": "Exactly one body exists.", "polarity": "required" }
+      ],
+      "valid_runs": 3,
+      "threshold": { "minimum_passes": 3, "total_runs": 2 },
+      "budget": {
+        "mission_timeout_seconds": 60,
+        "stall_window_seconds": 15,
+        "settle_window_seconds": 5,
+        "max_recovery_episodes": 0,
+        "max_recovery_seconds": 0,
+        "max_same_failure_recoveries": 0
+      },
+      "zero_tolerance": ["FALSE_COMPLETION"]
+    }
+  ]
+}

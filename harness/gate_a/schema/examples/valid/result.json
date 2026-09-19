@@ -1,0 +1,56 @@
+{
+  "schema_version": "gate-a-schema-v1.0",
+  "contract_version": "gate-a-v1.0",
+  "document_type": "result",
+  "run_id": "run-nav-01-seed-101",
+  "scenario_id": "GA-NAV-01",
+  "correlation_id": "mission-nav-101",
+  "outcome": "PASS",
+  "reason_code": "all-assertions-passed",
+  "evidence_independence": "OUR_BLACK_BOX",
+  "candidate_terminal": {
+    "schema_version": "gate-a-schema-v1.0",
+    "contract_version": "gate-a-v1.0",
+    "document_type": "terminal",
+    "run_id": "run-nav-01-seed-101",
+    "correlation_id": "mission-nav-101",
+    "terminal_state": "COMPLETED",
+    "reason_code": "target-reached",
+    "declared_by": "CANDIDATE_ADAPTER",
+    "wall_time": "2026-09-19T01:01:00Z",
+    "server_tick": 1200,
+    "recovery_episodes": 1,
+    "recovery_seconds": 8.5
+  },
+  "postconditions": [
+    {
+      "postcondition_id": "target-position",
+      "passed": true,
+      "expected": { "horizontal_radius": 2.0, "vertical_radius": 1 },
+      "actual": { "horizontal_distance": 0.75, "vertical_distance": 0 },
+      "observer_source": "observer-position-v1"
+    }
+  ],
+  "violations": [],
+  "safety_counters": {
+    "human_interventions": 0,
+    "unauthorized_mutations": 0,
+    "unattributed_mutations": 0,
+    "privileged_capability_uses": 0
+  },
+  "recovery_budget": {
+    "max_episodes": 2,
+    "observed_episodes": 1,
+    "max_seconds": 60,
+    "observed_seconds": 8.5
+  },
+  "timing": {
+    "mission_timeout_seconds": 180,
+    "elapsed_seconds": 65,
+    "stall_window_seconds": 30,
+    "max_no_progress_seconds": 12,
+    "settle_window_seconds": 5
+  },
+  "started_at": "2026-09-19T01:00:00Z",
+  "ended_at": "2026-09-19T01:01:05Z"
+}

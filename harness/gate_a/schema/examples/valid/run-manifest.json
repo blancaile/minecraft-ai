@@ -1,0 +1,65 @@
+{
+  "schema_version": "gate-a-schema-v1.0",
+  "contract_version": "gate-a-v1.0",
+  "document_type": "run_manifest",
+  "run_id": "run-nav-01-seed-101",
+  "scenario_id": "GA-NAV-01",
+  "correlation_id": "mission-nav-101",
+  "suite_kind": "decision",
+  "candidate": {
+    "name": "mc_aiplayer",
+    "repository": "https://github.com/zoyluoblue/mc_aiplayer",
+    "commit_sha": "a029fa6a3760fd0f83834c104051b041d986da60",
+    "tree_sha": "1111111111111111111111111111111111111111",
+    "license_spdx": "MIT"
+  },
+  "harness_components": [
+    {
+      "name": "orchestrator",
+      "repository": "https://github.com/blancaile/minecraft-ai",
+      "commit_sha": "2222222222222222222222222222222222222222",
+      "tree_sha": "3333333333333333333333333333333333333333",
+      "license_spdx": "MIT"
+    },
+    {
+      "name": "observer",
+      "repository": "https://github.com/blancaile/minecraft-ai",
+      "commit_sha": "2222222222222222222222222222222222222222",
+      "tree_sha": "3333333333333333333333333333333333333333",
+      "license_spdx": "MIT"
+    },
+    {
+      "name": "adapter",
+      "repository": "https://github.com/blancaile/minecraft-ai",
+      "commit_sha": "2222222222222222222222222222222222222222",
+      "tree_sha": "3333333333333333333333333333333333333333",
+      "license_spdx": "MIT"
+    }
+  ],
+  "environment": {
+    "os": "Ubuntu 24.04 on WSL2",
+    "architecture": "x86_64",
+    "java": "Temurin 21.0.12.1+1",
+    "java_package_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "minecraft": "1.21.3",
+    "fabric_loader": "0.18.4",
+    "fabric_api": "0.114.1+1.21.3"
+  },
+  "fixture": {
+    "fixture_id": "nav-seed-101-v1",
+    "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "fresh_copy": true
+  },
+  "seed": { "policy": "fixed", "requested": 101, "actual": 101 },
+  "effective_config_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "dependency_manifest_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+  "declared_injections": [],
+  "authority": {
+    "actor_ids": ["resident-01"],
+    "target_ids": ["nav-target-01"],
+    "region_ids": ["nav-region-01"],
+    "capabilities": ["walk", "jump", "survival-dig", "survival-place"],
+    "privileged_capabilities_disabled": true
+  },
+  "created_at": "2026-09-19T01:00:00Z"
+}

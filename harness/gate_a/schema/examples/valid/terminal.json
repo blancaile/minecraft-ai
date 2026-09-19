@@ -1,0 +1,14 @@
+{
+  "schema_version": "gate-a-schema-v1.0",
+  "contract_version": "gate-a-v1.0",
+  "document_type": "terminal",
+  "run_id": "run-nav-01-seed-101",
+  "correlation_id": "mission-nav-101",
+  "terminal_state": "COMPLETED",
+  "reason_code": "target-reached",
+  "declared_by": "CANDIDATE_ADAPTER",
+  "wall_time": "2026-09-19T01:01:00Z",
+  "server_tick": 1200,
+  "recovery_episodes": 1,
+  "recovery_seconds": 8.5
+}
