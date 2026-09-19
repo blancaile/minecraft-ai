@@ -7,6 +7,7 @@ description: Jevのデプロイ・reload・実験コマンド・結果待ち・�
 
 関連skillのbuild/deploy/reload/execute-server-command/get-server-logを必要な操作に応じて読む。
 最初に共有サーバーで実験してよい平坦な領域とworldを特定し、`tools/runtime/smoke.example.json`をベースにシナリオを作る。サンプル座標を共有サーバーの空き地と仮定しない。
+場所が未確定なら`tools/runtime/status.example.json`でコマンド往復と証拠回収だけを先に検証できる。これは身体の移動試験ではない。
 
 ```powershell
 tools/runtime/build.ps1 -Smoke

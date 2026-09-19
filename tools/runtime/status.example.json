@@ -1,0 +1,6 @@
+{
+  "note": "Read-only command round trip and evidence collection; does not spawn a bot or test movement.",
+  "steps": [
+    {"command": "jev status", "expect": "bot=none"}
+  ]
+}

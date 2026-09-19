@@ -14,3 +14,4 @@ tools/runtime/remote.ps1 -Action Reload
 LastOrderで `say JEV_ACTIVATE_<id>` を送り、そのmarkerをログで確認してから `bukkit:reload confirm` を送る。marker以降に `JEV_READY` と配置JARのSHA-256が一致しない場合は失敗。他プラグインもreloadされるので、読取や配置準備だけを頼まれた場面では実行しない。
 Jev自身のdisableは判断取消・入力解除・bot除去を行い、自動でrunを再開しない。`jev status` が `bot=none` であることも確認する。
 reloadのタイムアウト時はログを取得して原因を確認し、繰り返し送信しない。
+共有環境ではJevのready成功とサーバー全体の健全性を区別する。reload中の他プラグイン/データパックのERRORも別途記録し、Jevの反映成功だけで「サーバー全体が正常」と扱わない。コマンドやハーネスだけの修正でJARが変わらないなら再reloadは不要。

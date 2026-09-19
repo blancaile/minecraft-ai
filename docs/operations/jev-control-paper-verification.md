@@ -40,8 +40,33 @@ tools/runtime/build.ps1 -Clean -Smoke
 
 SFTPで共有サーバーの起動設定が`paper-1.21.11-116.jar`を参照することを読み取り確認。`/test_server/plugins`とLastOrder、ログ取得を確認した。read-only preflightの証拠は`.runtime-harness/remote-paper-readonly-preflight/`。
 
-**共有サーバーへのJAR配置、reload、bot生成はまだ実施していない。** 既存プラグイン群との相互作用は未検証。fake playerは通常クライアントのログイン/移動パケット経路と同一ではなく、保護・アンチチート等との互換性を一括保証しない。
+このローカル試験の時点では共有サーバーへのJAR配置、reload、bot生成は未実施。その後の配置・反映確認は下記を参照。fake playerは通常クライアントのログイン/移動パケット経路と同一ではなく、保護・アンチチート等との互換性を一括保証しない。
 
 実Jev APIは使用していない。#38の3run/100cycles、到達と障害物適応、実サーバー上でのAPI障害注入は未達。Issue #37/#38はopenを維持する。Paper版のCIは設定を更新した段階であり、このローカル結果を新しいCI成功と表現しない。
 
 配置・反映・実験の再現手順は[quickstart](jev-control-quickstart.md)と`.github/skills/`を参照。詳細traceを専用ファイルへ分離し、一時診断出力だけをソースから除去する。共有サーバーの過去ログや他プラグインの記録は消去しない。
+
+## 共有サーバーへの初回配置・ハーネス実行（同日）
+
+ユーザーの実行許可後、コミット`cea251d642d012ae65e6f103cd63e7088834be17`の上記JARを`/test_server/plugins/jev-control-paper.jar`へ配置し、再取得SHA-256一致を確認した。旧Jev JARはなかった。
+
+- `remote.ps1 -Action Deploy` → `verified: true`
+- `remote.ps1 -Action Reload` → LastOrder経由でmarker確認後に`bukkit:reload confirm`を1回送信。
+- 21:01:18の`JEV_READY`に同じSHA-256を確認。21:01:19に`Reload complete`。
+- `remote.ps1 -Action Command -Command 'jev status'` → ID付き成功receipt、`state=IDLE bot=none`。
+- 証拠: `.runtime-harness/remote-live-20260919-first/`の`Deploy.json`、`Reload.json`、`activation.raw.log`、`latest.raw.log`、receipt。
+
+初回trace回収で、実験未実施のため`traces/`が存在せずエラーになる不具合を発見した。ハーネスを修正し、JevControlのdataディレクトリが存在する場合だけ、未作成traceを正常な0件として扱う。dataディレクトリもなければ失敗を維持する。回帰試験を加えてデプロイ模擬試験は**7件PASS**。JARは変更しておらず、この修正で再reloadは行っていない。
+
+```powershell
+tools/runtime/experiment.ps1 -Scenario tools/runtime/status.example.json -Execute
+```
+
+実行結果: **PASSED**。ID: `8eb4ecc8-9134-408d-8971-e7935cf41f19`。コマンド往復・期待状態確認・生ログ取得・空trace回収が成功し、`cleanup_errors`と`evidence_errors`は空。
+証拠: `.runtime-harness/remote-8eb4ecc8-9134-408d-8971-e7935cf41f19/experiment.json`、`Log.json`、`Traces.json`、receipt。
+
+これは配置・反映・コマンド・証拠回収の実機試験であり、**共有サーバー上の身体移動試験ではない**。bot生成・移動・実Jev呼出しは未実施。移動試験は許可されたworld/座標をシナリオへ設定してから行う。地形変更はしていない。
+
+### reload時の共有環境の注意
+
+Jevの起動と受信口は正常だったが、取得ログのmarker以降には13行のERRORがあった。データパックmetadata、他JARの`plugin.yml`、Paper command builderの`ConcurrentModificationException`、他プラグインのAPI設定等。これはJevの反映成功と分けて扱い、共有サーバー全体の健全性は宣言しない。無関係なプラグインや設定を修正せず、追加reloadも行っていない。実験・スクリプトのみを変える場合は`-Deploy -Reload`を省略し、JAR更新時だけ反映する。

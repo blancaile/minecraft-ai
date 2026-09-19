@@ -87,7 +87,13 @@ try {
     $result=(& $remote -Action Command -Transport LastOrder -Command 'say offline-test' -RunId "$run-queued" | Out-String) | ConvertFrom-Json
     Assert ($result.status -eq 'QUEUED_NOT_VERIFIED') 'Queue insertion claimed command execution'
     Assert (@($fake.Files.Keys | Where-Object {$_ -match '/lastorder-command-[a-f0-9]+\.txt$'}).Count -eq 1) 'No complete LastOrder command file'
-    'PASS: 6 offline transport checks (replace, duplicate, hash mismatch, rollback, rejected command, queue receipt)'
+    $script:fake=New-Object JevTestSftp
+    Expect-Failure {& $remote -Action Traces -RunId "$run-no-plugin"} 'data directory does not exist'
+    $fake.Files['/test_server/plugins/JevControl']=@()
+    $result=(& $remote -Action Traces -RunId "$run-no-traces" | Out-String) | ConvertFrom-Json
+    Assert ($result.trace_count -eq 0 -and !$result.remote_trace_directory_exists) 'Unused plugin should return zero traces'
+    Assert ($fake.Files.Count -eq 1) 'Empty trace collection mutated remote files'
+    'PASS: 7 offline transport checks (replace, duplicate, hash mismatch, rollback, rejected command, queue receipt, absent traces)'
 } finally {
     foreach($key in $saved.Keys) {[Environment]::SetEnvironmentVariable($key,$saved[$key])}
 }

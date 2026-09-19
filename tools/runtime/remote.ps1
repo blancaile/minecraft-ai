@@ -157,9 +157,11 @@ try {
             $result=[ordered]@{path=$path;sha256=(Hash-Bytes $raw);jev_lines=@([Text.Encoding]::UTF8.GetString($raw) -split "`n" | Where-Object {$_ -match 'JEV_|\[JevControl\]'} | Select-Object -Last 30)}
         }
         'Traces' {
-            $files=@($client.ListDirectory("$data/traces") | Where-Object {$_.Name -match '^[a-zA-Z0-9-]+\.jsonl$' -and !$_.IsSymbolicLink})
+            if (!$client.Exists($data)) {throw 'JevControl data directory does not exist; check plugin activation'}
+            $available=$client.Exists("$data/traces")
+            $files=@(if ($available) {$client.ListDirectory("$data/traces") | Where-Object {$_.Name -match '^[a-zA-Z0-9-]+\.jsonl$' -and !$_.IsSymbolicLink}})
             foreach ($file in $files) {[IO.File]::WriteAllBytes((Join-Path $output $file.Name),(Fetch-Bytes $file.FullName))}
-            $result=[ordered]@{directory=$output;trace_count=$files.Count}
+            $result=[ordered]@{directory=$output;trace_count=$files.Count;remote_trace_directory_exists=$available}
         }
     }
     $json=$result | ConvertTo-Json -Depth 8

@@ -74,6 +74,12 @@ Jevコマンドは `plugins/JevControl/inbox/<UUID>.json` に完成ファイル�
 
 ## 繰り返す実験ハーネス
 
+配置・反映後、場所が未確定でもコマンド往復と証拠回収だけは以下で確認できます（botは生成しません）:
+
+```powershell
+.\tools\runtime\experiment.ps1 -Scenario tools/runtime/status.example.json -Execute
+```
+
 `tools/runtime/smoke.example.json` の座標とworldを対象の検証場へ変更したシナリオを用意します。
 
 ```powershell
@@ -82,6 +88,8 @@ Jevコマンドは `plugins/JevControl/inbox/<UUID>.json` に完成ファイル�
 ```
 
 既定はplanのみ。`-Execute`で配置→反映確認→コマンド→期待状態待ち→stop/despawn→log/trace回収を実行します。既存botを奪わず、この実験で生成したbotだけを後始末します。`experiment.json` に結果と後始末の失敗も保存します。
+
+JARが変わらない反復では`-Deploy -Reload`を省略します。Jevのready成功と共有サーバー全体の健全性は別です。reloadログに他プラグインのERRORがあれば記録し、無条件にreloadを繰り返さないでください。初回実験前のtrace未作成は0件として回収します。
 
 原因調査で一時ログを追加するなら `RUNTIME-DIAG` を付け、修正後にすべてソースから除去します。buildスキルとCIは残存を拒否します。再ビルドと同じ実験を通して通常ログの状態に戻します。他プラグインのログや過去の証拠を全消去する処理はありません。
 
