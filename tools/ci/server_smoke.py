@@ -34,6 +34,9 @@ def main() -> None:
         "online-mode=false\nserver-ip=127.0.0.1\nserver-port=25579\n"
         "enable-rcon=false\nmax-players=4\nview-distance=3\nsimulation-distance=3\n"
         "level-type=minecraft:flat\ngenerate-structures=false\nspawn-protection=0\n"
+        'generator-settings={"layers":[{"block":"minecraft:bedrock","height":1},'
+        '{"block":"minecraft:stone","height":2},{"block":"minecraft:grass_block","height":1}],'
+        '"biome":"minecraft:plains","lakes":false,"features":false}\n'
         "level-seed=314159\nsync-chunk-writes=true\n", encoding="utf-8")
     messages: queue.Queue[str] = queue.Queue()
     process = subprocess.Popen(["java", "-Xms512M", "-Xmx2G", "-jar", "server.jar", "nogui"],

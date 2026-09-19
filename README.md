@@ -2,15 +2,26 @@
 
 ## このブランチ: Jev主導の閉ループ制御
 
-`feat/jev-embodied-control` では、Jevが短い操作を選び、Minecraftの実際の結果を再観測する研究トラックを進める。
+Minecraft **1.21.3 / Fabric / Java 21** 向けのサーバーMOD。
+1体の疑似プレイヤーが観測→Jev Choice→有限tickの操作→再観測を繰り返す。
+CarpetとFabric APIは配布JARへ同梱する。
+
+**[ビルド・導入・実機検証の手順](docs/operations/jev-control-quickstart.md)**
+
+```powershell
+.\gradlew.bat clean build
+```
+
+`build/libs/jev-control-0.1.0.jar` をFabricサーバーの `mods/` に配置。
+起動後に `config/jev-control.json` の `apiKey` を設定し、`/jev spawn`、
+`/jev goal x y z`、`/jev start` で動作確認できる。`/jev smoke` はキー不要の身体診断。
 
 - [全体計画・設計](docs/research/jev-embodied-control-plan.md)
 - [#37: 1体から協調・エンダードラゴン討伐へ](https://github.com/blancaile/minecraft-ai/issues/37)
 - [#38: 最初の1体の閉ループPoC](https://github.com/blancaile/minecraft-ai/issues/38)
 - [#36: Skill分解・環境特徴量の調査](https://github.com/blancaile/minecraft-ai/issues/36)
 
-現時点は計画起票済みで、新ループの実装・実機検証は未着手。#38から開始する。
-この新ループでは、行動選択・計画にLLMを使わず、API失敗をルールや既定行動で代替しない。
+この新ループでは行動選択にLLMを使わず、API失敗はERROR停止する。
 下記の既存Resident製品計画とGate Aの採否判断は別トラックとして保持する。
 
 ## 既存Resident製品計画

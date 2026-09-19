@@ -115,6 +115,7 @@ final class ControlRuntime {
         var next = new Run(config, policy);
         next.log = new TraceLog(logs, next.lease.runId());
         run = next;
+        lastReason = "Started " + policy;
         lastLog = next.log.path.toString();
         try {
             var metadata = new JsonObject();

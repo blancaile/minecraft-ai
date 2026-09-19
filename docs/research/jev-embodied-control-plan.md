@@ -1,7 +1,7 @@
 # Jev主導Minecraft制御：閉ループPoCから共同目標達成へ
 
 更新日: 2026-09-19  
-状態: 計画起票済み。新しい制御ループの実装・実機検証は未着手。
+状態: P0の配布MODを実装。導入・検証手順は [quickstart](../operations/jev-control-quickstart.md)。実Jevによる攻略評価は未実施。
 
 - 親計画: [#37](https://github.com/blancaile/minecraft-ai/issues/37)
 - 最初の実装: [#38 — P0](https://github.com/blancaile/minecraft-ai/issues/38)
@@ -28,7 +28,7 @@ Jevを意思決定主体として、1体以上の疑似プレイヤーがMinecra
 - 認証失敗、API timeout、不正response、欠損観測、stale responseはERRORとして返す。別モデル・ルール・ランダム・既定操作へ切り替えない。
 - Rules/Randomは明示的に選ぶ独立比較run。Jevの失敗時に切り替える制御系ではない。
 
-現在のmainには評価harnessと `tools/probes/jev_client.py` がある。後者は固定stateから単発回答を得るprobeであり、Minecraftの観測・入力・反復は接続されていない。
+分岐時のmainには評価harnessと単発probeだけがあった。このブランチでは `src/main/java/io/github/blancaile/jevcontrol/` にFabric MODとして身体・観測・Jev・有限入力を接続した。
 
 ## 3. 最小構成
 
@@ -44,7 +44,7 @@ flowchart TD
 
 ### Body
 
-第一検証案はCarpet fake playerと薄いFabric adapter。既存fixtureのMinecraft 1.21.3を起点に、対応version・依存・APIと停止挙動を確認して固定する。互換性はまだ検証していない。現行Carpetのソースにはforward/strafe/turnと入力解除の低レベル操作が存在するが、対象versionで同じ形のAPIが使えると仮定しない。
+第一検証案はCarpet fake playerと薄いFabric adapter。既存fixtureのMinecraft 1.21.3を起点に、対応version・依存・APIと停止挙動を確認して固定する。Carpetは1.4.158（Modrinth version `ZF8ufR9V`）を固定し配布JARへ同梱する。現行Carpetのソースにはforward/strafe/turnと入力解除の低レベル操作が存在するが、対象versionで同じ形のAPIが使えると仮定しない。
 
 Carpetを最終製品bodyに決定するものではない。失敗した場合は具体的な不足を記録し、body選定を明示的に更新する。実行時の別bodyへの自動切替は作らない。
 
@@ -171,4 +171,4 @@ semantic decision coverageだけではJevの寄与を証明できない。候補
 
 ## 10. 次に行うこと
 
-#38の「身体を1体だけ出す」から実装する。身体・観測・入力・Jev接続を縦に通し、実機の最初のtraceを取る。未解決の設計項目は実測で絞り、P0終了時にFindingと次のP1 Issueを起票する。
+[導入手順](../operations/jev-control-quickstart.md)に従って配布JARを配置し、#38の実Jev runを計測する。未解決の設計項目は実測で絞り、P0終了時にFindingと次のP1 Issueを起票する。
