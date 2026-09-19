@@ -11,3 +11,4 @@ description: JevControl PaperプラグインをJava 21でビルドし、unit tes
 smokeは固定Paper 1.21.11 build 116をダウンロードしてSHA-256を検証し、`.runtime-harness/paper-smoke-*/` の隔離サーバーを起動する。既存fixtureのEULA確認を引き継ぐ。
 実Jev APIは呼ばない。成功は `verification.json` のJARハッシュと対象成果物を照合する。
 Java/身体実装を変えたらsmokeを再実行し、依存version変更時には共有サーバー互換性も確認する。
+Multiverseの初回参加teleportとの互換性を調べる場合、許可された環境から取得した同versionのJARで `python tools/ci/server_smoke.py build/libs/jev-control-paper-0.2.0.jar --extra-plugin <multiverse-core.jar> --multiverse-first-spawn` を実行する。初回spawn上書きは隔離fixture内だけで有効化し、共有サーバーのMultiverse設定は変えない。

@@ -1,0 +1,12 @@
+{
+  "note": "Use only with permission to test near this online player. Checks a loaded flat lane; never edits terrain.",
+  "verification": "near-player-smoke",
+  "steps": [
+    {"command": "jev site Philia_Gray", "expect": "OPERATOR_FIXTURE_ONLY"},
+    {"command": "jev spawn-near Philia_Gray", "expect": "Spawned JevBot"},
+    {"command": "jev observe", "expect": "Observation written"},
+    {"command": "jev smoke", "expect": "state=SMOKE_PASSED"},
+    {"command": "jev step TURN_LEFT", "expect": "state=MANUAL_COMPLETED"},
+    {"command": "jev observe", "expect": "Observation written"}
+  ]
+}

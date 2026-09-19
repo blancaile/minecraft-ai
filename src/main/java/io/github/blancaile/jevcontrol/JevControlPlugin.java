@@ -54,6 +54,17 @@ public final class JevControlPlugin extends JavaPlugin implements CommandExecuto
             var verb = args.length == 0 ? "help" : args[0].toLowerCase(Locale.ROOT);
             var location = sender instanceof Player player ? player.getLocation() : Bukkit.getWorlds().getFirst().getSpawnLocation();
             String message = switch (verb) {
+                case "site", "spawn-near" -> {
+                    if (args.length != 2) throw new IllegalArgumentException("Usage: jev " + verb + " PLAYER");
+                    var reference = Bukkit.getPlayerExact(args[1]);
+                    if (reference == null) throw new IllegalStateException("Reference player is not online");
+                    var target = NearbyTestSite.find(reference);
+                    if (verb.equals("spawn-near")) {
+                        runtime.spawn(((CraftWorld) target.getWorld()).getHandle(), new Vec3(target.getX(), target.getY(), target.getZ()), 0);
+                        yield "Spawned JevBot " + NearbyTestSite.describe(reference, target);
+                    }
+                    yield NearbyTestSite.describe(reference, target);
+                }
                 case "spawn" -> {
                     if (!(sender instanceof Player) && args.length == 1)
                         throw new IllegalArgumentException("Console spawn requires x y z [world]");
@@ -78,7 +89,7 @@ public final class JevControlPlugin extends JavaPlugin implements CommandExecuto
                     yield "Manual finite input started: NO MODEL";
                 }
                 case "despawn" -> { runtime.despawn(); yield "Despawn requested"; }
-                default -> "Jev: spawn [x y z [world]], goal x y z [world], start, stop, status, observe, step ACTION, smoke, despawn";
+                default -> "Jev: site PLAYER, spawn-near PLAYER, spawn [x y z [world]], goal x y z [world], start, stop, status, observe, step ACTION, smoke, despawn";
             };
             sender.sendMessage("JEV_OK " + message);
         } catch (Exception ex) {
@@ -102,7 +113,7 @@ public final class JevControlPlugin extends JavaPlugin implements CommandExecuto
 
     @Override public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (!sender.hasPermission("jev.admin")) return List.of();
-        var choices = args.length == 1 ? List.of("spawn", "goal", "start", "stop", "status", "observe", "step", "smoke", "despawn")
+        var choices = args.length == 1 ? List.of("site", "spawn-near", "spawn", "goal", "start", "stop", "status", "observe", "step", "smoke", "despawn")
                 : args.length == 2 && args[0].equalsIgnoreCase("step") ? Arrays.stream(ControlAction.values()).map(Enum::name).toList() : List.<String>of();
         return choices.stream().filter(s -> s.toLowerCase(Locale.ROOT).startsWith(args[args.length - 1].toLowerCase(Locale.ROOT))).toList();
     }

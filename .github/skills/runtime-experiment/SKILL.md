@@ -8,6 +8,8 @@ description: Jevのデプロイ・reload・実験コマンド・結果待ち・�
 関連skillのbuild/deploy/reload/execute-server-command/get-server-logを必要な操作に応じて読む。
 最初に共有サーバーで実験してよい平坦な領域とworldを特定し、`tools/runtime/smoke.example.json`をベースにシナリオを作る。サンプル座標を共有サーバーの空き地と仮定しない。
 場所が未確定なら`tools/runtime/status.example.json`でコマンド往復と証拠回収だけを先に検証できる。これは身体の移動試験ではない。
+ユーザーが特定プレイヤー付近を許可した場合は`tools/runtime/near-player.example.json`のプレイヤー名をその対象へ設定する。`site`→`spawn-near`で現在の地形とentity不在を確認する。場所選定はoperatorの試験準備だけであり、Jevの観測・行動選択には接続しない。
+このシナリオはreceiptの成功だけでなく、回収したJSONLのJARハッシュ・初期位置・実座標差・8tick入力・停止時の水平速度・15度旋回・生存も検査し、`verification.json`を保存する。既存証拠は`tools/runtime/verify-near-player.ps1 -RunDirectory <証拠ディレクトリ>`で再検証できる。
 
 ```powershell
 tools/runtime/build.ps1 -Smoke

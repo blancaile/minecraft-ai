@@ -297,6 +297,14 @@ final class ControlRuntime {
     }
     private void requireBot() {
         if (bot == null || bot.isRemoved() || !bot.isAlive()) throw new IllegalStateException("Spawn a live bot first");
+        if (!dimension.equals(bot.level().dimension().identifier().toString()))
+            throw new IllegalStateException("Bot changed world outside the experiment; despawn and inspect other plugins");
+        if (bot.position().distanceTo(spawn) > readDistanceLimit())
+            throw new IllegalStateException("Bot moved outside the spawn boundary before input; despawn and inspect other plugins");
+    }
+    private double readDistanceLimit() {
+        try { return readConfig().maxDistanceFromSpawn(); }
+        catch (IOException ex) { throw new IllegalStateException("Cannot validate spawn boundary; check Jev configuration"); }
     }
     private void requireIdle() { if (run != null) throw new IllegalStateException("Stop the active run first"); }
     private ControlConfig readConfig() throws IOException {

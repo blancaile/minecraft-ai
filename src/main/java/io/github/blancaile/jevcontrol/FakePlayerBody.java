@@ -38,6 +38,11 @@ final class FakePlayerBody extends ServerPlayer {
             bot.snapTo(position.x, position.y, position.z, yaw, 0);
             if (!world.noCollision(bot)) throw new IllegalStateException("Spawn position intersects solid blocks");
             bot.getBukkitEntity().setPersistent(false);
+            // This repeatable synthetic body is not a first-time human login. Initialize only
+            // CraftPlayer's in-memory bookkeeping, without reading/writing a real player's data.
+            // Multiverse 5.6.1 otherwise asynchronously applies first-spawn-override after join.
+            bot.getBukkitEntity().readExtraData(net.minecraft.world.level.storage.TagValueInput.createGlobal(
+                    net.minecraft.util.ProblemReporter.DISCARDING, new net.minecraft.nbt.CompoundTag()));
             server.getPlayerList().placeNewPlayer(bot.localConnection, bot, CommonListenerCookie.createInitial(bot.getGameProfile(), false));
             if (server.getPlayerList().getPlayer(ID) != bot || bot.connection.isDisconnected())
                 throw new IllegalStateException("Another plugin rejected the fake player join");

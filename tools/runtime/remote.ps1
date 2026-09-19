@@ -133,7 +133,7 @@ try {
                 $id=Queue-LastOrder $Command
                 $result=[ordered]@{id=$id;status='QUEUED_NOT_VERIFIED';transport=$Transport}
             } else {
-                if ($Command -notmatch '^jev (spawn|despawn|status|observe|goal|smoke|step|start|stop)( |$)') {throw 'Jev inbox accepts jev commands only; use LastOrder for its allowed console commands'}
+                if ($Command -notmatch '^jev (site|spawn-near|spawn|despawn|status|observe|goal|smoke|step|start|stop)( |$)') {throw 'Jev inbox accepts jev commands only; use LastOrder for its allowed console commands'}
                 $id=[guid]::NewGuid().ToString()
                 $request=@{id=$id;command=$Command;expires_at_ms=[DateTimeOffset]::UtcNow.AddSeconds($TimeoutSeconds).ToUnixTimeMilliseconds()} | ConvertTo-Json -Compress
                 $stage="$data/inbox/.$id.upload"

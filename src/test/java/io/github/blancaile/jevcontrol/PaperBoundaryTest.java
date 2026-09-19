@@ -12,6 +12,8 @@ class PaperBoundaryTest {
     }
     @Test void acceptsOnlyFreshBoundedJevCommands() {
         assertEquals("jev status", QueueRequest.parse(ID + ".json", request("jev status", 2000), 1000).command());
+        for (String command : new String[]{"jev site Philia_Gray", "jev spawn-near Philia_Gray"})
+            assertEquals(command, QueueRequest.parse(ID + ".json", request(command, 2000), 1000).command());
         for (String command : new String[]{"op somebody", "jev status\nstop", "jev config apiKey SECRET", "jev " + "a".repeat(300)})
             assertThrows(IllegalArgumentException.class, () -> QueueRequest.parse(ID + ".json", request(command, 2000), 1000));
     }

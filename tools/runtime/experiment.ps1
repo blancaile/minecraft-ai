@@ -9,8 +9,9 @@ $repo=(Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
 $remote=Join-Path $PSScriptRoot 'remote.ps1'
 $spec=Get-Content -Raw -Encoding UTF8 -LiteralPath $Scenario | ConvertFrom-Json
 if (!$spec.steps -or $spec.steps.Count -gt 30) {throw 'Scenario requires 1..30 steps'}
+if ($spec.verification -and $spec.verification -ne 'near-player-smoke') {throw 'Unknown scenario verification mode'}
 foreach($step in $spec.steps) {
-    if ($step.command -notmatch '^jev (spawn|goal|observe|smoke|step|status|stop|start)( |$)' -or !$step.expect) {throw 'Each step requires a Jev command and an expected result regex'}
+    if ($step.command -notmatch '^jev (site|spawn-near|spawn|goal|observe|smoke|step|status|stop|start)( |$)' -or !$step.expect) {throw 'Each step requires a Jev command and an expected result regex'}
     [regex]::new([string]$step.expect) | Out-Null
 }
 if (!$Execute) {
@@ -37,7 +38,7 @@ try {
     $initial=(& $remote -Action Command -Command 'jev status' -RunId $runId | Out-String) | ConvertFrom-Json
     if (($initial.output -join ' ') -notmatch 'bot=none') {throw 'An existing managed bot is present; refusing to take it over'}
     foreach($step in $spec.steps) {
-        if ($step.command -match '^jev spawn( |$)') {$ownsBot=$true}
+        if ($step.command -match '^jev (spawn|spawn-near)( |$)') {$ownsBot=$true}
         $response=(& $remote -Action Command -Command $step.command -RunId $runId | Out-String) | ConvertFrom-Json
         $deadline=[DateTime]::UtcNow.AddSeconds(30)
         $text=$response.output -join ' '
@@ -65,6 +66,10 @@ try {
     foreach($action in @('Log','Traces')) {
         try {& $remote -Action $action -RunId $runId | Out-Null}
         catch {$manifest.evidence_errors+=@($_.Exception.Message);$manifest.status='FAILED'}
+    }
+    if ($manifest.status -eq 'PASSED' -and $spec.verification -eq 'near-player-smoke') {
+        try {& (Join-Path $PSScriptRoot 'verify-near-player.ps1') -RunDirectory $directory -Manifest $manifest | Out-Null}
+        catch {$failure=$_;$manifest.status='FAILED';$manifest.failure=$_.Exception.Message}
     }
     $json=$manifest | ConvertTo-Json -Depth 10
     [IO.File]::WriteAllText((Join-Path $directory 'experiment.json'),$json,[Text.UTF8Encoding]::new($false))

@@ -43,6 +43,15 @@ LastOrderへ `bukkit:reload confirm` を送信し、今回のmarker以降の `JE
 
 ## キーなし身体実験
 
+特定のオンラインプレイヤーの近くで試験してよい場合は、`jev site PLAYER`で現在位置と近傍の候補を読み、`jev spawn-near PLAYER`で生成直前に再検査できます。現在位置の水平10ブロック・上下3ブロック以内で、ロード済みの3x7の平坦な通常ブロック床、3ブロック高の空間、entity不在を確認します。地形変更やプレイヤー移動はしません。条件を満たす場所がなければ停止します。
+
+```powershell
+.\tools\runtime\experiment.ps1 -Scenario tools/runtime/near-player.example.json -Execute
+```
+
+サンプルの`Philia_Gray`は今回許可された対象です。別の試験では許可された対象に変更してください。場所選定は試験準備のみで、Jevの移動policyには使いません。
+シナリオの`verification: near-player-smoke`は、回収JSONLとreceiptのハッシュ、初期位置、実移動量、8tick入力、停止時水平速度、15度旋回、生存を自動検査し、`verification.json`を残します。
+
 検証してよい平坦な領域を選び、前方に空間を確保します。共有サーバーで下記のサンプル座標をそのまま使わないでください。コンソールの場合は座標と必要ならworldを指定します。
 
 ```text

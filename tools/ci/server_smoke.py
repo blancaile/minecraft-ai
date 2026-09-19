@@ -24,6 +24,8 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument('artifact', type=Path)
     parser.add_argument('--server-jar', type=Path)
+    parser.add_argument('--extra-plugin', type=Path, action='append', default=[], help='Optional compatibility-test plugin JAR; never distributed with Jev')
+    parser.add_argument('--multiverse-first-spawn', action='store_true', help='Reproduce shared-server first-join relocation in the isolated fixture')
     options = parser.parse_args()
     artifact = options.artifact.resolve()
     if not artifact.is_file():
@@ -32,6 +34,16 @@ def main() -> None:
     root = root.resolve()
     (root / 'plugins').mkdir(parents=True)
     shutil.copy2(artifact, root / 'plugins' / artifact.name)
+    for companion in options.extra_plugin:
+        if companion.name == artifact.name:
+            raise RuntimeError('Companion must not replace the Jev artifact')
+        shutil.copy2(companion, root / 'plugins' / companion.name)
+    if options.multiverse_first_spawn:
+        if not any(p.name.startswith('multiverse-core-') for p in options.extra_plugin):
+            raise RuntimeError('--multiverse-first-spawn requires a Multiverse companion JAR')
+        config = root / 'plugins/Multiverse-Core/config.yml'
+        config.parent.mkdir(parents=True)
+        config.write_text("spawn:\n  first-spawn-override: true\n  first-spawn-location: world\n  enable-join-destination: false\n", encoding='utf-8')
     cached = options.server_jar or Path('.runtime-harness/cache/paper-1.21.11-116.jar')
     if not cached.is_file():
         cached.parent.mkdir(parents=True, exist_ok=True)
@@ -102,10 +114,15 @@ def main() -> None:
         return json.loads(files[-1].read_text(encoding='utf-8'))['data']
     try:
         wait_for('Done (', 300)
+        if options.multiverse_first_spawn:
+            assert 'first-spawn-override: true' in (root / 'plugins/Multiverse-Core/config.yml').read_text(encoding='utf-8')
+            assert '[Multiverse-Core] Enabling Multiverse-Core' in (root / 'console.log').read_text(encoding='utf-8')
         reply = inbox('jev status')
         assert reply['success'] and 'bot=none' in reply['output'][0], reply
         assert not inbox('jev status', expired=True)['success']
         assert not inbox('stop')['success']
+        assert not inbox('jev site MissingPlayer')['success']
+        assert not inbox('jev spawn-near MissingPlayer')['success']
         send('gamerule doMobSpawning false')
         send('gamerule doDaylightCycle false')
         send('forceload add -16 -16 16 16')
@@ -115,6 +132,11 @@ def main() -> None:
         send('jev spawn 0.5 81 0.5')
         wait_for('Spawned JevBot')
         time.sleep(1)
+        site_reply = inbox('jev site JevBot')
+        assert site_reply['success'], site_reply
+        site = json.loads(site_reply['output'][0].removeprefix('JEV_OK '))
+        assert site['world'] == 'world' and site['yaw'] == 0 and site['terrain_changed'] is False, site
+        assert site['spawn_position'][1] == 81 and max(abs(site['spawn_position'][i] - site['player_position'][i]) for i in (0, 2)) <= 10.5, site
         send('data get entity JevBot Pos')
         send('jev observe')
         wait_for('Observation written:')
@@ -184,11 +206,14 @@ def main() -> None:
         assert all(x['data']['actual_ticks'] in (4, 8) for x in records if x['event'] == 'result')
         summary = {'result': 'PASS', 'jar_sha256': hashlib.sha256(artifact.read_bytes()).hexdigest(),
                    'minecraft': '1.21.11', 'paper_build': 116, 'model_invoked': False,
+                   'extra_plugins': [{'name': p.name, 'sha256': hashlib.sha256(p.read_bytes()).hexdigest()} for p in options.extra_plugin],
+                   'multiverse_first_spawn_override': options.multiverse_first_spawn,
                    'checks': ['single plugin JAR', 'dedicated server boot', 'spawn', 'observation',
                               'physical movement', 'finite input release', 'missing key rejection',
                               'cancel', 'despawn and respawn', 'reload cleanup and respawn', 'gravity',
                               'wall collision', 'occlusion UNKNOWN', 'rotation', 'jump', 'exact bounded ticks',
-                              'inbox receipt', 'expired command rejection', 'foreign command rejection', 'clean shutdown']}
+                              'inbox receipt', 'expired command rejection', 'foreign command rejection', 'clean shutdown',
+                              'nearby fixture inspection', 'offline reference rejection']}
         (root / 'verification.json').write_text(json.dumps(summary, indent=2) + '\n', encoding='utf-8')
         print(json.dumps(summary, indent=2))
     finally:
