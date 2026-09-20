@@ -1,5 +1,7 @@
 # Paper migration verification — 2026-09-19
 
+**Latest (2026-09-20): [Issue #38 real API / 129-cycle acceptance and all failures](jev-control-live-acceptance-2026-09-20.md).** Three directional goals reached; obstacle probe executed but failed within budget. Final plugin deployed and shared real loop verified. Entries below are historical.
+
 最新の配布・共有サーバー身体試験は末尾の「2026-09-20」を参照。9月19日のハッシュ・未達条件は当時の履歴として保持する。
 
 ローカル作業ブランチ: `feat/jev-embodied-control`。移植元: `be2833f8de8c4a773992fadd08c08a44e285e038`。以下は旧Fabric版CIとは別の、Paper配布JARのローカル検証結果。

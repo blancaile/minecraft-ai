@@ -41,6 +41,11 @@ public record ControlConfig(String apiKey, String model, int actionTicks, int ti
             try { json.get(key).getAsBigDecimal().intValueExact(); }
             catch (ArithmeticException ex) { throw new IllegalArgumentException("Expected integer: " + key); }
         }
+        if (json.get("apiKey").getAsString().equals("env:JEV_API_KEY")) {
+            String key = System.getenv("JEV_API_KEY");
+            if (key == null || key.isBlank()) throw new IllegalArgumentException("JEV_API_KEY is not configured");
+            json.addProperty("apiKey", key);
+        }
         var config = new GsonBuilder().create().fromJson(json, ControlConfig.class);
         config.validate();
         return config;

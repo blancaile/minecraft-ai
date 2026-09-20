@@ -35,6 +35,7 @@ final class Observation {
             g.add("relative", vector(goal.subtract(bot.position())));
             g.addProperty("arrival_radius", config.goalRadius());
             state.add("goal", g);
+            state.add("control_frame", ControlFrame.capture(bot.getYRot(), goal.x - bot.getX(), goal.z - bot.getZ()));
         }
         state.add("previous", previous.deepCopy());
         int radius = config.observationRadius();

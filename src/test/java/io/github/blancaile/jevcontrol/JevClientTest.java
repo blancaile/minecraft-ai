@@ -20,6 +20,14 @@ class JevClientTest {
     static ControlConfig config(int timeout) {
         return new ControlConfig("unit-test-secret", "jev-1.13.0", 4, timeout, 200, 200, 600, 3, 1, 64);
     }
+    @Test void fixtureEndpointCannotReceiveProductionCredentialsOrLeaveLoopback() {
+        assertEquals("https", JevClient.runtimeEndpoint(config(2), null).getScheme());
+        assertThrows(IllegalArgumentException.class, () -> JevClient.runtimeEndpoint(config(2), "http://127.0.0.1:1234/"));
+        var dummy = new ControlConfig("fixture-only-no-credential", "jev-1.13.0", 4, 2, 200, 20, 60, 3, 1, 64);
+        assertEquals("127.0.0.1", JevClient.runtimeEndpoint(dummy, "http://127.0.0.1:1234/").getHost());
+        for (String bad : List.of("http://example.com:80/", "https://127.0.0.1:1234/", "http://secret@127.0.0.1:1234/"))
+            assertThrows(IllegalArgumentException.class, () -> JevClient.runtimeEndpoint(dummy, bad));
+    }
     @Test void actualHttpRequestAndTypedResponseWork() throws Exception {
         var server = HttpServer.create(new InetSocketAddress("127.0.0.1", 0), 0);
         var received = new AtomicReference<JsonObject>();

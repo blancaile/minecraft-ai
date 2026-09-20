@@ -45,6 +45,9 @@ final class ControlRuntime {
         int smokePhase;
         long smokeDeadline;
         Vec3 stopPosition;
+        long lastTickNanos = System.nanoTime();
+        long maxTickGapNanos;
+        long observedTick;
         Run(ControlConfig config, String policy) { this.config = config; this.policy = policy; }
     }
 
@@ -126,6 +129,7 @@ final class ControlRuntime {
             var metadata = new JsonObject();
             metadata.addProperty("run_id", next.lease.runId());
             metadata.addProperty("policy", policy);
+            metadata.addProperty("fault_fixture", System.getProperty("jev.fixture.endpoint") != null);
             metadata.addProperty("minecraft", "1.21.11");
             metadata.addProperty("body", "PAPER_SERVER_PLAYER");
             metadata.addProperty("plugin_version", version);
@@ -147,6 +151,9 @@ final class ControlRuntime {
         tick++;
         if (run == null) return;
         try {
+            long now = System.nanoTime();
+            run.maxTickGapNanos = Math.max(run.maxTickGapNanos, now - run.lastTickNanos);
+            run.lastTickNanos = now;
             if (bot == null || bot.isRemoved() || !bot.isAlive() || server.getPlayerList().getPlayer(bot.getUUID()) != bot) {
                 finish("DEAD_OR_DISCONNECTED", "Managed bot no longer present/alive"); return;
             }
@@ -192,6 +199,7 @@ final class ControlRuntime {
                 var chosen = new JsonObject();
                 chosen.addProperty("request_id", run.requestId);
                 chosen.addProperty("latency_ms", decision.latencyMillis());
+                chosen.addProperty("snapshot_age_ticks", tick - run.observedTick);
                 chosen.add("response", decision.response());
                 run.log.write("decision", tick, chosen);
                 run.pending = null;
@@ -203,6 +211,7 @@ final class ControlRuntime {
                 finish("BUDGET_EXCEEDED", "Decision budget reached"); return;
             }
             run.requestId = run.lease.begin(tick);
+            run.observedTick = tick;
             var capture = Observation.capture(bot, goal, tick, run.lease.runId(), run.requestId, run.config, run.previous);
             run.log.write("observation", tick, capture.state());
             run.pending = run.client.choose(capture.state(), capture.candidates());
@@ -264,6 +273,7 @@ final class ControlRuntime {
             data.addProperty("reason", reason);
             data.addProperty("decisions", ended.decisions);
             data.addProperty("elapsed_ms", (System.nanoTime() - ended.startedNanos) / 1_000_000);
+            data.addProperty("max_tick_gap_ms", ended.maxTickGapNanos / 1_000_000.0);
             if (bot != null) data.add("final", Observation.self(bot));
             if (ended.action != null) {
                 data.addProperty("interrupted_action", ended.action.name());

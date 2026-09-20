@@ -17,7 +17,17 @@ public final class JevClient implements AutoCloseable {
     private final ControlConfig config;
 
     public JevClient(ControlConfig config) {
-        this(config, URI.create("https://api.typesafe.ai/v1/systemone"));
+        this(config, runtimeEndpoint(config, System.getProperty("jev.fixture.endpoint")));
+    }
+    static URI runtimeEndpoint(ControlConfig config, String fixture) {
+        if (fixture == null) return URI.create("https://api.typesafe.ai/v1/systemone");
+        // Explicit isolated-server fault injection, never a production credential or fallback.
+        URI uri = URI.create(fixture);
+        if (!config.apiKey().equals("fixture-only-no-credential") || !"http".equals(uri.getScheme())
+                || !"127.0.0.1".equals(uri.getHost()) || uri.getPort() < 1
+                || uri.getUserInfo() != null || uri.getQuery() != null || uri.getFragment() != null)
+            throw new IllegalArgumentException("Fixture endpoint requires loopback and dummy credential");
+        return uri;
     }
     // Only tests supply a local HTTP endpoint. Production uses the fixed HTTPS endpoint above.
     JevClient(ControlConfig config, URI endpoint) {

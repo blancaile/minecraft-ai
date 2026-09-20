@@ -2,18 +2,20 @@
 
 ## このブランチ: Jev主導の閉ループ制御
 
-Minecraft **1.21.3 / Fabric / Java 21** 向けのサーバーMOD。
+**Paper 1.21.11 build 116 / Java 21** 向けのサーバープラグイン。
 1体の疑似プレイヤーが観測→Jev Choice→有限tickの操作→再観測を繰り返す。
-CarpetとFabric APIは配布JARへ同梱する。
+参加者のクライアントMOD、Fabric、Carpet、Citizensは不要。Spigot単体/Folia/他versionは未対応。
 
 **[ビルド・導入・実機検証の手順](docs/operations/jev-control-quickstart.md)**
+
+[実Jev検証結果](docs/operations/jev-control-live-acceptance-2026-09-20.md): 4run・129判断、3方向の目標到達、障害物適応の失敗、異常時停止、共有サーバー反映を記録。
 
 ```powershell
 .\gradlew.bat clean build
 ```
 
-`build/libs/jev-control-0.1.0.jar` をFabricサーバーの `mods/` に配置。
-起動後に `config/jev-control.json` の `apiKey` を設定し、`/jev spawn`、
+`build/libs/jev-control-paper-0.2.0.jar` をPaperサーバーの `plugins/` に配置。
+起動後に `plugins/JevControl/jev-control.json` の `apiKey` を設定し、`/jev spawn`、
 `/jev goal x y z`、`/jev start` で動作確認できる。`/jev smoke` はキー不要の身体診断。
 
 - [全体計画・設計](docs/research/jev-embodied-control-plan.md)
@@ -62,6 +64,11 @@ python .\tools\probes\jev_client.py
 
 `tools/probes/jev_client.py` はリポジトリ直下の `.env` から `jev_api_key` を読み、Jev の `systemone` API に
 Minecraft の次の行動を問い合わせる。追加パッケージは不要。
+
+Paper実機の閉ループは `.github/skills/runtime-experiment/SKILL.md` を参照。
+`tools/runtime/paper_acceptance.py --mode live --key-file <既存.envのパス> --execute` は同じloaderを使用し、
+キーを子Javaの環境変数へ渡す。設定の `apiKey: "env:JEV_API_KEY"` はその環境変数を参照する。
+`.env`の内容やキー自体は出力・証拠保存・commitしない。
 
 ## DeepSeek V4 Flash との対話
 

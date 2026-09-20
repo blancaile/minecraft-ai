@@ -43,6 +43,8 @@ LastOrderへ `bukkit:reload confirm` を送信し、今回のmarker以降の `JE
 
 ## キーなし身体実験
 
+実JevのキーはREADME記載の `.env` の `jev_api_key` を既存loaderで取得できます。繰り返し検証には `.github/skills/runtime-experiment/SKILL.md` のlive手順を使います。隔離サーバーでは `apiKey: "env:JEV_API_KEY"` を指定し、キーを設定ファイルへ保存せず子Javaプロセスの環境変数から読みます。共有サーバーの短い試験は元設定を終了時に復元します。
+
 特定のオンラインプレイヤーの近くで試験してよい場合は、`jev site PLAYER`で現在位置と近傍の候補を読み、`jev spawn-near PLAYER`で生成直前に再検査できます。現在位置の水平10ブロック・上下3ブロック以内で、ロード済みの3x7の平坦な通常ブロック床、3ブロック高の空間、entity不在を確認します。地形変更やプレイヤー移動はしません。条件を満たす場所がなければ停止します。
 
 ```powershell
