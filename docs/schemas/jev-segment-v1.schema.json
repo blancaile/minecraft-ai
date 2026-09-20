@@ -1,0 +1,453 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Jev selected segment trace v1 (Issue 40)",
+  "$defs": {
+    "point": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "enum": [
+            "E",
+            "SE",
+            "S",
+            "SW",
+            "W",
+            "NW",
+            "N",
+            "NE",
+            "GOAL_DIRECTION",
+            "WAIT"
+          ]
+        },
+        "endpoint": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "max_ticks": {
+          "enum": [
+            4,
+            12
+          ]
+        },
+        "kind": {
+          "enum": [
+            "WALK",
+            "WAIT"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "endpoint",
+        "max_ticks",
+        "kind"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "jev-control-trace-v1"
+        },
+        "event": {
+          "const": "segment_start"
+        },
+        "server_tick": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "time": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "jev-segment-v1"
+            },
+            "segment_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "request_id": {
+              "type": "string"
+            },
+            "selected": {
+              "$ref": "#/$defs/point"
+            },
+            "before": {
+              "type": "object",
+              "properties": {
+                "position": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "velocity": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "yaw": {
+                  "type": "number"
+                },
+                "pitch": {
+                  "type": "number"
+                },
+                "on_ground": {
+                  "type": "boolean"
+                },
+                "health": {
+                  "type": "number"
+                },
+                "hunger": {
+                  "type": "number"
+                },
+                "horizontal_collision": {
+                  "type": "boolean"
+                },
+                "body_tick": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "required": [
+                "position",
+                "velocity",
+                "yaw",
+                "pitch",
+                "on_ground",
+                "health",
+                "hunger",
+                "horizontal_collision",
+                "body_tick"
+              ],
+              "additionalProperties": false
+            },
+            "max_ticks": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12
+            }
+          },
+          "required": [
+            "schema_version",
+            "segment_id",
+            "request_id",
+            "selected",
+            "before",
+            "max_ticks"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "schema_version",
+        "event",
+        "server_tick",
+        "time",
+        "data"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "jev-control-trace-v1"
+        },
+        "event": {
+          "const": "segment_tick"
+        },
+        "server_tick": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "time": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "jev-segment-v1"
+            },
+            "segment_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "request_id": {
+              "type": "string"
+            },
+            "selected": {
+              "$ref": "#/$defs/point"
+            },
+            "before": {
+              "type": "object",
+              "properties": {
+                "position": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "velocity": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "yaw": {
+                  "type": "number"
+                },
+                "pitch": {
+                  "type": "number"
+                },
+                "on_ground": {
+                  "type": "boolean"
+                },
+                "health": {
+                  "type": "number"
+                },
+                "hunger": {
+                  "type": "number"
+                },
+                "horizontal_collision": {
+                  "type": "boolean"
+                },
+                "body_tick": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "required": [
+                "position",
+                "velocity",
+                "yaw",
+                "pitch",
+                "on_ground",
+                "health",
+                "hunger",
+                "horizontal_collision",
+                "body_tick"
+              ],
+              "additionalProperties": false
+            },
+            "yaw": {
+              "type": "number"
+            },
+            "forward": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "strafe": {
+              "const": 0
+            },
+            "jump": {
+              "const": false
+            },
+            "correction_reason": {
+              "enum": [
+                "SELECTED_WAIT",
+                "FIXED_ENDPOINT_GEOMETRY"
+              ]
+            },
+            "local_cells": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            }
+          },
+          "required": [
+            "schema_version",
+            "segment_id",
+            "request_id",
+            "selected",
+            "before",
+            "yaw",
+            "forward",
+            "strafe",
+            "jump",
+            "correction_reason"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "schema_version",
+        "event",
+        "server_tick",
+        "time",
+        "data"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "jev-control-trace-v1"
+        },
+        "event": {
+          "const": "segment_result"
+        },
+        "server_tick": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "time": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "jev-segment-v1"
+            },
+            "segment_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "request_id": {
+              "type": "string"
+            },
+            "selected": {
+              "$ref": "#/$defs/point"
+            },
+            "actual_ticks": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 12
+            },
+            "reason": {
+              "enum": [
+                "WAIT_COMPLETED",
+                "ENDPOINT_REACHED",
+                "COLLISION",
+                "OBSERVED_OBSTACLE",
+                "UNKNOWN",
+                "UNSUPPORTED_TERRAIN",
+                "DISTANCE_LIMIT",
+                "STALLED",
+                "DEADLINE",
+                "CANCELLED",
+                "ERROR",
+                "DEAD_OR_DISCONNECTED",
+                "BUDGET_EXCEEDED"
+              ]
+            },
+            "path_length": {
+              "type": "number",
+              "minimum": 0
+            },
+            "after": {
+              "type": "object",
+              "properties": {
+                "position": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "velocity": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "yaw": {
+                  "type": "number"
+                },
+                "pitch": {
+                  "type": "number"
+                },
+                "on_ground": {
+                  "type": "boolean"
+                },
+                "health": {
+                  "type": "number"
+                },
+                "hunger": {
+                  "type": "number"
+                },
+                "horizontal_collision": {
+                  "type": "boolean"
+                },
+                "body_tick": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "required": [
+                "position",
+                "velocity",
+                "yaw",
+                "pitch",
+                "on_ground",
+                "health",
+                "hunger",
+                "horizontal_collision",
+                "body_tick"
+              ],
+              "additionalProperties": false
+            },
+            "displacement": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 3,
+              "maxItems": 3
+            }
+          },
+          "required": [
+            "schema_version",
+            "segment_id",
+            "request_id",
+            "selected",
+            "actual_ticks",
+            "reason",
+            "path_length",
+            "after",
+            "displacement"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "schema_version",
+        "event",
+        "server_tick",
+        "time",
+        "data"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

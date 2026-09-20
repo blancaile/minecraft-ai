@@ -1,0 +1,1140 @@
+{
+  "issue": 40,
+  "scope": "LOCAL_COMPONENT_AND_MOCK_POLICY_ONLY",
+  "real_jev_runs": 0,
+  "batches": [
+    {
+      "evidence_directory": ".runtime-harness\\p1b-smoke-8e56d1dd4b85",
+      "availability": "local only",
+      "status": "CRITERIA_NOT_MET",
+      "artifact_sha256": "0c5defcdc992cb939c8c60cd550a2890d950cd3b5c9864f7459f4bcf340725ee",
+      "plan_sha256": "438394cebf6043da8a73e73b765b97eacd8ced8c8896e56c04f7551aba855181",
+      "verification_sha256": "e2533c08edc6c6a519514104974f7e7b19c5c456c1623362e0ded7abb7471dcd",
+      "runs": [
+        {
+          "condition": "west-yaw-0",
+          "mode": "assisted",
+          "status": "GOAL_REACHED",
+          "arrival": true,
+          "input_ticks": 13,
+          "decisions": 3,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "d639133f-eb0d-4c71-bfe4-a13f513c0a78.jsonl",
+          "trace_sha256": "6b75399b5daa3fe29448fec6b648329cbabb34fd6aa9cff99e3eb2a1dedf09f9",
+          "raw_trace_sha256": "6b75399b5daa3fe29448fec6b648329cbabb34fd6aa9cff99e3eb2a1dedf09f9",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ]
+        },
+        {
+          "condition": "west-yaw-90",
+          "mode": "assisted",
+          "status": "GOAL_REACHED",
+          "arrival": true,
+          "input_ticks": 13,
+          "decisions": 3,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "49fa0599-bf44-48f5-b5e6-356de153df9f.jsonl",
+          "trace_sha256": "88f3e528a3bd00c1a2159879203f48e2c0172d8cc6075b3c349fbc1703daa101",
+          "raw_trace_sha256": "88f3e528a3bd00c1a2159879203f48e2c0172d8cc6075b3c349fbc1703daa101",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ]
+        },
+        {
+          "condition": "east-yaw-0",
+          "mode": "assisted",
+          "status": "GOAL_REACHED",
+          "arrival": true,
+          "input_ticks": 13,
+          "decisions": 3,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "4d840142-cda1-451b-a9b3-70259b390850.jsonl",
+          "trace_sha256": "01782b77fca1ad0ba19fe978318a315768b1e6fb532ec45233ada7c33270a671",
+          "raw_trace_sha256": "01782b77fca1ad0ba19fe978318a315768b1e6fb532ec45233ada7c33270a671",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ]
+        },
+        {
+          "condition": "east-yaw-90",
+          "mode": "assisted",
+          "status": "GOAL_REACHED",
+          "arrival": true,
+          "input_ticks": 13,
+          "decisions": 3,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "87504c19-beed-4490-97d4-f86a04bd7cac.jsonl",
+          "trace_sha256": "e9d0380298f3e205f987747fc9c48539370e19d9fbfc65b0b24bb0787a77ef6f",
+          "raw_trace_sha256": "e9d0380298f3e205f987747fc9c48539370e19d9fbfc65b0b24bb0787a77ef6f",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ]
+        },
+        {
+          "condition": "wait",
+          "mode": "assisted",
+          "status": "BUDGET_EXCEEDED",
+          "arrival": false,
+          "input_ticks": 4,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "2304d7a5-f359-4faa-bfbb-0e17561efbab.jsonl",
+          "trace_sha256": "52c2b1c7d2eb52967edb14aabfb11e565c807154678abebde591d111552010e0",
+          "raw_trace_sha256": "52c2b1c7d2eb52967edb14aabfb11e565c807154678abebde591d111552010e0",
+          "segment_reasons": [
+            "WAIT_COMPLETED"
+          ]
+        },
+        {
+          "condition": "stall",
+          "mode": "assisted",
+          "status": "BUDGET_EXCEEDED",
+          "arrival": false,
+          "input_ticks": 12,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": false,
+          "trace": "9be9f01b-0f04-4972-838e-12cc619af39b.jsonl",
+          "trace_sha256": "a9be4b03846d5eeffdd803cff4fdfc94faed6c1ba85d8c61186fcbbf04f4aeca",
+          "raw_trace_sha256": "a9be4b03846d5eeffdd803cff4fdfc94faed6c1ba85d8c61186fcbbf04f4aeca",
+          "segment_reasons": [
+            "DEADLINE"
+          ]
+        },
+        {
+          "condition": "cancel",
+          "mode": "assisted",
+          "status": "BUDGET_EXCEEDED",
+          "arrival": false,
+          "input_ticks": 5,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": false,
+          "trace": "cc236c57-7f8d-45d9-95e6-8799bec6ae4d.jsonl",
+          "trace_sha256": "15fe2a731e67642e0fd21651043d85666eeae5815b794740cc65cd7dcf03029e",
+          "raw_trace_sha256": "15fe2a731e67642e0fd21651043d85666eeae5815b794740cc65cd7dcf03029e",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ]
+        },
+        {
+          "condition": "original-wall",
+          "mode": "assisted",
+          "status": "BUDGET_EXCEEDED",
+          "arrival": false,
+          "input_ticks": 17,
+          "decisions": 8,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "0bf6875e-5974-40c6-937b-e3451af9bd56.jsonl",
+          "trace_sha256": "8a48c85476769298c3fd9f800d30bba3a0e6d87014a0679bfd9b6e0e2135c36f",
+          "raw_trace_sha256": "8a48c85476769298c3fd9f800d30bba3a0e6d87014a0679bfd9b6e0e2135c36f",
+          "segment_reasons": [
+            "ENDPOINT_REACHED",
+            "UNKNOWN"
+          ]
+        },
+        {
+          "condition": "api",
+          "mode": "assisted",
+          "status": "ERROR",
+          "arrival": false,
+          "input_ticks": 0,
+          "decisions": 0,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "eadfdb04-e76b-4f35-93e9-cbe34df2e15a.jsonl",
+          "trace_sha256": "94e9493c0385729cbccde5696b0bbdfadf5553853ef8e81d92b1d5998e5ff80e",
+          "raw_trace_sha256": "94e9493c0385729cbccde5696b0bbdfadf5553853ef8e81d92b1d5998e5ff80e",
+          "segment_reasons": []
+        },
+        {
+          "condition": "network",
+          "mode": "assisted",
+          "status": "ERROR",
+          "arrival": false,
+          "input_ticks": 0,
+          "decisions": 0,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "d3149ede-23f1-484b-b4e9-f6e837d229a8.jsonl",
+          "trace_sha256": "23ceb89705f23b3ff63bc1c905873834fbd9acd45e67fd301b4056fdbad6f8f0",
+          "raw_trace_sha256": "23ceb89705f23b3ff63bc1c905873834fbd9acd45e67fd301b4056fdbad6f8f0",
+          "segment_reasons": []
+        },
+        {
+          "condition": "unknown",
+          "mode": "assisted",
+          "status": "ERROR",
+          "arrival": false,
+          "input_ticks": 0,
+          "decisions": 0,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "780831d8-2f3f-4995-ad88-e8bdcad5b866.jsonl",
+          "trace_sha256": "9684d058362afa520347d948a007ce472e10794718277b5d5cde9107b472d3f4",
+          "raw_trace_sha256": "9684d058362afa520347d948a007ce472e10794718277b5d5cde9107b472d3f4",
+          "segment_reasons": []
+        },
+        {
+          "condition": "timeout",
+          "mode": "assisted",
+          "status": "ERROR",
+          "arrival": false,
+          "input_ticks": 0,
+          "decisions": 0,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "2593d0bf-1d20-41e3-835a-25fccb55f926.jsonl",
+          "trace_sha256": "2d00905d506ef3b0303268cf7a3a2e9683cb4af1226986f158d153b5dabc8e53",
+          "raw_trace_sha256": "2d00905d506ef3b0303268cf7a3a2e9683cb4af1226986f158d153b5dabc8e53",
+          "segment_reasons": []
+        },
+        {
+          "condition": "stale",
+          "mode": "assisted",
+          "status": "ERROR",
+          "arrival": false,
+          "input_ticks": 0,
+          "decisions": 0,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "fab71b92-202b-4166-a98d-25896f00ee18.jsonl",
+          "trace_sha256": "a86dd16acb090d12feabd28dec70c4bd29dd0c73804339cbf823fa9b23fe24e0",
+          "raw_trace_sha256": "a86dd16acb090d12feabd28dec70c4bd29dd0c73804339cbf823fa9b23fe24e0",
+          "segment_reasons": []
+        }
+      ]
+    },
+    {
+      "evidence_directory": ".runtime-harness\\p1b-smoke-5dbf5444367c",
+      "availability": "local only",
+      "status": "CRITERIA_NOT_MET",
+      "artifact_sha256": "289f3347294faf072437b471c6070adec37f4cf3100b01cfbca4c449dec9f380",
+      "plan_sha256": "0395ee5117924a59ac953594e1aee4ecba465e92c442e380bc5331fef9c84f3c",
+      "verification_sha256": "e8753333520b5c99745d4d4a146670734bfca3dd72e7dcacf6d8ab766fd1ec74",
+      "runs": [
+        {
+          "condition": "west-yaw-0",
+          "mode": "assisted",
+          "status": "GOAL_REACHED",
+          "arrival": true,
+          "input_ticks": 13,
+          "decisions": 3,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "4bde8211-748e-4117-a430-09f2c4f78b48.jsonl",
+          "trace_sha256": "93743d8e6e5a345e6ac16709585145e5f3531151ccf84909cc7fd74836fce21c",
+          "raw_trace_sha256": "93743d8e6e5a345e6ac16709585145e5f3531151ccf84909cc7fd74836fce21c",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ]
+        },
+        {
+          "condition": "west-yaw-90",
+          "mode": "assisted",
+          "status": "GOAL_REACHED",
+          "arrival": true,
+          "input_ticks": 13,
+          "decisions": 3,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "2fadab2a-ddb4-471c-b394-c5aac10c6c6a.jsonl",
+          "trace_sha256": "26c665ce32c934525052fbf43add01f9e5bd36e65b0231634adcb69109074f95",
+          "raw_trace_sha256": "26c665ce32c934525052fbf43add01f9e5bd36e65b0231634adcb69109074f95",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ]
+        },
+        {
+          "condition": "east-yaw-0",
+          "mode": "assisted",
+          "status": "GOAL_REACHED",
+          "arrival": true,
+          "input_ticks": 13,
+          "decisions": 3,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "66660405-ab65-4ad1-8413-b4871fa52e42.jsonl",
+          "trace_sha256": "98905b226081bdfd43c31f5d1d1ea526187b1855eacaf984c64af07e8d90cbcb",
+          "raw_trace_sha256": "98905b226081bdfd43c31f5d1d1ea526187b1855eacaf984c64af07e8d90cbcb",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ]
+        },
+        {
+          "condition": "east-yaw-90",
+          "mode": "assisted",
+          "status": "GOAL_REACHED",
+          "arrival": true,
+          "input_ticks": 13,
+          "decisions": 3,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "ba305a50-0c42-42ee-b1d8-86d9ab0acb00.jsonl",
+          "trace_sha256": "48a2645f7997cde8efa2b2ac8c74fc7d4b316ef5f04cefde46fba32544f7aeaf",
+          "raw_trace_sha256": "48a2645f7997cde8efa2b2ac8c74fc7d4b316ef5f04cefde46fba32544f7aeaf",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ]
+        },
+        {
+          "condition": "wait",
+          "mode": "assisted",
+          "status": "BUDGET_EXCEEDED",
+          "arrival": false,
+          "input_ticks": 4,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "a1f850d6-46ca-4290-9857-bf094fde1276.jsonl",
+          "trace_sha256": "8498e992b3657af7d0b089ac85ac9a552cc6bb762a803bda37aa2091aac27568",
+          "raw_trace_sha256": "8498e992b3657af7d0b089ac85ac9a552cc6bb762a803bda37aa2091aac27568",
+          "segment_reasons": [
+            "WAIT_COMPLETED"
+          ]
+        },
+        {
+          "condition": "deadline",
+          "mode": "assisted",
+          "status": "BUDGET_EXCEEDED",
+          "arrival": false,
+          "input_ticks": 12,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "1ace39a4-0266-4c2f-a40f-a014b5501d9e.jsonl",
+          "trace_sha256": "b352c79ee42d413a6732842c09d9fecbc0e57b4830dfebcbae82e91b405505af",
+          "raw_trace_sha256": "b352c79ee42d413a6732842c09d9fecbc0e57b4830dfebcbae82e91b405505af",
+          "segment_reasons": [
+            "DEADLINE"
+          ]
+        },
+        {
+          "condition": "stall",
+          "mode": "assisted",
+          "status": "BUDGET_EXCEEDED",
+          "arrival": false,
+          "input_ticks": 3,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "3bca6dbb-be5c-4ab0-8562-46543490118b.jsonl",
+          "trace_sha256": "abcaf56fb8c99d1702469e12e41f962f725c1b7840c3ad54061348901f2e5c57",
+          "raw_trace_sha256": "abcaf56fb8c99d1702469e12e41f962f725c1b7840c3ad54061348901f2e5c57",
+          "segment_reasons": [
+            "STALLED"
+          ]
+        },
+        {
+          "condition": "cancel",
+          "mode": "assisted",
+          "status": "CANCELLED",
+          "arrival": null,
+          "input_ticks": null,
+          "decisions": null,
+          "valid_trace": false,
+          "verification_error": "Missing/duplicate input tick",
+          "mock_check": false,
+          "trace": "55a3ad81-7d1f-4487-b9fe-274d4d469452.jsonl",
+          "trace_sha256": null,
+          "raw_trace_sha256": "bf75d2f790c8dac2cb98725be1f9d210f2cd7190aada3ae521a0ea7a2fd0a7bb",
+          "segment_reasons": []
+        },
+        {
+          "condition": "original-wall",
+          "mode": "assisted",
+          "status": "BUDGET_EXCEEDED",
+          "arrival": false,
+          "input_ticks": 17,
+          "decisions": 8,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "3d03e9e2-16bb-4d7b-9c33-2865190bd6ab.jsonl",
+          "trace_sha256": "11141a51badbe84663fd35a193494f582af2cb201c878081f6f58ec902d079d6",
+          "raw_trace_sha256": "11141a51badbe84663fd35a193494f582af2cb201c878081f6f58ec902d079d6",
+          "segment_reasons": [
+            "ENDPOINT_REACHED",
+            "UNKNOWN"
+          ]
+        },
+        {
+          "condition": "api",
+          "mode": "assisted",
+          "status": "ERROR",
+          "arrival": false,
+          "input_ticks": 5,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "aa0eeb86-7973-4b24-8485-45ad41f203bc.jsonl",
+          "trace_sha256": "4525303d359a2c4904c1677313503cad4c6670c09099e6da90af5f1c769a29b5",
+          "raw_trace_sha256": "4525303d359a2c4904c1677313503cad4c6670c09099e6da90af5f1c769a29b5",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ]
+        },
+        {
+          "condition": "network",
+          "mode": "assisted",
+          "status": "ERROR",
+          "arrival": false,
+          "input_ticks": 5,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "89e7f153-8791-4e6b-890a-50fd7eae6b67.jsonl",
+          "trace_sha256": "b2998a1c11805cb2d463d498ff3cf06e4d1ba45a775b181c86da282411bf423a",
+          "raw_trace_sha256": "b2998a1c11805cb2d463d498ff3cf06e4d1ba45a775b181c86da282411bf423a",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ]
+        },
+        {
+          "condition": "unknown",
+          "mode": "assisted",
+          "status": "ERROR",
+          "arrival": false,
+          "input_ticks": 5,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "40cdc3a4-a19c-459e-8a9b-41523b3d66f4.jsonl",
+          "trace_sha256": "b90554f4839a43bbf735dc17fdf33db563c994c24d0ef73983c379dba01a8c90",
+          "raw_trace_sha256": "b90554f4839a43bbf735dc17fdf33db563c994c24d0ef73983c379dba01a8c90",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ]
+        },
+        {
+          "condition": "timeout",
+          "mode": "assisted",
+          "status": "ERROR",
+          "arrival": false,
+          "input_ticks": 5,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "f625b26e-8d89-495a-824a-48d4b8d04184.jsonl",
+          "trace_sha256": "357d8915a80427d657851364b5ad84df52e032cb35336b64089f7dddb5504f45",
+          "raw_trace_sha256": "357d8915a80427d657851364b5ad84df52e032cb35336b64089f7dddb5504f45",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ]
+        },
+        {
+          "condition": "stale",
+          "mode": "assisted",
+          "status": "ERROR",
+          "arrival": false,
+          "input_ticks": 5,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "1a6caf1d-2203-47ed-a2f5-934805e4f092.jsonl",
+          "trace_sha256": "20c1396f63e2fd723b380404e4059c3b9647612a8d7cc8243935f18767194238",
+          "raw_trace_sha256": "20c1396f63e2fd723b380404e4059c3b9647612a8d7cc8243935f18767194238",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ]
+        },
+        {
+          "condition": "late",
+          "mode": "assisted",
+          "status": "CANCELLED",
+          "arrival": false,
+          "input_ticks": 5,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "55d9d970-6082-403e-9657-042b9d51aaaa.jsonl",
+          "trace_sha256": "5d98bc824fe66bc2d3f48c7f84e92b30abb1bbc3340e9b6933f35969549fe521",
+          "raw_trace_sha256": "5d98bc824fe66bc2d3f48c7f84e92b30abb1bbc3340e9b6933f35969549fe521",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ]
+        }
+      ]
+    },
+    {
+      "evidence_directory": ".runtime-harness\\p1b-smoke-c1b3dcae537b",
+      "availability": "local only",
+      "status": "PASSED",
+      "artifact_sha256": "6c54e19524337682c110c2c4e18a163b26da8e7221a776d39950017ff051390c",
+      "plan_sha256": "5e1447a574e76b4c3e8f2e408443817f8466db27d3649b3230e7a9962f71aff7",
+      "verification_sha256": "e8a0279514bd9911571578c4037c304ccd0f81e954bb2a539b8bdd44c2313ea8",
+      "runs": [
+        {
+          "condition": "west-yaw-0",
+          "mode": "assisted",
+          "status": "GOAL_REACHED",
+          "arrival": true,
+          "input_ticks": 13,
+          "decisions": 3,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "c3a76fa0-41ee-4d0c-98a6-ec350b21a6b6.jsonl",
+          "trace_sha256": "047081694db132a492de52ab09550e61839a3a93371534bd93075fe5b8670783",
+          "raw_trace_sha256": "047081694db132a492de52ab09550e61839a3a93371534bd93075fe5b8670783",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ]
+        },
+        {
+          "condition": "west-yaw-90",
+          "mode": "assisted",
+          "status": "GOAL_REACHED",
+          "arrival": true,
+          "input_ticks": 13,
+          "decisions": 3,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "80798cde-3f48-44f0-a6a2-b936ac7ea19a.jsonl",
+          "trace_sha256": "dbad900602d74fdb799c19b67c6f3767330f5c822e09b7d2d5d215d180ec3508",
+          "raw_trace_sha256": "dbad900602d74fdb799c19b67c6f3767330f5c822e09b7d2d5d215d180ec3508",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ]
+        },
+        {
+          "condition": "east-yaw-0",
+          "mode": "assisted",
+          "status": "GOAL_REACHED",
+          "arrival": true,
+          "input_ticks": 13,
+          "decisions": 3,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "46dcaf0b-2d60-4c0e-8d8e-a850aa63df8c.jsonl",
+          "trace_sha256": "c11a2b30e0943cfba2ca207c4944f4a97edeaf53e45320292bf3b6f700f33a5a",
+          "raw_trace_sha256": "c11a2b30e0943cfba2ca207c4944f4a97edeaf53e45320292bf3b6f700f33a5a",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ]
+        },
+        {
+          "condition": "east-yaw-90",
+          "mode": "assisted",
+          "status": "GOAL_REACHED",
+          "arrival": true,
+          "input_ticks": 13,
+          "decisions": 3,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "5276a5b0-6c6d-4d20-baad-c4d0958cfd3b.jsonl",
+          "trace_sha256": "7acfc73b7f4648d209fea7e1d6a2c12c6a2089661eab8b7df2f983374cf0a48a",
+          "raw_trace_sha256": "7acfc73b7f4648d209fea7e1d6a2c12c6a2089661eab8b7df2f983374cf0a48a",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ]
+        },
+        {
+          "condition": "wait",
+          "mode": "assisted",
+          "status": "BUDGET_EXCEEDED",
+          "arrival": false,
+          "input_ticks": 4,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "ba3b808e-25b8-4ee9-b4c9-2d9ce516d308.jsonl",
+          "trace_sha256": "e68e8f48b3bcfbf5b5b1e2f0ef21016cb0a70e587096d3bcb476725b0b058045",
+          "raw_trace_sha256": "e68e8f48b3bcfbf5b5b1e2f0ef21016cb0a70e587096d3bcb476725b0b058045",
+          "segment_reasons": [
+            "WAIT_COMPLETED"
+          ]
+        },
+        {
+          "condition": "deadline",
+          "mode": "assisted",
+          "status": "BUDGET_EXCEEDED",
+          "arrival": false,
+          "input_ticks": 12,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "a4d3bdcc-54af-440d-bd6f-f1808daadada.jsonl",
+          "trace_sha256": "b6fc02229fedc5864f7a76309e845d3de35648b8d659c59e6c582b6b811610ca",
+          "raw_trace_sha256": "b6fc02229fedc5864f7a76309e845d3de35648b8d659c59e6c582b6b811610ca",
+          "segment_reasons": [
+            "DEADLINE"
+          ]
+        },
+        {
+          "condition": "stall",
+          "mode": "assisted",
+          "status": "BUDGET_EXCEEDED",
+          "arrival": false,
+          "input_ticks": 3,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "0a04b584-22a8-4fd8-9d5b-6d81f56d9f95.jsonl",
+          "trace_sha256": "0271d945c72227285fbfe047c427381ff1e921d507df63e6dff9b7db4560963b",
+          "raw_trace_sha256": "0271d945c72227285fbfe047c427381ff1e921d507df63e6dff9b7db4560963b",
+          "segment_reasons": [
+            "STALLED"
+          ]
+        },
+        {
+          "condition": "cancel",
+          "mode": "assisted",
+          "status": "CANCELLED",
+          "arrival": false,
+          "input_ticks": 2,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "92059dc2-5800-477a-ace3-0c96da859bce.jsonl",
+          "trace_sha256": "bf1828c7e408d7d304235fa1137a6f0f5b796072779fbcae2f45dd4df7479440",
+          "raw_trace_sha256": "bf1828c7e408d7d304235fa1137a6f0f5b796072779fbcae2f45dd4df7479440",
+          "segment_reasons": [
+            "CANCELLED"
+          ]
+        },
+        {
+          "condition": "original-wall",
+          "mode": "assisted",
+          "status": "BUDGET_EXCEEDED",
+          "arrival": false,
+          "input_ticks": 17,
+          "decisions": 8,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "974e205f-baf5-4e54-8397-f6b3d20f3e1a.jsonl",
+          "trace_sha256": "ccc00bb3ed2f111332ac8e52dae26d74b7d7e31d8112933c3ae75ae184f5aea6",
+          "raw_trace_sha256": "ccc00bb3ed2f111332ac8e52dae26d74b7d7e31d8112933c3ae75ae184f5aea6",
+          "segment_reasons": [
+            "ENDPOINT_REACHED",
+            "UNKNOWN"
+          ]
+        },
+        {
+          "condition": "api",
+          "mode": "assisted",
+          "status": "ERROR",
+          "arrival": false,
+          "input_ticks": 5,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "cf1d3ed0-7989-4775-ae9f-26c5ec92f76e.jsonl",
+          "trace_sha256": "0760040c49411d29f4fb295ed85dcbe8b157051f9ae0c6719a6253f39819a671",
+          "raw_trace_sha256": "0760040c49411d29f4fb295ed85dcbe8b157051f9ae0c6719a6253f39819a671",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ]
+        },
+        {
+          "condition": "network",
+          "mode": "assisted",
+          "status": "ERROR",
+          "arrival": false,
+          "input_ticks": 5,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "72504974-65d4-430b-83d9-978d4ae073d3.jsonl",
+          "trace_sha256": "c0973c9d7456f771f11361e3c866ccd4707d06bfe36501b9c8b8a935754311cf",
+          "raw_trace_sha256": "c0973c9d7456f771f11361e3c866ccd4707d06bfe36501b9c8b8a935754311cf",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ]
+        },
+        {
+          "condition": "unknown",
+          "mode": "assisted",
+          "status": "ERROR",
+          "arrival": false,
+          "input_ticks": 5,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "609c9094-c1ba-4e99-8eab-3f5ddf9c6806.jsonl",
+          "trace_sha256": "86c1d0e3c2e064a27d7e39e619795df2f5a739049832bee149f6c7ac2fdeb8df",
+          "raw_trace_sha256": "86c1d0e3c2e064a27d7e39e619795df2f5a739049832bee149f6c7ac2fdeb8df",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ]
+        },
+        {
+          "condition": "timeout",
+          "mode": "assisted",
+          "status": "ERROR",
+          "arrival": false,
+          "input_ticks": 5,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "363ef33b-e8fb-47dc-aa66-7bae3c6731c3.jsonl",
+          "trace_sha256": "2b57c83dc4a8d0dd4e9b9b2e81c81bfad39c63dc7c34e02a3f5df37084d14072",
+          "raw_trace_sha256": "2b57c83dc4a8d0dd4e9b9b2e81c81bfad39c63dc7c34e02a3f5df37084d14072",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ]
+        },
+        {
+          "condition": "stale",
+          "mode": "assisted",
+          "status": "ERROR",
+          "arrival": false,
+          "input_ticks": 5,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "54353e25-9426-4fb2-8d5c-bac133fff5fe.jsonl",
+          "trace_sha256": "dfe4ffefef1977f799ace9fbdae7d596b903b6bb53ec59509147cd0cdc84845d",
+          "raw_trace_sha256": "dfe4ffefef1977f799ace9fbdae7d596b903b6bb53ec59509147cd0cdc84845d",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ]
+        },
+        {
+          "condition": "late",
+          "mode": "assisted",
+          "status": "CANCELLED",
+          "arrival": false,
+          "input_ticks": 5,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "324803be-8f7d-4e33-925c-cc51d6cf5edc.jsonl",
+          "trace_sha256": "0a0ad2915c5dc6672c713df2410d7cd9a3c12026b1a3655b24a063290ed77ce0",
+          "raw_trace_sha256": "0a0ad2915c5dc6672c713df2410d7cd9a3c12026b1a3655b24a063290ed77ce0",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ]
+        }
+      ]
+    },
+    {
+      "evidence_directory": ".runtime-harness\\p1b-smoke-b5e8e6594f51",
+      "availability": "local only",
+      "status": "CRITERIA_NOT_MET",
+      "artifact_sha256": "6c54e19524337682c110c2c4e18a163b26da8e7221a776d39950017ff051390c",
+      "plan_sha256": "334dc438639a1d1d9d2ab9e5940248ec67f6829d9e9c62a70869491a01bfa077",
+      "verification_sha256": "63ef27fe32dedddacec81bb44d51d3a194091921f1206ad7988dcb1b16823392",
+      "runs": [
+        {
+          "condition": "static-block",
+          "mode": "assisted",
+          "status": "BUDGET_EXCEEDED",
+          "arrival": false,
+          "input_ticks": 0,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": false,
+          "trace": "af8272a9-2293-43d8-bb81-523a524acdba.jsonl",
+          "trace_sha256": "8086f24c1748d1910d091c9195672d1e628416388f57cfcd478967d4ea536a47",
+          "segment_reasons": [
+            "UNKNOWN"
+          ],
+          "raw_trace_sha256": "8086f24c1748d1910d091c9195672d1e628416388f57cfcd478967d4ea536a47"
+        },
+        {
+          "condition": "assisted-tick-budget",
+          "mode": "assisted",
+          "status": "BUDGET_EXCEEDED",
+          "arrival": false,
+          "input_ticks": 240,
+          "decisions": 60,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "686d4381-922b-4877-b018-30bfa77d8181.jsonl",
+          "trace_sha256": "556fe50e7b9027744fbe979320c42f01dc9442101c60c442c0f46eb0b8769eae",
+          "segment_reasons": [
+            "ENDPOINT_REACHED",
+            "DEADLINE"
+          ],
+          "raw_trace_sha256": "556fe50e7b9027744fbe979320c42f01dc9442101c60c442c0f46eb0b8769eae"
+        },
+        {
+          "condition": "direct-tick-budget",
+          "mode": "direct",
+          "status": "BUDGET_EXCEEDED",
+          "arrival": false,
+          "input_ticks": 240,
+          "decisions": 60,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "00478c4d-234f-418c-afc7-d2770d9e98cb.jsonl",
+          "trace_sha256": "7d1bfd57842c5ebd35aa190e2d5f148fbedcc3640f62f963eb2aa199f115032f",
+          "segment_reasons": [
+            "INTERVAL_COMPLETED"
+          ],
+          "raw_trace_sha256": "7d1bfd57842c5ebd35aa190e2d5f148fbedcc3640f62f963eb2aa199f115032f"
+        }
+      ]
+    },
+    {
+      "evidence_directory": ".runtime-harness\\p1b-smoke-a72258ac5739",
+      "availability": "local only",
+      "status": "PASSED",
+      "artifact_sha256": "52dcfc836e727f25cb2d58eacdfb726d2bf27f29d9c046ec6745859add48408f",
+      "plan_sha256": "cfceaf41e23d78cb6c57da9b5d51378ba5fbf3f267f80c957f0493d04025a0ad",
+      "verification_sha256": "4beffd7b6623ded7e3b036a1072b37f69094a080d932d213d37ae23d24123e67",
+      "runs": [
+        {
+          "condition": "west-yaw-0",
+          "mode": "assisted",
+          "status": "GOAL_REACHED",
+          "arrival": true,
+          "input_ticks": 13,
+          "decisions": 3,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "237766c2-1a1d-4f0d-bc24-0357f70d3222.jsonl",
+          "trace_sha256": "ad9934d471ab90f618a89387d28201d874fa8c7e8ecce78f5f26a55555157c5f",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ],
+          "raw_trace_sha256": "ad9934d471ab90f618a89387d28201d874fa8c7e8ecce78f5f26a55555157c5f"
+        },
+        {
+          "condition": "west-yaw-90",
+          "mode": "assisted",
+          "status": "GOAL_REACHED",
+          "arrival": true,
+          "input_ticks": 13,
+          "decisions": 3,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "1732b063-984f-465a-8412-347ac6a51c15.jsonl",
+          "trace_sha256": "5813a946d269d64bb9fbc768f795294cf08b47a3286e5b4c4a78cd5b5d4c0f35",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ],
+          "raw_trace_sha256": "5813a946d269d64bb9fbc768f795294cf08b47a3286e5b4c4a78cd5b5d4c0f35"
+        },
+        {
+          "condition": "east-yaw-0",
+          "mode": "assisted",
+          "status": "GOAL_REACHED",
+          "arrival": true,
+          "input_ticks": 13,
+          "decisions": 3,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "2abf69dd-1ef9-4538-b24e-f9f108ea78d4.jsonl",
+          "trace_sha256": "63ef47a7d6ca2993c1d18a40e430bcfd5d155f3624169327568ecd3da16d6493",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ],
+          "raw_trace_sha256": "63ef47a7d6ca2993c1d18a40e430bcfd5d155f3624169327568ecd3da16d6493"
+        },
+        {
+          "condition": "east-yaw-90",
+          "mode": "assisted",
+          "status": "GOAL_REACHED",
+          "arrival": true,
+          "input_ticks": 13,
+          "decisions": 3,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "4a89ddac-483e-4567-a62a-69ab63246493.jsonl",
+          "trace_sha256": "5d0668b65a4d89778f5717d1a041b8e11a2908d9718a8b69d92289cfab805674",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ],
+          "raw_trace_sha256": "5d0668b65a4d89778f5717d1a041b8e11a2908d9718a8b69d92289cfab805674"
+        },
+        {
+          "condition": "wait",
+          "mode": "assisted",
+          "status": "BUDGET_EXCEEDED",
+          "arrival": false,
+          "input_ticks": 4,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "5a4aea9c-b6e8-4957-8d2c-0ce21c9925d4.jsonl",
+          "trace_sha256": "5f21e004692da720ed9f819d9ad26542e849ab9fd5d40d6873e04bb941e59648",
+          "segment_reasons": [
+            "WAIT_COMPLETED"
+          ],
+          "raw_trace_sha256": "5f21e004692da720ed9f819d9ad26542e849ab9fd5d40d6873e04bb941e59648"
+        },
+        {
+          "condition": "deadline",
+          "mode": "assisted",
+          "status": "BUDGET_EXCEEDED",
+          "arrival": false,
+          "input_ticks": 12,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "68a5d9ec-ee91-4622-ac9c-dd6ee54df25f.jsonl",
+          "trace_sha256": "56307e35cdb22d56fb692f67e01bba7c6c026a375b97b5a5e4bf424e737f2d4d",
+          "segment_reasons": [
+            "DEADLINE"
+          ],
+          "raw_trace_sha256": "56307e35cdb22d56fb692f67e01bba7c6c026a375b97b5a5e4bf424e737f2d4d"
+        },
+        {
+          "condition": "stall",
+          "mode": "assisted",
+          "status": "BUDGET_EXCEEDED",
+          "arrival": false,
+          "input_ticks": 3,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "d206e5aa-10a3-4e5a-87f6-df1ecb608da8.jsonl",
+          "trace_sha256": "81733426f495235dc699993e09f9149f5c90fcfb33c1e39d88a2449d8fc0780c",
+          "segment_reasons": [
+            "STALLED"
+          ],
+          "raw_trace_sha256": "81733426f495235dc699993e09f9149f5c90fcfb33c1e39d88a2449d8fc0780c"
+        },
+        {
+          "condition": "cancel",
+          "mode": "assisted",
+          "status": "CANCELLED",
+          "arrival": false,
+          "input_ticks": 2,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "b1150501-2d02-4b81-9646-97abff7fee08.jsonl",
+          "trace_sha256": "a7845583b977b78be4442d3210117e1f0bd7f9ac0fd2c4dbb5c764721b79f67d",
+          "segment_reasons": [
+            "CANCELLED"
+          ],
+          "raw_trace_sha256": "a7845583b977b78be4442d3210117e1f0bd7f9ac0fd2c4dbb5c764721b79f67d"
+        },
+        {
+          "condition": "original-wall",
+          "mode": "assisted",
+          "status": "BUDGET_EXCEEDED",
+          "arrival": false,
+          "input_ticks": 17,
+          "decisions": 8,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "59e5c777-81ce-42eb-a015-8a5ff2345fbb.jsonl",
+          "trace_sha256": "786aee737258515a4c53fd689fd2f5ad360ce50ad9ea222720ca8ea86ec01a33",
+          "segment_reasons": [
+            "ENDPOINT_REACHED",
+            "OBSERVED_OBSTACLE"
+          ],
+          "raw_trace_sha256": "786aee737258515a4c53fd689fd2f5ad360ce50ad9ea222720ca8ea86ec01a33"
+        },
+        {
+          "condition": "static-block",
+          "mode": "assisted",
+          "status": "BUDGET_EXCEEDED",
+          "arrival": false,
+          "input_ticks": 0,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "081ee6e8-b0f0-406f-a9f3-698c6241005d.jsonl",
+          "trace_sha256": "1ad56ecf0c78c2668b43430bab4937cf7301b301dd5f8058e0887dcb079a2e11",
+          "segment_reasons": [
+            "OBSERVED_OBSTACLE"
+          ],
+          "raw_trace_sha256": "1ad56ecf0c78c2668b43430bab4937cf7301b301dd5f8058e0887dcb079a2e11"
+        },
+        {
+          "condition": "assisted-tick-budget",
+          "mode": "assisted",
+          "status": "BUDGET_EXCEEDED",
+          "arrival": false,
+          "input_ticks": 240,
+          "decisions": 60,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "a61e8d06-aa02-4822-8145-5bdf7e92f138.jsonl",
+          "trace_sha256": "2681c14defc7526c18bd579929bac7adebb8da80f0eb46cdc42c0eae9fc45cd6",
+          "segment_reasons": [
+            "ENDPOINT_REACHED",
+            "DEADLINE"
+          ],
+          "raw_trace_sha256": "2681c14defc7526c18bd579929bac7adebb8da80f0eb46cdc42c0eae9fc45cd6"
+        },
+        {
+          "condition": "direct-tick-budget",
+          "mode": "direct",
+          "status": "BUDGET_EXCEEDED",
+          "arrival": false,
+          "input_ticks": 240,
+          "decisions": 60,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "5892665e-1004-46f0-97de-45caa6ef7297.jsonl",
+          "trace_sha256": "f9b2a386d9440e2b45e74afb44b7bbe9634c5539b4c59ca1f5284930b8f12ca5",
+          "segment_reasons": [
+            "INTERVAL_COMPLETED"
+          ],
+          "raw_trace_sha256": "f9b2a386d9440e2b45e74afb44b7bbe9634c5539b4c59ca1f5284930b8f12ca5"
+        },
+        {
+          "condition": "api",
+          "mode": "assisted",
+          "status": "ERROR",
+          "arrival": false,
+          "input_ticks": 5,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "59fa3de0-d494-453c-841f-41695e3b0a4c.jsonl",
+          "trace_sha256": "1cbf854c8a48ad968b87239cb443b688a5830c18127b17afd32ab91621397dfa",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ],
+          "raw_trace_sha256": "1cbf854c8a48ad968b87239cb443b688a5830c18127b17afd32ab91621397dfa"
+        },
+        {
+          "condition": "network",
+          "mode": "assisted",
+          "status": "ERROR",
+          "arrival": false,
+          "input_ticks": 5,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "e67c3751-a403-47b8-9124-f9ce371772a4.jsonl",
+          "trace_sha256": "8ff4225404cfadced600dc481c8981fa4dda686338ba907480c0a77198e2a08f",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ],
+          "raw_trace_sha256": "8ff4225404cfadced600dc481c8981fa4dda686338ba907480c0a77198e2a08f"
+        },
+        {
+          "condition": "unknown",
+          "mode": "assisted",
+          "status": "ERROR",
+          "arrival": false,
+          "input_ticks": 5,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "1c037864-cb2e-445a-8c69-3a1484ecd91d.jsonl",
+          "trace_sha256": "4b56feb193fa36c07abd324a99fa3934e42c1e5a0558fe45cca6d69f735eef2d",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ],
+          "raw_trace_sha256": "4b56feb193fa36c07abd324a99fa3934e42c1e5a0558fe45cca6d69f735eef2d"
+        },
+        {
+          "condition": "timeout",
+          "mode": "assisted",
+          "status": "ERROR",
+          "arrival": false,
+          "input_ticks": 5,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "87f78792-836a-4085-82f1-219c4069b18c.jsonl",
+          "trace_sha256": "5880552dcf90bb475be25207662adec017d477b33cf65ce27ebc959225217a70",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ],
+          "raw_trace_sha256": "5880552dcf90bb475be25207662adec017d477b33cf65ce27ebc959225217a70"
+        },
+        {
+          "condition": "stale",
+          "mode": "assisted",
+          "status": "ERROR",
+          "arrival": false,
+          "input_ticks": 5,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "bb52d891-e46b-406f-91e8-5440b8f29968.jsonl",
+          "trace_sha256": "5cf51e6d99973412abe1453b908628a9982606e3dff0a276b6eac4f9bf43f131",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ],
+          "raw_trace_sha256": "5cf51e6d99973412abe1453b908628a9982606e3dff0a276b6eac4f9bf43f131"
+        },
+        {
+          "condition": "late",
+          "mode": "assisted",
+          "status": "CANCELLED",
+          "arrival": false,
+          "input_ticks": 5,
+          "decisions": 1,
+          "valid_trace": true,
+          "verification_error": null,
+          "mock_check": true,
+          "trace": "1c94b5ea-05a3-410d-a28f-3a4c02762124.jsonl",
+          "trace_sha256": "dc959e615fb1f50fab1be0c4d7d5dcae355781a2cfccd230ff9966b1bc5a7c5f",
+          "segment_reasons": [
+            "ENDPOINT_REACHED"
+          ],
+          "raw_trace_sha256": "dc959e615fb1f50fab1be0c4d7d5dcae355781a2cfccd230ff9966b1bc5a7c5f"
+        }
+      ]
+    }
+  ],
+  "final_artifact_sha256": "52dcfc836e727f25cb2d58eacdfb726d2bf27f29d9c046ec6745859add48408f"
+}

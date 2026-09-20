@@ -142,7 +142,7 @@ def audit_directory(directory, shared=False):
     return audit
 
 class Server:
-    def __init__(self, root, artifact, environment, endpoint=None):
+    def __init__(self, root, artifact, environment, endpoint=None, fixture_enabled=False):
         self.root = root
         self.data = root/'plugins/JevControl'
         self.data.mkdir(parents=True)
@@ -154,6 +154,7 @@ class Server:
         (root/'server.properties').write_text('online-mode=false\nserver-ip=127.0.0.1\nserver-port='+('25581' if endpoint else '25580')+'\nenable-rcon=false\nmax-players=1\nview-distance=3\nsimulation-distance=3\nlevel-type=minecraft:flat\ngenerate-structures=false\nspawn-protection=0\nlevel-seed=314159\n',encoding='utf-8')
         save(self.data/'jev-control.json', CONFIG)
         command=['java','-Xms512M','-Xmx2G']
+        if fixture_enabled: command.append('-Djev.fixture.enabled=true')
         if endpoint: command.append('-Djev.fixture.endpoint='+endpoint)
         command += ['-jar','server.jar','nogui']
         self.process=subprocess.Popen(command,cwd=root,env=environment,stdin=subprocess.PIPE,stdout=subprocess.PIPE,

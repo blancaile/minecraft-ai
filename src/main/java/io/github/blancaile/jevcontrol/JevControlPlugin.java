@@ -89,7 +89,14 @@ public final class JevControlPlugin extends JavaPlugin implements CommandExecuto
                     runtime.goal(((CraftWorld) target.getWorld()).getHandle(), new Vec3(target.getX(), target.getY(), target.getZ()));
                     yield "Goal set";
                 }
-                case "start" -> { runtime.start(); yield "Jev run started"; }
+                case "start" -> {
+                    if (args.length > 2) throw new IllegalArgumentException("Usage: jev start [direct|assisted]");
+                    runtime.start(args.length == 2 ? args[1] : "legacy"); yield "Jev run started";
+                }
+                case "fixture-wall" -> {
+                    if(args.length!=2) throw new IllegalArgumentException("Usage: jev fixture-wall NAME");
+                    runtime.fixtureWall(args[1]); yield "Isolated wall fixture configured";
+                }
                 case "stop" -> { runtime.stop(); yield runtime.status(); }
                 case "status" -> "sha256=" + artifactHash + " " + runtime.status();
                 case "observe" -> "Observation written: " + runtime.observe();

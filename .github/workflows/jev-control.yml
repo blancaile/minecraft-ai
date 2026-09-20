@@ -31,8 +31,14 @@ jobs:
         run: python3 -m unittest discover -s tools/runtime -p test_paper_acceptance.py
       - name: Verify P1 acceptance evidence validator offline
         run: python3 -m unittest discover -s tools/runtime -p test_p1_acceptance.py
+      - name: Install segment schema validator
+        run: python3 -m pip install -r tools/runtime/requirements.txt
+      - name: Verify P1b acceptance evidence validator offline
+        run: python3 -m unittest discover -s tools/runtime -p test_p1b_acceptance.py
       - name: Inject runtime faults on isolated Paper without real API credentials
         run: python3 tools/runtime/paper_acceptance.py --mode faults --execute
+      - name: Verify bounded assisted segments on isolated Paper with mock choices
+        run: python3 tools/runtime/p1b_acceptance.py --phase smoke --execute
       - name: Upload JAR and verification evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -52,3 +58,8 @@ jobs:
             .runtime-harness/paper-faults-*/verification.json
             .runtime-harness/paper-faults-*/plugins/JevControl/traces/
             .runtime-harness/paper-faults-*/plugins/JevControl/receipts/
+            .runtime-harness/p1b-smoke-*/console.log
+            .runtime-harness/p1b-smoke-*/plan.json
+            .runtime-harness/p1b-smoke-*/verification.json
+            .runtime-harness/p1b-smoke-*/plugins/JevControl/traces/
+            .runtime-harness/p1b-smoke-*/plugins/JevControl/receipts/

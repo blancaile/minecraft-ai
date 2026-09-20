@@ -5,6 +5,8 @@ description: Jevのデプロイ・reload・実験コマンド・結果待ち・�
 
 # Experiment loop
 
+Issue #40の新実装は `tools/runtime/p1b_acceptance.py`。[固定計画](../../../docs/operations/jev-control-p1b-plan-2026-09-20.md)に従い、`--phase smoke --execute`で模擬判断の隔離Paper検証、`--phase diagnostic`で計画出力。実APIは明示許可後のみ `--phase diagnostic --key-file <既存キー設定ファイル> --execute`。固定最終比較には同一artifactの診断4/4と `--diagnostic-directory` が必要。`--audit-directory`で生traceから再検証する。模擬判断の到達は実Jev受入へ数えない。Python依存は `tools/runtime/requirements.txt`。
+
 現在の主作業はIssue #40のJev判断＋有限区間の実行補助。`docs/research/jev-assisted-control-plan-2026-09-20.md`を参照する。以下のP0/P1aコマンドは既存の直接操作方式の手順であり、補助付き制御の実装・合格を意味しない。新比較では方式・区間・実入力tick・壁介入条件を固定し、P1aの過去の結果は保存する。
 
 関連skillのbuild/deploy/reload/execute-server-command/get-server-logを必要な操作に応じて読む。

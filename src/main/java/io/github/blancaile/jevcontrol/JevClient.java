@@ -11,7 +11,9 @@ import java.util.concurrent.CompletableFuture;
 
 /** No retry, no alternate endpoint/model/policy and no response body in error messages. */
 public final class JevClient implements AutoCloseable {
-    public record Decision(ControlAction action, JsonObject response, long latencyMillis) {}
+    public record Decision(String choice, JsonObject response, long latencyMillis) {
+        public ControlAction action() { return ControlAction.valueOf(choice); }
+    }
     private final HttpClient client;
     private final URI endpoint;
     private final ControlConfig config;
@@ -61,30 +63,48 @@ public final class JevClient implements AutoCloseable {
     }
 
     public CompletableFuture<Decision> choose(JsonObject snapshot, List<ControlAction> candidates) {
+        return send(payload(snapshot, candidates, config), candidates.stream().map(Enum::name).toList());
+    }
+
+    CompletableFuture<Decision> choosePoints(JsonObject snapshot, List<AssistedControl.Point> candidates) {
+        var payload = payload(snapshot, List.of(ControlAction.WAIT), config);
+        var question = payload.getAsJsonObject("questions").getAsJsonObject("next_action");
+        question.addProperty("instructions", AssistedControl.INSTRUCTIONS);
+        var criteria = new JsonObject();
+        candidates.forEach(p -> criteria.addProperty(p.id(), p.json().toString()));
+        question.add("criteria", criteria);
+        return send(payload, candidates.stream().map(AssistedControl.Point::id).toList());
+    }
+
+    private CompletableFuture<Decision> send(JsonObject payload, List<String> candidates) {
         long started = System.nanoTime();
         var request = HttpRequest.newBuilder(endpoint).timeout(Duration.ofSeconds(config.timeoutSeconds()))
                 .header("Authorization", "Bearer " + config.apiKey())
                 .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(payload(snapshot, candidates, config).toString(), StandardCharsets.UTF_8))
+                .POST(HttpRequest.BodyPublishers.ofString(payload.toString(), StandardCharsets.UTF_8))
                 .build();
         return client.sendAsync(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8)).thenApply(response -> {
             if (response.statusCode() != 200) throw new IllegalStateException("Jev HTTP " + response.statusCode());
             if (response.body().length() > 131072) throw new IllegalStateException("Oversized Jev response");
-            return parse(response.body(), candidates, config.model(), (System.nanoTime() - started) / 1_000_000);
+            return parseChoices(response.body(), candidates, config.model(), (System.nanoTime() - started) / 1_000_000);
         });
     }
 
     static Decision parse(String body, List<ControlAction> candidates, String expectedModel, long latency) {
+        return parseChoices(body, candidates.stream().map(Enum::name).toList(), expectedModel, latency);
+    }
+
+    static Decision parseChoices(String body, List<String> candidates, String expectedModel, long latency) {
         try {
             var raw = JsonParser.parseString(body).getAsJsonObject();
             if (!string(raw, "model").equals(expectedModel)) throw new IllegalArgumentException();
             var answer = raw.getAsJsonObject("answers").getAsJsonObject("next_action");
-            var action = ControlAction.valueOf(string(answer, "choice"));
+            var action = string(answer, "choice");
             if (!candidates.contains(action)) throw new IllegalArgumentException();
             double confidence = probability(answer.get("confidence"));
             var distribution = answer.getAsJsonObject("probabilities");
             var expected = new HashSet<String>();
-            candidates.forEach(a -> expected.add(a.name()));
+            expected.addAll(candidates);
             if (!distribution.keySet().equals(expected)) throw new IllegalArgumentException();
             double sum = 0;
             var safeDistribution = new JsonObject();
@@ -97,7 +117,7 @@ public final class JevClient implements AutoCloseable {
             if (Math.abs(sum - 1) > 0.05) throw new IllegalArgumentException();
             var safe = new JsonObject();
             safe.addProperty("model", expectedModel);
-            safe.addProperty("choice", action.name());
+            safe.addProperty("choice", action);
             safe.addProperty("confidence", confidence);
             safe.add("probabilities", safeDistribution);
             if (raw.has("usage")) {

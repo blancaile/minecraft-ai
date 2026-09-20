@@ -22,6 +22,9 @@ final class FakePlayerBody extends ServerPlayer {
     private final LocalConnection localConnection = new LocalConnection();
     private float forward;
     private float strafe;
+    private long physicalTicks;
+    private Runnable beforeAssistedTick;
+    long physicalTicks() { return physicalTicks; }
 
     private FakePlayerBody(MinecraftServer server, ServerLevel world) {
         super(server, world, new GameProfile(ID, NAME), ClientInformation.createDefault());
@@ -67,10 +70,12 @@ final class FakePlayerBody extends ServerPlayer {
 
     @Override public void tick() {
         super.tick();
+        if(beforeAssistedTick!=null) beforeAssistedTick.run();
         // No remote client exists to invoke the player/living-entity movement tick.
         xxa = strafe;
         zza = forward;
         super.doTick();
+        physicalTicks++;
     }
 
     static void apply(FakePlayerBody bot, ControlAction action) {
@@ -95,6 +100,15 @@ final class FakePlayerBody extends ServerPlayer {
     static void stop(FakePlayerBody bot) {
         bot.forward = bot.strafe = bot.xxa = bot.zza = 0;
         bot.jumping = false;
+        bot.beforeAssistedTick = null;
+    }
+
+    static void assistedInput(FakePlayerBody bot, float yaw, float forward, Runnable beforeTick) {
+        if (!Float.isFinite(yaw) || !Float.isFinite(forward) || forward < 0 || forward > 1)
+            throw new IllegalStateException("Invalid segment input");
+        stop(bot);
+        bot.setYRot(yaw); bot.setYHeadRot(yaw); bot.forward = forward;
+        bot.beforeAssistedTick=beforeTick;
     }
 
     static void despawn(FakePlayerBody bot) {

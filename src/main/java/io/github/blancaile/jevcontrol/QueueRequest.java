@@ -17,7 +17,7 @@ record QueueRequest(String id, String command, long expiresAtMillis) {
             boolean sealedInstall = command.matches("jev key-install [A-Za-z0-9+/]{512}");
             if ((!sealedInstall && command.length() > 256) || command.contains("\n") || command.contains("\r") || !command.startsWith("jev ")) throw new IllegalArgumentException();
             String action = command.substring(4).split(" ")[0];
-            if (!Set.of("key-prepare", "key-install", "key-status", "site", "spawn-near", "spawn", "despawn", "status", "observe", "goal", "smoke", "step", "start", "stop").contains(action))
+            if (!Set.of("key-prepare", "key-install", "key-status", "site", "spawn-near", "spawn", "despawn", "status", "observe", "goal", "smoke", "step", "start", "stop", "fixture-wall").contains(action))
                 throw new IllegalArgumentException();
             if (action.equals("key-install") && !sealedInstall) throw new IllegalArgumentException();
             return new QueueRequest(id, command, expires);

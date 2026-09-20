@@ -117,6 +117,10 @@ final class Observation {
         return s;
     }
 
+    static JsonObject physicalSelf(FakePlayerBody bot) {
+        var s=self(bot);s.addProperty("body_tick",bot.physicalTicks());return s;
+    }
+
     static JsonArray vector(Vec3 v) {
         var result = new JsonArray();
         result.add(v.x); result.add(v.y); result.add(v.z);
