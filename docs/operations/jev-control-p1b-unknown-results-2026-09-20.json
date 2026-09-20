@@ -194,16 +194,139 @@
           "interventions": []
         }
       ]
+    },
+    {
+      "directory": ".runtime-harness\\p1b-smoke-3da45a08e2d8",
+      "availability": "Raw JSONL, receipts and binaries retained locally only",
+      "phase": "smoke",
+      "source_commit": "aebad6ffc843f3db74debd95972decfa77d015aa",
+      "artifact_sha256": "d2efa94f3cb5def7a15cf6212614c1e27e4c3092989aedeff4a36a244c9afd02",
+      "plan_sha256": "00973741090add7cdd24b43fd75d6031fa16b646558a49f88b82962669f3f0d7",
+      "verification_sha256": "c95b9466af8aa03326757e053767ced46adfc8f9216d33cffd11d677f866065b",
+      "schedule": [
+        {
+          "mode": "assisted",
+          "repeat": 1,
+          "yaw": 0,
+          "goal": [
+            20.5,
+            81,
+            0.5
+          ],
+          "choice": "E",
+          "expected": "BUDGET_EXCEEDED",
+          "config": {
+            "maxDecisions": 1
+          },
+          "condition": "occluded-support",
+          "occluded_support": true,
+          "reason": "UNKNOWN",
+          "ticks_expected": 0
+        }
+      ],
+      "hypothesis": null,
+      "recorded_status": "PASSED",
+      "audit": {
+        "passed": null,
+        "note": "Live acceptance audit does not apply to mock smoke; per-trace checks below"
+      },
+      "runs": [
+        {
+          "condition": "occluded-support",
+          "mode": "assisted",
+          "repeat": 1,
+          "trace": "7b288dbd-ed52-4b25-b361-90f3ad848f6f.jsonl",
+          "run_id": "7b288dbd-ed52-4b25-b361-90f3ad848f6f",
+          "artifact_sha256": "d2efa94f3cb5def7a15cf6212614c1e27e4c3092989aedeff4a36a244c9afd02",
+          "config": {
+            "model": "jev-1.13.0",
+            "actionTicks": 4,
+            "timeoutSeconds": 10,
+            "maxObservationAgeTicks": 200,
+            "maxDecisions": 1,
+            "maxRunSeconds": 120,
+            "observationRadius": 3,
+            "goalRadius": 1.0,
+            "maxDistanceFromSpawn": 64.0
+          },
+          "fault_fixture": true,
+          "spawn": [
+            0.5,
+            81.0,
+            0.5
+          ],
+          "goal": [
+            20.5,
+            81.0,
+            0.5
+          ],
+          "initial": {
+            "position": [
+              0.5,
+              81.0,
+              0.5
+            ],
+            "velocity": [
+              0.0,
+              -0.0784000015258789,
+              0.0
+            ],
+            "yaw": 0.0,
+            "pitch": 0.0,
+            "on_ground": true,
+            "health": 20.0,
+            "hunger": 20,
+            "horizontal_collision": false
+          },
+          "status": "BUDGET_EXCEEDED",
+          "arrival": false,
+          "final_distance": 20.0,
+          "input_ticks": 0,
+          "decisions": 1,
+          "elapsed_ms": 248,
+          "wall_chain": [],
+          "cycles": [
+            {
+              "request_id": "a5d042ec-dca7-4d43-837f-8086a7acdd2a",
+              "choice": "E",
+              "ticks": 0,
+              "goal_distance": 20.0,
+              "latency_ms": 115,
+              "reason": "UNKNOWN"
+            }
+          ],
+          "trace_sha256": "f6ca6d920d450364c9ee234362b32611cc7469e8a623630af630d5db13acca0c",
+          "api_requests": 1,
+          "actions": {
+            "E": 1
+          },
+          "max_tick_gap_ms": 65.9577,
+          "snapshot_age_ticks": [
+            4
+          ],
+          "latency_p50_ms": 115,
+          "latency_p95_ms": 115,
+          "release_verified": true,
+          "path_length_during_input": 0.0,
+          "horizontal_reversals": 0,
+          "final_position": [
+            0.5,
+            81.0,
+            0.5
+          ],
+          "interventions": []
+        }
+      ]
     }
   ],
   "aggregate": {
-    "runs": 2,
-    "decisions": 2,
-    "api_requests": 2,
+    "runs": 3,
+    "decisions": 3,
+    "api_requests": 3,
     "input_ticks": 0,
     "status_counts": {
       "ERROR": 1,
-      "BUDGET_EXCEEDED": 1
+      "BUDGET_EXCEEDED": 2
     }
   }
 }
