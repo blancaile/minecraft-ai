@@ -55,8 +55,7 @@ public final class JevClient implements AutoCloseable {
         var payload = new JsonObject();
         payload.addProperty("model", config.model());
         // Textual JSON is accepted by the documented state-string API contract.
-        // The raw snapshot and this exact derived policy representation are both traced.
-        payload.addProperty("state", snapshot.has("policy_state") ? snapshot.get("policy_state").toString() : snapshot.toString());
+        payload.addProperty("state", snapshot.toString());
         payload.add("questions", questions);
         return payload;
     }
