@@ -74,6 +74,7 @@ final class Observation {
             }
         }
         state.add("local_cells", cells);
+        state.add("observed_body_sweeps", ObservedGeometry.capture(state, bot.getBbWidth() / 2.0, bot.getBbHeight()));
         state.addProperty("cell_origin_note", "Collision boxes are relative to each integer block position; unlisted cells are UNKNOWN");
         var entities = new JsonArray();
         List<Entity> visible = world.getEntities(bot, bot.getBoundingBox().inflate(radius * 2.0),
@@ -101,6 +102,7 @@ final class Observation {
         candidates.forEach(a -> names.add(a.name()));
         state.add("legal_candidates", names);
         state.add("excluded_candidates", exclusions);
+        state.add("policy_state", PolicyObservation.compact(state));
         return new Capture(state, List.copyOf(candidates));
     }
 

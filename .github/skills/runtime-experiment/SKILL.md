@@ -44,3 +44,16 @@ python tools/runtime/paper_acceptance.py --mode live --key-file <既存.envの�
 ```
 
 先にbuild/Smokeで固定Paperをキャッシュする。`--execute`なしで事前予算とfixtureを見る。証拠は `.runtime-harness/paper-{live,faults}-*/`。liveはキーを子Javaの環境変数だけに渡す。faultsはloopbackと専用ダミーキーだけで動き、本物のキーを読まない。APIエラーは再試行や別policyへ置換せず停止。初期姿勢のfixture設定はrun開始前のみ。全失敗runを残し、実Jevのcycleと模擬判断を合算しない。
+
+## P1a: 動的障害物と目標への復帰
+
+Issue #39の条件と総予算は `docs/operations/jev-control-p1a-plan-2026-09-20.md`。P0の成功判定ではP1aを判定しない。実API実行を許可された場合、隔離Paperで次を使う:
+
+```powershell
+python tools/runtime/p1_acceptance.py --phase baseline --repeats 3 --artifact <保存したP0のJAR> --key-file <既存.envの絶対パス> --execute
+python tools/runtime/p1_acceptance.py --phase development --repeats 1 --artifact build/libs/jev-control-paper-0.2.0.jar --key-file <既存.envの絶対パス> --execute
+python tools/runtime/p1_acceptance.py --phase final --repeats 3 --artifact build/libs/jev-control-paper-0.2.0.jar --key-file <既存.envの絶対パス> --execute
+python tools/runtime/p1_acceptance.py --audit-directory <p1a-evidence-directory>
+```
+
+実行前にartifact・条件・予算をplanへ保存する。baseline/developmentは失敗を含む比較資料、finalは同一JARで3条件×3回、各条件2回以上到達が必要。元の壁は左右対称なので、mirrored-wallは壁の体積のみをworld x=0で反転し、開始位置と目標を保持する。壁の観測→判断→入力→結果と実座標での到達をauditする。ERROR停止を別policyや再試行で埋めない。生trace・失敗結果を保存し、共有サーバーの地形は変更しない。

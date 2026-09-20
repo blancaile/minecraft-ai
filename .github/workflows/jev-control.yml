@@ -29,6 +29,8 @@ jobs:
         run: python3 tools/ci/server_smoke.py build/libs/jev-control-paper-0.2.0.jar
       - name: Verify acceptance evidence validator offline
         run: python3 -m unittest discover -s tools/runtime -p test_paper_acceptance.py
+      - name: Verify P1 acceptance evidence validator offline
+        run: python3 -m unittest discover -s tools/runtime -p test_p1_acceptance.py
       - name: Inject runtime faults on isolated Paper without real API credentials
         run: python3 tools/runtime/paper_acceptance.py --mode faults --execute
       - name: Upload JAR and verification evidence

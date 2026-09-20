@@ -16,7 +16,11 @@ final class ControlFrame {
         frame.add("STRAFE_LEFT_world_unit_xz", pair(lx, lz));
         frame.add("STRAFE_RIGHT_world_unit_xz", pair(-lx, -lz));
         frame.addProperty("goal_forward_blocks", goalX * fx + goalZ * fz);
+        frame.addProperty("goal_back_blocks", -(goalX * fx + goalZ * fz));
         frame.addProperty("goal_left_blocks", goalX * lx + goalZ * lz);
+        frame.addProperty("goal_right_blocks", -(goalX * lx + goalZ * lz));
+        frame.addProperty("projection_note", "Signed projections of the goal displacement onto each input axis, in blocks. "
+                + "Positive is along that axis; negative is opposite. These describe direction only, not clearance or an action recommendation.");
         return frame;
     }
     private static JsonArray pair(double a, double b) {

@@ -129,4 +129,4 @@ JARが変わらない反復では`-Deploy -Reload`を省略します。Jevのrea
 
 相対座標はコマンド実行者が基準です。goalはbotと同じworldに限定します。API待ちは非同期、一体一判断。timeout/stale/不正応答では入力を解除してERROR停止し、別policyへ切り替えません。
 
-Issue #38の実Jev 3run/100cycles、目標到達、障害物による再選択は別の未達条件です。ローカル身体smokeで代替できません。またNMS fake playerは通常のログイン/移動パケット経路と同一ではなく、共有環境の保護・NPC判定・アンチチート等との相互作用は現地で検証が必要です。
+Issue #38のP0は[実機記録](jev-control-live-acceptance-2026-09-20.md)の範囲で完了しました。障害物適応の未達を受けたIssue #39は、[P1aの計画](jev-control-p1a-plan-2026-09-20.md)と[評価記録](jev-control-p1a-evaluation-2026-09-20.md)を参照してください。ローカル身体smokeはモデルの到達能力の証拠ではありません。またNMS fake playerは通常のログイン/移動パケット経路と同一ではなく、共有環境の保護・NPC判定・アンチチート等との相互作用は現地で検証が必要です。

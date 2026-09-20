@@ -21,6 +21,8 @@ try {
     & (Join-Path $PSScriptRoot 'test-remote.ps1') -Artifact $artifact
     python -m unittest discover -s tools/runtime -p test_paper_acceptance.py
     if ($LASTEXITCODE -ne 0) { throw 'Acceptance evidence verifier tests failed' }
+    python -m unittest discover -s tools/runtime -p test_p1_acceptance.py
+    if ($LASTEXITCODE -ne 0) { throw 'P1 acceptance evidence verifier tests failed' }
     if ($Smoke) {
         python tools/ci/server_smoke.py $artifact
         if ($LASTEXITCODE -ne 0) { throw 'Paper runtime smoke failed' }
