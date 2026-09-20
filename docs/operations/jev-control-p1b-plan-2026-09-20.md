@@ -4,6 +4,12 @@
 設計根拠は[承認済み方針](../research/jev-assisted-control-plan-2026-09-20.md)。
 #38のP0完了、#39の元の壁0/3という未達判定と比較artifactを保持する。
 
+2026-09-20追記：ユーザーが実Jev API使用の継続的許可と実験検証サイクルの続行を指示。実行ごとの許可確認は不要。初回診断はcommit `c1e8c82` / JAR `52dcfc836e727f25cb2d58eacdfb726d2bf27f29d9c046ec6745859add48408f`で下記8runを実施する。開発6run・最終18runは未使用。最大32run / 1,920判断の計画を維持する。
+
+初回診断結果：assisted4/4、direct3/4、生trace監査PASS。開発batch1は同じJARで元の壁1runだけ（60判断/120秒/240tick）。仮説は「近距離点と観測上の通過可否を使い、壁後に新しいJev判断で迂回・復帰できる」。残り開発枠5runは、必要なら壁probe1件と変更後のassisted再診断4件に使う。変更後の4診断は開発枠に計上し、初回direct4結果を保存したまま、最終比較の両方式9件ずつは変更後の同一JARで行う。新方式の成功を旧JARへ流用しない。
+
+開発batch1結果：元の壁は47判断/240tickで未到達。44区間が終点到達、2区間が既知障害物で停止、最後は残り予算による期限停止。壁前の東西往復をtraceで確認した。開発batch2は直近4区間の実結果を追加する `jev-assisted-v2` を元の壁1runで試す。promptには過去4区間を使って失敗した往復を避けることと、迂回では一時的に目標距離が増えうることだけを追加する。方向・経路・候補順位・除外はコードへ追加しない。記憶不足が原因と確定したわけではなく、この情報追加で選択が変わるかを検証する。変更後の診断4runと合わせて開発枠6runを使い切り、合計最大32runは維持する。実行前の各planに新JARハッシュを固定する。
+
 ## 仮説と制御境界
 
 Jevが世界座標の近距離点を選び、コードがその固定終点へのyaw・前進入力を補正することで、yaw依存の操作を選ぶ負担を減らせる可能性がある。方向選択や障害物迂回が改善するかは未検証。比較で候補表現・操作粒度・補正が同時に変わるため、補正だけの因果効果とは解釈しない。
@@ -47,7 +53,7 @@ Paper 1.21.11 build 116 / Java 21 / jev-1.13.0。開始 `(0.5,81,0.5)`、到達�
 tools/runtime/build.ps1 -Smoke
 python tools/runtime/p1b_acceptance.py --phase smoke --execute
 python tools/runtime/p1b_acceptance.py --phase diagnostic
-# 実APIの実行許可後のみ:
+# 実Jev APIはユーザーから継続的に許可済み:
 python tools/runtime/p1b_acceptance.py --phase diagnostic --key-file <既存のキー設定ファイル> --execute
 python tools/runtime/p1b_acceptance.py --audit-directory <診断証拠ディレクトリ>
 python tools/runtime/p1b_acceptance.py --phase final --diagnostic-directory <診断証拠ディレクトリ> --key-file <既存のキー設定ファイル> --execute

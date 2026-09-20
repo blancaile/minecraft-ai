@@ -2,6 +2,8 @@
 
 対象：[Issue #40](https://github.com/blancaile/minecraft-ai/issues/40)。[実行前計画・再現コマンド](jev-control-p1b-plan-2026-09-20.md)。
 
+この文書は初回実装・模擬検証時点の記録。ユーザーの継続的なAPI使用許可後の結果は[実Jev比較・開発記録](jev-control-p1b-live-evaluation-2026-09-20.md)を参照する。以下の「許可待ち」は当時の状態。
+
 ## 現在の結論
 
 補助付き制御、区間schema、trace監査、隔離Paperの試験runnerを実装し、最終JARの模擬実機試験18/18を通過した。実Jev診断・壁比較は実API実行の明示許可待ちで未実施、P1bの到達条件は未達扱い、Issueはopen。

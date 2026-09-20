@@ -56,6 +56,12 @@ class EvidenceTests(unittest.TestCase):
         rows=self.fixture();rows[4]['data']['automatic_detour']=True
         with self.assertRaises(p.EvidenceError):self.check(rows)
 
+    def test_history_cannot_invent_a_prior_segment(self):
+        rows=self.fixture();rows[1]['data'].update(schema_version='jev-assisted-v2',recent_segments=[])
+        self.check(rows)
+        rows[1]['data']['recent_segments']=[{'request_id':'invented'}]
+        with self.assertRaises(p.EvidenceError):self.check(rows)
+
     def test_cancel_counts_consumed_body_ticks_even_with_same_server_tick(self):
         rows=self.fixture();rows[-2]['server_tick']=5;rows[-1]['server_tick']=5
         rows[-2]['data']['reason']='CANCELLED';rows[-1]['data']['status']='CANCELLED'
@@ -75,6 +81,13 @@ class EvidenceTests(unittest.TestCase):
         for r in runs:r['fault_fixture']=False
         self.assertTrue(p.verdict(runs,'diagnostic'));runs[1]['arrival']=False
         self.assertFalse(p.verdict(runs,'diagnostic'))
+
+    def test_development_cannot_silently_expand_or_replace_the_fixed_final(self):
+        cases=['original-wall'];trial=p.schedule('development',cases)
+        self.assertEqual(1,len(trial));self.assertEqual('assisted',trial[0]['mode'])
+        for invalid in ([],['original-wall']*2,list(p.DIAGNOSTICS|p.PRESETS)):
+            with self.assertRaises(ValueError):p.schedule('development',invalid)
+        self.assertEqual(18,len(p.schedule('final')))
 
 
 if __name__=='__main__':unittest.main()

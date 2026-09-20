@@ -12,6 +12,8 @@ final class AssistedControl {
             + "Coordinates use world axes, independent of facing. Code only steers toward your chosen fixed endpoint "
             + "for at most 12 ticks and stops on arrival, collision, unknown space, stall or deadline. "
             + "You choose any detour, retreat, continuation or return toward the goal in a new decision. "
+            + "Use the last four measured segment outcomes to avoid repeating unsuccessful back-and-forth movement. "
+            + "A detour can temporarily increase the goal distance. "
             + "Unknown cells are not known to be empty. No automatic detour or pathfinder exists.";
 
     record Point(String id, double x, double y, double z, boolean waitOnly) {

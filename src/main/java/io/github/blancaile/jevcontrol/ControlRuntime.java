@@ -54,6 +54,7 @@ final class ControlRuntime {
         int inputTicks;
         List<AssistedControl.Point> points = List.of();
         AssistedControl.Segment segment;
+        final SegmentHistory segmentHistory=new SegmentHistory();
         long segmentBodyStart;
         boolean wallPlaced;
         Run(ControlConfig config, String policy) { this.config = config; this.policy = policy; }
@@ -266,7 +267,8 @@ final class ControlRuntime {
                     point.addProperty("observed_sweep", p.waitOnly() ? "WAIT" : AssistedControl.guard(capture.state().getAsJsonArray("local_cells"),bot.getX(),bot.getY(),bot.getZ(),p.x(),p.z()));
                     coordinates.add(point);
                 }
-                capture.state().addProperty("schema_version", "jev-assisted-v1");
+                capture.state().addProperty("schema_version", "jev-assisted-v2");
+                capture.state().add("recent_segments",run.segmentHistory.snapshot());
                 capture.state().addProperty("execution_mode", "assisted");
                 capture.state().addProperty("instructions", AssistedControl.INSTRUCTIONS);
                 capture.state().add("legal_candidates", names);
@@ -372,7 +374,8 @@ final class ControlRuntime {
         event.addProperty("actual_ticks",elapsed); event.addProperty("reason",reason);
         event.addProperty("path_length",s.path); event.add("after",Observation.physicalSelf(bot));
         event.add("displacement",Observation.vector(bot.position().subtract(new Vec3(s.startX,s.startY,s.startZ))));
-        run.log.write("segment_result",tick,event); run.previous=event; run.segment=null; status="OBSERVING";
+        run.log.write("segment_result",tick,event); run.segmentHistory.add(event);
+        run.previous=event; run.segment=null; status="OBSERVING";
     }
 
     private void recordResult() throws IOException {

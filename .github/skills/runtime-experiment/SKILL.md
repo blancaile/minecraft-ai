@@ -5,7 +5,7 @@ description: Jevのデプロイ・reload・実験コマンド・結果待ち・�
 
 # Experiment loop
 
-Issue #40の新実装は `tools/runtime/p1b_acceptance.py`。[固定計画](../../../docs/operations/jev-control-p1b-plan-2026-09-20.md)に従い、`--phase smoke --execute`で模擬判断の隔離Paper検証、`--phase diagnostic`で計画出力。実APIは明示許可後のみ `--phase diagnostic --key-file <既存キー設定ファイル> --execute`。固定最終比較には同一artifactの診断4/4と `--diagnostic-directory` が必要。`--audit-directory`で生traceから再検証する。模擬判断の到達は実Jev受入へ数えない。Python依存は `tools/runtime/requirements.txt`。
+Issue #40の新実装は `tools/runtime/p1b_acceptance.py`。[固定計画](../../../docs/operations/jev-control-p1b-plan-2026-09-20.md)に従い、`--phase smoke --execute`で模擬判断の隔離Paper検証、`--phase diagnostic`で計画出力。実APIは2026-09-20のユーザー指示で継続的に許可済み。再確認せず `--phase diagnostic --key-file <既存キー設定ファイル> --execute` を使える。固定最終比較には診断4/4と `--diagnostic-directory` が必要。artifact変更後は開発枠で再診断し、古い成功を新artifactへ流用しない。`--audit-directory`で生traceから再検証する。模擬判断の到達は実Jev受入へ数えない。Python依存は `tools/runtime/requirements.txt`。
 
 現在の主作業はIssue #40のJev判断＋有限区間の実行補助。`docs/research/jev-assisted-control-plan-2026-09-20.md`を参照する。以下のP0/P1aコマンドは既存の直接操作方式の手順であり、補助付き制御の実装・合格を意味しない。新比較では方式・区間・実入力tick・壁介入条件を固定し、P1aの過去の結果は保存する。
 
@@ -40,7 +40,7 @@ Issueに紐づく実験では、ルート `AGENTS.md` の「Issueに紐づくタ
 
 常設済みサーバーでは `tools/runtime/live-near-player.ps1 -UseConfiguredKey -Player Philia_Gray -Execute` を使用する。設定・キーは読出し/上書き/復元せず、`jev key-status` の非秘密情報で構成を確認する。終了時はこの試験のbotだけstop/despawn。以下の一時キー手順を常設サーバーへ適用しない。常設・ローテーションは `deploy/SKILL.md` の暗号化provision手順へ。
 
-READMEの `.env` の `jev_api_key` は `tools/probes/jev_client.py::load_jev_api_key` で読む。キーの再入力をユーザーへ求める前にこの既存設定を確認する。値や認証header、`.env`の内容は出力・証拠保存・commitしない。実API呼出しの明示許可がある場合だけ `-Execute` / `--execute` を使う。
+READMEの `.env` の `jev_api_key` は `tools/probes/jev_client.py::load_jev_api_key` で利用する。キーの再入力をユーザーへ求める前にこの既存設定を確認する。値や認証header、`.env`の内容は出力・証拠保存・commitしない。実Jev APIは継続的に許可済みなので、計画した実験には再確認せず `-Execute` / `--execute` を使う。
 
 共有サーバーの許可されたプレイヤー近傍の短い実Jev試験:
 

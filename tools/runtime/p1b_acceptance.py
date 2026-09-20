@@ -34,7 +34,12 @@ SEGMENT_SCHEMA=json.loads((REPO/'docs/schemas/jev-segment-v1.schema.json').read_
 SEGMENT_VALIDATOR=Draft202012Validator(SEGMENT_SCHEMA)
 
 
-def schedule(phase):
+def schedule(phase, development_cases=None):
+    if phase=='development':
+        if not development_cases or len(development_cases)>6 or len(set(development_cases))!=len(development_cases):
+            raise ValueError('Development requires one to six distinct predeclared cases')
+        presets=DIAGNOSTICS|PRESETS
+        return [dict(condition=name,mode='assisted',repeat=1,**presets[name]) for name in development_cases]
     if phase == 'diagnostic':
         return [dict(condition=name,mode=mode,repeat=1,**preset)
                 for i,(name,preset) in enumerate(DIAGNOSTICS.items())
@@ -68,15 +73,18 @@ def summarize(path):
     if len(obs)-len(decisions)>1: raise EvidenceError('Multiple outstanding decisions')
     applied_ticks=[e for e in rows if e['event']==('segment_tick' if mode=='assisted' else 'direct_tick')]
     if any(e['data']['request_id'] not in starts for e in applied_ticks): raise EvidenceError('Unbound input tick')
-    previous=None; total=0; cycles=[]; all_ids=set()
+    previous=None; total=0; cycles=[]; all_ids=set();recent=[]
     for rid,decision in decisions.items():
         o,s,r=obs[rid],starts[rid],results[rid]; choice=decision['data']['response']['choice']
+        if o['data'].get('schema_version')=='jev-assisted-v2' and o['data'].get('recent_segments')!=recent[-4:]:
+            raise EvidenceError('History differs from the last four measured segment results')
         if choice not in o['data']['legal_candidates']: raise EvidenceError('Choice not offered')
         if not o['server_tick']<decision['server_tick']==s['server_tick']<=r['server_tick']: raise EvidenceError('Tick order')
         if decision['server_tick']-o['server_tick']>meta['config']['maxObservationAgeTicks']: raise EvidenceError('Stale applied')
         if previous is not None and (o['data']['previous']!=previous['data'] or o['server_tick']<previous['server_tick']):
             raise EvidenceError('Previous result not bound')
         previous=r
+        recent.append(r['data'])
         actual=(r['data']['after']['body_tick']-s['data']['before']['body_tick']) if mode=='assisted' else r['server_tick']-s['server_tick']
         total+=actual
         if actual!=r['data']['actual_ticks']: raise EvidenceError('Duration mismatch')
@@ -203,12 +211,13 @@ class Mock:
         threading.Thread(target=self.server.serve_forever,daemon=True).start()
 
 
-def verdict(runs,phase):
-    expected=schedule(phase)
+def verdict(runs,phase,development_cases=None):
+    expected=schedule(phase,development_cases)
     if len(runs)!=len(expected) or any((r['condition'],r['mode'],r['repeat'])!=(s['condition'],s['mode'],s['repeat']) for r,s in zip(runs,expected)):
         return False
     if any(r.get('fault_fixture') or not r.get('valid_trace') or not r.get('settled') for r in runs): return False
     if phase=='diagnostic': return all(r['arrival'] for r in runs if r['mode']=='assisted')
+    if phase=='development': return all(r['arrival'] and (r['condition'] not in PRESETS or bool(r['wall_chain'])) for r in runs)
     return all(sum(r['arrival'] and bool(r['wall_chain']) for r in runs if r['mode']=='assisted' and r['condition']==c)>=2 for c in PRESETS) and all(r['wall_chain'] for r in runs)
 
 
@@ -217,7 +226,7 @@ def audit(root):
     if report['plan_sha256']!=_sha256(root/'plan.json') or plan['contract']!=CONTRACT: raise EvidenceError('Plan binding')
     for filename,digest in plan['evaluator_files'].items():
         if _sha256(root/filename)!=digest: raise EvidenceError('Evaluator snapshot binding')
-    if plan['schedule']!=schedule(plan['phase']): raise EvidenceError('Schedule differs from predeclared conditions')
+    if plan['schedule']!=schedule(plan['phase'],plan.get('development_cases')): raise EvidenceError('Schedule differs from predeclared conditions')
     if _sha256(root/'plugins'/plan['artifact_filename'])!=plan['artifact_sha256']: raise EvidenceError('Artifact binding')
     raw={p.name for p in (root/'plugins/JevControl/traces').glob('*.jsonl') if events(p)[0]['event']=='run_started'}
     if raw!={r['trace'] for r in report['runs']}: raise EvidenceError('Unreported raw runs')
@@ -236,7 +245,7 @@ def audit(root):
             raise EvidenceError('Settled physical observation invalid')
     cleanup=report['cleanup']; receipt=cleanup['receipt']
     if receipt!=json.loads((root/'plugins/JevControl/receipts'/(receipt['id']+'.json')).read_text(encoding='utf-8')) or not receipt['success'] or not any('bot=none' in line for line in receipt['output']): raise EvidenceError('Final cleanup missing')
-    passed=verdict(report['runs'],plan['phase'])
+    passed=verdict(report['runs'],plan['phase'],plan.get('development_cases'))
     return dict(passed=passed,phase=plan['phase'],artifact_sha256=plan['artifact_sha256'],runs=len(report['runs']))
 
 
@@ -288,7 +297,7 @@ def execute(args,plan):
             _json(root/'verification.json',report)
             print(json.dumps({k:result.get(k) for k in ('condition','mode','status','arrival','input_ticks','decisions','valid_trace','mock_check')}),flush=True)
             if not mock and result['status']=='ERROR': break
-        passed=all(r['mock_check'] for r in report['runs']) if mock else verdict(report['runs'],args.phase)
+        passed=all(r['mock_check'] for r in report['runs']) if mock else verdict(report['runs'],args.phase,plan.get('development_cases'))
         report['status']='PASSED' if passed else 'CRITERIA_NOT_MET'
     except BaseException as exc:
         report['status']='HARNESS_ERROR';report['failure_type']=type(exc).__name__;raise
@@ -325,19 +334,25 @@ def smoke_schedule():
 
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--phase',choices=('diagnostic','final','smoke'),default='diagnostic')
+    p=argparse.ArgumentParser();p.add_argument('--phase',choices=('diagnostic','development','final','smoke'),default='diagnostic')
     p.add_argument('--artifact',type=Path,default=REPO/'build/libs/jev-control-paper-0.2.0.jar')
     p.add_argument('--key-file',type=Path);p.add_argument('--diagnostic-directory',type=Path)
+    p.add_argument('--development-case',action='append',choices=list(DIAGNOSTICS|PRESETS))
+    p.add_argument('--hypothesis')
+    p.add_argument('--rediagnostic-directory',type=Path)
     p.add_argument('--audit-directory',type=Path);p.add_argument('--execute',action='store_true')
     p.add_argument('--smoke-case',action='append',choices=[s['condition'] for s in smoke_schedule()]);args=p.parse_args()
     if args.smoke_case and args.phase!='smoke': p.error('--smoke-case applies only to dummy local tests')
+    if args.development_case and args.phase!='development': p.error('Development cases require development phase')
     if args.audit_directory:
         result=audit(args.audit_directory);print(json.dumps(result));return 0 if result['passed'] else 2
     digest=_sha256(args.artifact) if args.artifact.is_file() else None
-    plan=dict(issue=40,phase=args.phase,contract=CONTRACT,schedule=smoke_schedule() if args.phase=='smoke' else schedule(args.phase),
+    if args.phase=='development' and (not args.development_case or not args.hypothesis): p.error('Development requires cases and a hypothesis')
+    plan=dict(issue=40,phase=args.phase,contract=CONTRACT,schedule=smoke_schedule() if args.phase=='smoke' else schedule(args.phase,args.development_case),
               config={k:v for k,v in CONFIG.items() if k!='apiKey'},artifact_sha256=digest,artifact_filename=args.artifact.name,
               server_sha256=SERVER_SHA256,source_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=REPO,text=True).strip(),
               harness_sha256=_sha256(Path(__file__)))
+    if args.phase=='development': plan.update(development_cases=args.development_case,hypothesis=args.hypothesis)
     plan['evaluator_files']={name:_sha256(Path(__file__).with_name(name)) for name in ('p1b_acceptance.py','paper_acceptance.py','p1_acceptance.py')}
     plan['evaluator_files']['jev-segment-v1.schema.json']=_sha256(REPO/'docs/schemas/jev-segment-v1.schema.json')
     if args.smoke_case: plan['schedule']=[s for s in plan['schedule'] if s['condition'] in args.smoke_case]
@@ -347,7 +362,15 @@ def main():
     if args.phase=='final':
         if args.diagnostic_directory is None: p.error('Final requires audited diagnostic directory')
         diagnosis=audit(args.diagnostic_directory)
-        if not diagnosis['passed'] or diagnosis['phase']!='diagnostic' or diagnosis['artifact_sha256']!=digest: p.error('Diagnostic prerequisite failed or artifact changed')
+        if not diagnosis['passed'] or diagnosis['phase']!='diagnostic': p.error('Diagnostic prerequisite failed')
+        if diagnosis['artifact_sha256']!=digest:
+            if args.rediagnostic_directory is None: p.error('Changed artifact requires four development re-diagnostics')
+            repeated=audit(args.rediagnostic_directory)
+            repeated_plan=json.loads((args.rediagnostic_directory/'plan.json').read_text(encoding='utf-8'))
+            if (not repeated['passed'] or repeated['phase']!='development' or repeated['artifact_sha256']!=digest
+                    or repeated_plan.get('development_cases')!=list(DIAGNOSTICS)):
+                p.error('Re-diagnostics must cover all four assisted conditions with the final artifact')
+            plan['rediagnostic_directory']=str(args.rediagnostic_directory.resolve())
         plan['diagnostic_directory']=str(args.diagnostic_directory.resolve())
     return execute(args,plan)
 
