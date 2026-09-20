@@ -1,0 +1,209 @@
+{
+  "issue": 40,
+  "format": "p1b-public-results-v1",
+  "batches": [
+    {
+      "directory": ".runtime-harness\\p1b-smoke-8236b98ec2a0",
+      "availability": "Raw JSONL, receipts and binaries retained locally only",
+      "phase": "smoke",
+      "source_commit": "58becc47c2b2be8fd71bce7d0e8839b4ad3217b1",
+      "artifact_sha256": "0ad2be7a60fdb2d93cbf820cb924dcb06253d15dd575b3370496faad362e53ac",
+      "plan_sha256": "c351bc576e84a60cbc96dacd084510ea2d4ab87b837d6fcc88a8c869ca3e413d",
+      "verification_sha256": "990bef15494cb8d96e3ce45f8a1f1df988b124b449cea40623f5a1514fa721da",
+      "schedule": [
+        {
+          "mode": "assisted",
+          "repeat": 1,
+          "yaw": 0,
+          "goal": [
+            20.5,
+            81,
+            0.5
+          ],
+          "choice": "E",
+          "expected": "BUDGET_EXCEEDED",
+          "config": {
+            "maxDecisions": 1
+          },
+          "condition": "occluded-support",
+          "occluded_support": true,
+          "reason": "UNKNOWN",
+          "ticks_expected": 0
+        }
+      ],
+      "hypothesis": null,
+      "recorded_status": "HARNESS_ERROR",
+      "audit": {
+        "passed": null,
+        "note": "Live acceptance audit does not apply to mock smoke; per-trace checks below"
+      },
+      "runs": [
+        {
+          "condition": "occluded-support",
+          "mode": "assisted",
+          "repeat": 1,
+          "trace": "21aa03ab-b0f6-42f5-81e2-378dc53046e8.jsonl",
+          "valid_trace": false,
+          "error": "Decision/start/result chain mismatch",
+          "status": "ERROR",
+          "arrival": false,
+          "decisions": 1,
+          "input_ticks": 0,
+          "trace_sha256": "939ea0e937272deff5f2635108c8eb943e58c50bc7793a618658638ea48dd09c",
+          "api_requests": 1,
+          "actions": {
+            "E": 1
+          },
+          "max_tick_gap_ms": 80.6455,
+          "snapshot_age_ticks": [
+            4
+          ],
+          "latency_p50_ms": 107,
+          "latency_p95_ms": 107,
+          "release_verified": false,
+          "path_length_during_input": 0,
+          "horizontal_reversals": 0,
+          "final_position": [
+            -0.971057877385296,
+            81.0,
+            0.5
+          ],
+          "interventions": []
+        }
+      ]
+    },
+    {
+      "directory": ".runtime-harness\\p1b-smoke-de421bb6e33c",
+      "availability": "Raw JSONL, receipts and binaries retained locally only",
+      "phase": "smoke",
+      "source_commit": "58becc47c2b2be8fd71bce7d0e8839b4ad3217b1",
+      "artifact_sha256": "0ad2be7a60fdb2d93cbf820cb924dcb06253d15dd575b3370496faad362e53ac",
+      "plan_sha256": "836a8e58a8523db703b1ee4f9ff46a910b63438fa4bd219f99604e1828ed83b8",
+      "verification_sha256": "4ed3a4268e5c887c3b03a3664620a4fbe583de29a3b3d39c0a60fadc35be2969",
+      "schedule": [
+        {
+          "mode": "assisted",
+          "repeat": 1,
+          "yaw": 0,
+          "goal": [
+            20.5,
+            81,
+            0.5
+          ],
+          "choice": "E",
+          "expected": "BUDGET_EXCEEDED",
+          "config": {
+            "maxDecisions": 1
+          },
+          "condition": "occluded-support",
+          "occluded_support": true,
+          "reason": "UNKNOWN",
+          "ticks_expected": 0
+        }
+      ],
+      "hypothesis": null,
+      "recorded_status": "PASSED",
+      "audit": {
+        "passed": null,
+        "note": "Live acceptance audit does not apply to mock smoke; per-trace checks below"
+      },
+      "runs": [
+        {
+          "condition": "occluded-support",
+          "mode": "assisted",
+          "repeat": 1,
+          "trace": "51388e92-c307-4dee-8934-5b419a8ff8d4.jsonl",
+          "run_id": "51388e92-c307-4dee-8934-5b419a8ff8d4",
+          "artifact_sha256": "0ad2be7a60fdb2d93cbf820cb924dcb06253d15dd575b3370496faad362e53ac",
+          "config": {
+            "model": "jev-1.13.0",
+            "actionTicks": 4,
+            "timeoutSeconds": 10,
+            "maxObservationAgeTicks": 200,
+            "maxDecisions": 1,
+            "maxRunSeconds": 120,
+            "observationRadius": 3,
+            "goalRadius": 1.0,
+            "maxDistanceFromSpawn": 64.0
+          },
+          "fault_fixture": true,
+          "spawn": [
+            0.5,
+            81.0,
+            0.5
+          ],
+          "goal": [
+            20.5,
+            81.0,
+            0.5
+          ],
+          "initial": {
+            "position": [
+              0.5,
+              81.0,
+              0.5
+            ],
+            "velocity": [
+              0.0,
+              -0.0784000015258789,
+              0.0
+            ],
+            "yaw": 0.0,
+            "pitch": 0.0,
+            "on_ground": true,
+            "health": 20.0,
+            "hunger": 20,
+            "horizontal_collision": false
+          },
+          "status": "BUDGET_EXCEEDED",
+          "arrival": false,
+          "final_distance": 20.0,
+          "input_ticks": 0,
+          "decisions": 1,
+          "elapsed_ms": 248,
+          "wall_chain": [],
+          "cycles": [
+            {
+              "request_id": "562c794f-829a-4cd7-af33-fa16fec90440",
+              "choice": "E",
+              "ticks": 0,
+              "goal_distance": 20.0,
+              "latency_ms": 106,
+              "reason": "UNKNOWN"
+            }
+          ],
+          "trace_sha256": "136ced224f353df1e1f42dde79a19bfb0b3fbd61dc2f8fb59cebbe30590669a3",
+          "api_requests": 1,
+          "actions": {
+            "E": 1
+          },
+          "max_tick_gap_ms": 72.7171,
+          "snapshot_age_ticks": [
+            4
+          ],
+          "latency_p50_ms": 106,
+          "latency_p95_ms": 106,
+          "release_verified": true,
+          "path_length_during_input": 0.0,
+          "horizontal_reversals": 0,
+          "final_position": [
+            0.5,
+            81.0,
+            0.5
+          ],
+          "interventions": []
+        }
+      ]
+    }
+  ],
+  "aggregate": {
+    "runs": 2,
+    "decisions": 2,
+    "api_requests": 2,
+    "input_ticks": 0,
+    "status_counts": {
+      "ERROR": 1,
+      "BUDGET_EXCEEDED": 1
+    }
+  }
+}

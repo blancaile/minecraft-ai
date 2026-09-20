@@ -14,6 +14,10 @@ final class AssistedControl {
             + "You choose any detour, retreat, continuation or return toward the goal in a new decision. "
             + "Use the last four measured segment outcomes to avoid repeating unsuccessful back-and-forth movement. "
             + "A detour can temporarily increase the goal distance. "
+            + "When goalward movement is blocked, choose a clear sideways destination and keep progressing "
+            + "on that side until a goalward destination has a CLEAR observed sweep. "
+            + "Do not undo a completed sideways step just to reduce goal distance while the goalward path is blocked. "
+            + "If that side is also blocked or unknown, reassess using the observed cells and your recent outcomes. "
             + "Unknown cells are not known to be empty. No automatic detour or pathfinder exists.";
 
     record Point(String id, double x, double y, double z, boolean waitOnly) {

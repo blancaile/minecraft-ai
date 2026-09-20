@@ -164,6 +164,11 @@ def prepare(server,spec,config):
     if spec.get('effect'): server.send(spec['effect']); time.sleep(.1)
     if spec.get('static_block'):
         server.send('fill 1 81 -1 1 83 1 minecraft:stone');server.wait('Successfully filled');time.sleep(.1)
+    if spec.get('occluded_support'):
+        # Real fluid ray occlusion hides the support cell; no synthetic observation mask.
+        # An open gate has no body collision and keeps flowing water out of the spawn cell.
+        server.send('setblock 0 81 0 minecraft:oak_fence_gate[open=true,facing=east]');time.sleep(.1)
+        server.send('setblock 1 81 0 minecraft:water');time.sleep(.1)
     server.command('jev goal '+' '.join(map(str,spec['goal']))+' world')
     before=set((server.data/'traces').glob('*.jsonl')) if (server.data/'traces').exists() else set()
     server.command('jev start '+spec['mode'])
@@ -325,6 +330,7 @@ def smoke_schedule():
               dict(base,condition='cancel',cancel=True,expected='CANCELLED'),
               dict(base,condition='original-wall',wall=PRESETS['original-wall']['wall'],goal=[.5,81,20.5],choice='S',config={'maxDecisions':8})]
     specs += [dict(base,condition='static-block',static_block=True,reason_any=['OBSERVED_OBSTACLE','COLLISION']),
+              dict(base,condition='occluded-support',occluded_support=True,reason='UNKNOWN',ticks_expected=0),
               dict(base,condition='assisted-tick-budget',goal=[60.5,81,.5],config={},ticks_expected=240),
               dict(base,condition='direct-tick-budget',mode='direct',choice='WAIT',config={},ticks_expected=240)]
     for fault in ('api','network','unknown','timeout','stale'):
