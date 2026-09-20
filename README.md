@@ -12,6 +12,8 @@
 
 第二歩目のP1aは、動的障害物の迂回後も元の目標へ到達できるかを評価する。[実験レポート（先行OSS・仮説・条件・結果・考察）](docs/operations/jev-control-p1a-experiment-report-2026-09-20.md)、[固定条件と予算](docs/operations/jev-control-p1a-plan-2026-09-20.md)、[全開発試行・最終評価の記録](docs/operations/jev-control-p1a-evaluation-2026-09-20.md)を参照。実行と独立監査は `tools/runtime/p1_acceptance.py`、判定用のオフラインテストは通常のbuildに含む。
 
+現在の主方針は、[Jevの近距離移動判断＋有限区間の実行補助](docs/research/jev-assisted-control-plan-2026-09-20.md)。[Issue #40](https://github.com/blancaile/minecraft-ai/issues/40)で実装・比較する。既存の直接操作方式を比較用に残す。補助付き方式は計画段階で、現在の配布JARの動作はまだ変更していない。
+
 手動で試すにはサーバー側の常設キーが必要です。`/jev key-status`で設定を確認できます。[暗号化・権限付きの常設手順](docs/operations/jev-control-quickstart.md#常設キーと手動検証)は平文のキーをconfig/コマンドへ書かず、試験後もキーを消しません。
 
 ```powershell

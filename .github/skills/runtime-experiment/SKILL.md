@@ -5,6 +5,8 @@ description: Jevのデプロイ・reload・実験コマンド・結果待ち・�
 
 # Experiment loop
 
+現在の主作業はIssue #40のJev判断＋有限区間の実行補助。`docs/research/jev-assisted-control-plan-2026-09-20.md`を参照する。以下のP0/P1aコマンドは既存の直接操作方式の手順であり、補助付き制御の実装・合格を意味しない。新比較では方式・区間・実入力tick・壁介入条件を固定し、P1aの過去の結果は保存する。
+
 関連skillのbuild/deploy/reload/execute-server-command/get-server-logを必要な操作に応じて読む。
 最初に共有サーバーで実験してよい平坦な領域とworldを特定し、`tools/runtime/smoke.example.json`をベースにシナリオを作る。サンプル座標を共有サーバーの空き地と仮定しない。
 場所が未確定なら`tools/runtime/status.example.json`でコマンド往復と証拠回収だけを先に検証できる。これは身体の移動試験ではない。

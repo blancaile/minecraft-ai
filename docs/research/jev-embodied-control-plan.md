@@ -1,10 +1,13 @@
 # Jev主導Minecraft制御：閉ループPoCから共同目標達成へ
 
-更新日: 2026-09-19  
-状態: 共有Paperサーバー向けプラグインへ移行。Paper 1.21.11 build 116 / Java 21。導入・検証手順は [quickstart](../operations/jev-control-quickstart.md)。実Jevによる攻略評価は未実施。
+更新日: 2026-09-20
+
+状態: P0完了、P1aは元の壁0/3で到達基準未達。ユーザー承認により、主開発をJevの近距離移動判断と有限区間の実行補助へ移す。[新方針・比較計画](jev-assisted-control-plan-2026-09-20.md)、[P1a実験レポート](../operations/jev-control-p1a-experiment-report-2026-09-20.md)を参照。新方式は未実装・未評価。Paper 1.21.11 build 116 / Java 21、導入手順は [quickstart](../operations/jev-control-quickstart.md)。
 
 - 親計画: [#37](https://github.com/blancaile/minecraft-ai/issues/37)
 - 最初の実装: [#38 — P0](https://github.com/blancaile/minecraft-ai/issues/38)
+- 比較記録: [#39 — P1a未達](https://github.com/blancaile/minecraft-ai/issues/39)
+- 次の実装: [#40 — P1b：Jev判断＋有限区間の実行補助](https://github.com/blancaile/minecraft-ai/issues/40)
 - 並行する調査: [#36](https://github.com/blancaile/minecraft-ai/issues/36)
 - 作業ブランチ: `feat/jev-embodied-control`
 - 分岐元: `main@1d53ae9203fe8d620912851f5d9da36ab2f68980`
@@ -19,7 +22,7 @@ Jevを意思決定主体として、1体以上の疑似プレイヤーがMinecra
 
 ## 2. このブランチの実行方針
 
-既存のResident製品計画・Gate A評価とは別のJev主導研究トラックとして進める。この文書と#37/#38を新ループの基準とする。
+既存のResident製品計画・Gate A評価とは別のJev主導研究トラックとして進める。現在の主方針は#37/#40と[補助付き制御の計画](jev-assisted-control-plan-2026-09-20.md)を基準とする。以下のP0の直接操作仕様は既存方式の説明として保持し、#40の区間実行補助を禁止する規則として適用しない。
 
 - 既存Gate Aの合格・mc_aiplayerの正式採用を宣言しない。
 - M1の全項目完了を使い捨てPoCの前提にしない。
@@ -93,6 +96,7 @@ server側にデータがあるからといって、壁の向こうの資源や�
 | 入力適用、衝突、重力、入力期限 | コード / Minecraft | 目標に応じた攻略分岐を混ぜない |
 | 合法性・権限・明示hard constraintの検査 | コード | 「遠回りは不適切」等の攻略上の好みで候補を消さない |
 | 右/左、進む/待つ、ジャンプ、対象選択 | Jev | 実際に複数の候補から選べたか記録する |
+| 選択済み近距離区間の方向変換・入力補正（#40） | コード | 終点・距離・期限を固定し、目的地変更や迂回の自動選択をしない |
 | 迂回/破壊/開く、攻撃/撤退、継続/切替 | Jev（後続） | 高級Skill内部で勝手に選ばせない |
 | 目標達成の事実確認 | ゲーム状態に基づく検査 | Jevの自己申告やadapterの成功文字列をoracleにしない |
 
@@ -173,4 +177,4 @@ semantic decision coverageだけではJevの寄与を証明できない。候補
 
 ## 10. 次に行うこと
 
-[導入手順](../operations/jev-control-quickstart.md)のskillでbuild→deploy→activation→command→log/trace回収を再現する。共有サーバーは空き検証領域と共存条件を確認後に配置する。ローカルsmokeの成功と共有環境での成功を区別し、実Jevの3run/100cyclesは別途計測する。一時診断コードは修正後に削除して最終ビルドを検査し、他プラグインのログは削除しない。
+[Issue #40](https://github.com/blancaile/minecraft-ai/issues/40)で有限区間の実行補助を実装し、隔離Paperで直接方式と比較する。壁なしの横ずれ修正を先に確認し、その後に動的な壁3条件を固定反復する。操作粒度が違うため入力tick・経過時間・Jev判断数を併記し、壁の介入条件も方式間で共通化する。詳細な境界・予算・報告条件は[新計画](jev-assisted-control-plan-2026-09-20.md)に従う。#39の失敗記録を保持し、新方式の結果で書き換えない。
