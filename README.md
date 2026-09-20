@@ -10,7 +10,7 @@
 
 [実Jev検証結果](docs/operations/jev-control-live-acceptance-2026-09-20.md): 4run・129判断、3方向の目標到達、障害物適応の失敗、異常時停止、共有サーバー反映を記録。
 
-第二歩目のP1aは、動的障害物の迂回後も元の目標へ到達できるかを評価する。[固定条件と予算](docs/operations/jev-control-p1a-plan-2026-09-20.md)、[全開発試行・最終評価の記録](docs/operations/jev-control-p1a-evaluation-2026-09-20.md)を参照。実行と独立監査は `tools/runtime/p1_acceptance.py`、判定用のオフラインテストは通常のbuildに含む。
+第二歩目のP1aは、動的障害物の迂回後も元の目標へ到達できるかを評価する。[実験レポート（先行OSS・仮説・条件・結果・考察）](docs/operations/jev-control-p1a-experiment-report-2026-09-20.md)、[固定条件と予算](docs/operations/jev-control-p1a-plan-2026-09-20.md)、[全開発試行・最終評価の記録](docs/operations/jev-control-p1a-evaluation-2026-09-20.md)を参照。実行と独立監査は `tools/runtime/p1_acceptance.py`、判定用のオフラインテストは通常のbuildに含む。
 
 手動で試すにはサーバー側の常設キーが必要です。`/jev key-status`で設定を確認できます。[暗号化・権限付きの常設手順](docs/operations/jev-control-quickstart.md#常設キーと手動検証)は平文のキーをconfig/コマンドへ書かず、試験後もキーを消しません。
 

@@ -1,5 +1,7 @@
 # Issue #39: P1a evaluation (2026-09-20)
 
+日本語の実験レポート（背景・先行OSS・仮説・方法・結果・考察）：[P1a実験レポート](jev-control-p1a-experiment-report-2026-09-20.md)。本ファイルは開発過程と証跡の詳細記録。
+
 Status: implementation and the planned 33 live evaluations completed. **P1a criterion NOT MET**: final arrivals were 0/3 original-wall, 3/3 mirrored-wall, and 3/3 initial-yaw. Issue #39 remains open.
 Predeclared conditions and budget: [experiment plan](jev-control-p1a-plan-2026-09-20.md).
 All run outcomes, trace hashes, artifact/config provenance, latency and progress summaries: [machine-readable results](jev-control-p1a-results-2026-09-20.json). Raw evidence remains in the local task worktree's `.runtime-harness/`; the summary is not a replacement for the raw traces.
