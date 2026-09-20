@@ -45,6 +45,8 @@ LastOrderへ `bukkit:reload confirm` を送信し、今回のmarker以降の `JE
 
 ### 常設キーと手動検証
 
+2026-09-20の[常設・権限・実Jev・reload後保持の実測記録](jev-persistent-credential-2026-09-20.md)。
+
 ユーザー承認のうえ、`tools/runtime/provision-credential.ps1 -KeyFile <既存.env> -Execute` で常設します。SFTPでconfigに生のキーを書き込まず、RSA-OAEP SHA256で暗号化した値を受信口へ渡し、サーバー自身がconfigと復号秘密鍵を所有者限定600、secretsディレクトリを700にします。WindowsなどPOSIX非対応の常設はサーバー環境変数を使ってください。同一JVMのプラグインやroot/サーバー所有者から隔離するものではありません。
 
 `/jev key-status`で `configured:true` / `storage:SEALED_RSA_OAEP256` を確認後、平坦な地面に立って移動せず `/jev spawn` → `/jev goal ~ ~ ~5` → `/jev start` → `/jev status`。目標は視線方向ではなく同じ高さの南(+Z)5ブロック。`/jev stop`で入力停止、`/jev despawn`で除去します。常設キーはreload後も残り、試験後に空へ戻しません。
