@@ -1,7 +1,8 @@
 # Issue #39: P1a evaluation (2026-09-20)
 
-Status: implementation and evaluation in progress. No P1a pass claimed.
+Status: implementation and the planned 33 live evaluations completed. **P1a criterion NOT MET**: final arrivals were 0/3 original-wall, 3/3 mirrored-wall, and 3/3 initial-yaw. Issue #39 remains open.
 Predeclared conditions and budget: [experiment plan](jev-control-p1a-plan-2026-09-20.md).
+All run outcomes, trace hashes, artifact/config provenance, latency and progress summaries: [machine-readable results](jev-control-p1a-results-2026-09-20.json). Raw evidence remains in the local task worktree's `.runtime-harness/`; the summary is not a replacement for the raw traces.
 
 ## P0 failure diagnosis
 
@@ -59,8 +60,55 @@ Use the three comparison episodes reallocated in the plan before these calls. Ad
 
 Variant 5 JAR SHA-256: `731b4cef4d8b6d3426af4b56507374aaa596c8a586e1e790a8c83c23c85838d3`. Java 24 tests, deployment checks 7, P0 verifier tests 3, P1 verifier tests 10 passed before its live comparison; Paper body checks are recorded in `.runtime-harness/paper-smoke-c92724753126`.
 
+Variant 5 `.runtime-harness/p1a-development-daa7e8015900`: original and mirrored FAILED at 60 decisions each (distance 16.800); initial-yaw reached in 38 decisions (distance 0.799), 158 completed cycles. Explicit clear distance did not resolve the original-wall failure.
+
 ## Final candidate selection (before the final nine runs)
 
 Variant 5 also failed the original and mirrored conditions. Select **variant 1** for the frozen final evaluation: variants 1 and 2 each reached two development conditions, but variant 1 is smaller and used fewer total decisions (119 versus 129). Variants 3–5 did not improve the original course. This selection uses development outcomes only; no final data has been collected yet. Rebuild the variant 1 Java source, require the preserved `01e1b492...` artifact hash, then evaluate all three conditions three times without tuning. The original course remains a known unresolved risk.
 
 The rejected geometry/task-encoding implementation is retained in experimental commit `c87b80f`; its source and failed artifacts remain available. The final production-path change is only the mechanical goal projections and sign definition. It retains the P0 raw observation, prompt, candidates, actuator, credentials and failure-stop behavior. P1 audit support for historical experimental encodings remains to verify their evidence.
+
+## Frozen final evaluation and Finding
+
+Source `9e8e2ca3151a1ce8350b42fde8e17bb5fadd988f`, clean tracked worktree. A clean rebuild exactly reproduced variant 1's JAR SHA-256 `01e1b492da0cf7346480cb0f2af5c403e6e48ea3519307fd2835cb1ea0e95d7a`. Evidence: `.runtime-harness/p1a-final-8f326862806d`. No configuration, feature, prompt, candidate generation or source changes occurred during the final nine runs.
+
+| Condition | P0 arrivals | Final arrivals | Final decisions by repeat | Final distances by repeat (blocks) |
+|---|---:|---:|---|---|
+| original-wall | 0/3 | **0/3** | 60, 60, 60 | 2.560, 10.925, 15.289 |
+| mirrored-wall | 3/3 | 3/3 | 24, 25, 25 | 0.996, 0.996, 0.996 |
+| initial-yaw | 0/3 | 3/3 | 34, 45, 34 | 0.612, 0.847, 0.693 |
+
+Final: 367 completed cycles. Full allocation: baseline 9/435, development 15/766, final 9/367 = **33 runs / 1,568 completed cycles**, within the 1,980-decision ceiling. Every unsuccessful live run stopped on the 60-decision budget; none ended in runtime ERROR. All final observations retained all eight legal actions. Every final run has the wall-observation/decision/input/result chain; six also reached the actual goal radius. Each batch ends with verified bot removal.
+
+The original-wall failures include two distinct observed behaviors:
+
+- Repeat 1, trace `4d9ff70a-98c5-47c9-b420-7034af4d5883`: wall contact at cycle 4, prolonged blocked/retreat/turn interactions, first movement beyond z=4 at cycle 40, clear progress after cycle 45. It ended at `(1.673,81,18.225)`, 2.560 blocks from the goal. Wall interaction consumed most of the budget.
+- Repeat 2, trace `4f14932d-6935-4ce2-ad32-cd9306ced033`: cleared the wall by cycle 32 and advanced to z approximately 19.76 by cycle 50. Cycles 51–60 selected STRAFE_LEFT, increasing x away from the goal despite the available right projection/action. It ended at `(11.413,81,19.992)`, 10.925 blocks away. This repeats the post-bypass direction failure identified in P0.
+
+The initial-yaw outcome improved in this small comparison; the original-wall criterion did not. Additional geometric facts and compact encodings did not establish a better candidate within the development allocation. These observations do not prove a general model limitation, a memory deficit, or an API truncation defect. Increasing the budget alone would not address the observed wrong-direction selection. No extra tuning or reruns were used to replace the failed final batch.
+
+Final completed-decision latency: median 276 ms, nearest-rank p95 370 ms, maximum 860 ms. These are observed API latencies, not a dedicated-host performance or TPS guarantee: an isolated dummy fault suite overlapped the beginning of the final batch on a separate server port. Baseline/final episodes were not randomized or interleaved; temporal service variation is another comparison limitation.
+
+The independent verifier reconstructed all 33 runs from raw traces and interventions. The six baseline/development audits returned `EVIDENCE_VALID`; the final audit returned `FAILED` (exit 1) because original-wall did not reach 2/3. Evidence integrity and task success are separate results. The audit checks canonical conditions, artifact/plan binding, JEV policy identity, preserved candidates, observation/decision/input/result correspondence, physical terminal position and bounded coasting, wall timing, actual distance, budgets, complete run enumeration and cleanup receipts. It also reconstructs historical compact policy states from their raw observations.
+
+## Final implementation checks
+
+- `tools/runtime/build.ps1 -Clean -Smoke`: 19 Java unit tests, 7 deployment checks, 3 P0 verifier tests, 10 P1 verifier tests and 22 real Paper body checks passed. Final smoke: `.runtime-harness/paper-smoke-8da4e7b25a68/verification.json`.
+- `python tools/runtime/paper_acceptance.py --mode faults --execute`: all six injected failure/stop cases passed using the final artifact, `.runtime-harness/paper-faults-87ee70de3578/verification.json`. These dummy-policy faults are separate from real-Jev capability evidence.
+- Audited each of the seven live batches with the final verifier. Raw traces, plans and reports were preserved; audits were written to separate files.
+
+This work used isolated Paper instances. It did not deploy the P1 candidate to the shared server. P1a, P1 overall, general navigation and Gate A are not declared complete.
+
+## Reproduction
+
+Use the frozen source and Java 21. The retained P0 artifact is required for an exact baseline comparison. Live commands make billed Jev calls and require an explicitly selected credential file via the existing loader; never print or commit its contents. The original run used the existing local credential binding. Replace `<local-key-file>` below with the authorized local path.
+
+```powershell
+./tools/runtime/build.ps1 -Clean -Smoke
+python tools/runtime/p1_acceptance.py --phase baseline --repeats 3 --artifact .runtime-harness/paper-live-08cd855d4b68/plugins/jev-control-paper-0.2.0.jar --key-file <local-key-file> --execute
+python tools/runtime/p1_acceptance.py --phase final --repeats 3 --artifact build/libs/jev-control-paper-0.2.0.jar --key-file <local-key-file> --execute
+python tools/runtime/p1_acceptance.py --audit-directory .runtime-harness/p1a-final-8f326862806d
+python tools/runtime/paper_acceptance.py --mode faults --execute
+```
+
+The audit command is offline and expects exit 1 for the preserved failed final batch. A new live execution creates a new evidence directory; its outcomes need not match these stochastic trials. Development variants and allocation amendments are documented above; rejected experiments must not be counted as final successes.

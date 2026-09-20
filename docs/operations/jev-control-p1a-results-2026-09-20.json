@@ -1,0 +1,1242 @@
+{
+  "format": "p1a-published-summary-v1",
+  "finding": "P1A_CRITERION_NOT_MET",
+  "raw_evidence_location": "Local task worktree .runtime-harness; raw traces are retained, not embedded in this summary.",
+  "total_live_runs": 33,
+  "total_completed_cycles": 1568,
+  "batches": [
+    {
+      "directory": ".runtime-harness/p1a-baseline-461590695e26",
+      "variant": "P0",
+      "status": "COMPLETED_WITH_FAILURES",
+      "audit_status": "EVIDENCE_VALID",
+      "plan_sha256": "3e7576f4a8f215af3a9a98c37f00ef5eaaf46b69bc9a9aa2ae90a58a49fa8dc1",
+      "report_sha256": "d92cdd08d8187f959ba724ed8268b74a1e5020ceebfc5ad944da25ad9cfcf7cb",
+      "audit_file": "audit-c7230783.json",
+      "audit_sha256": "ea3aba169e0599e8083c7a30bef17b0cc12a126fa85760842843795ef3cfa94d",
+      "artifact_sha256": "165fd5ba4ac7ec9235e8019d3e283d56b97a6d8b4b1b32d57100b95b41c69344",
+      "source_commit": "cae3e3c0a6e66c97281e38ab305d42488544a82b",
+      "source_tree_git_oid": "a9289a1790aafae39685edde892ad6e689820311",
+      "tracked_diff_sha256": "4b001e1184f3fe7f6c5d9ad4bb42af84d17e1a41e7f250655322316b81fe1a39",
+      "harness_sha256": "bb3519a196dc8d4933bad9c44d3f8b59b2390506eae452fcbfca41f62b99cca0",
+      "config": {
+        "model": "jev-1.13.0",
+        "actionTicks": 4,
+        "timeoutSeconds": 10,
+        "maxObservationAgeTicks": 200,
+        "maxDecisions": 60,
+        "maxRunSeconds": 120,
+        "observationRadius": 3,
+        "goalRadius": 1.0,
+        "maxDistanceFromSpawn": 64.0
+      },
+      "runs": [
+        {
+          "run_id": "4e750bbf-b29f-472d-bb0b-9385a5718557",
+          "preset": "original-wall",
+          "repeat": 1,
+          "cycle_count": 60,
+          "status": "BUDGET_EXCEEDED",
+          "reason": "Decision budget reached",
+          "final_position": [
+            6.051942491055151,
+            81.0,
+            20.855869957653223
+          ],
+          "final_goal_distance": 5.563336125989852,
+          "arrival": false,
+          "wall_execution": true,
+          "trace_sha256": "353d17516e7e1f25f10eabdf36a3595003993edf820ec89a8b5a12c321986cd3",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 274.0,
+            "p95_nearest_rank": 328.0,
+            "max": 809.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 25,
+            "max_stagnation_streak": 7,
+            "horizontal_direction_reversals": 6
+          }
+        },
+        {
+          "run_id": "1d45b9a1-129c-461d-bcd6-8b2ee7edc17a",
+          "preset": "original-wall",
+          "repeat": 2,
+          "cycle_count": 60,
+          "status": "BUDGET_EXCEEDED",
+          "reason": "Decision budget reached",
+          "final_position": [
+            19.990875686797565,
+            81.0,
+            20.84339051434911
+          ],
+          "final_goal_distance": 19.493900381492193,
+          "arrival": false,
+          "wall_execution": true,
+          "trace_sha256": "46abceb30752f1ef166522b76e1ef9d958fef5f8f6c5e5c1b1f72cb9e3bc2361",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 278.5,
+            "p95_nearest_rank": 361.0,
+            "max": 692.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 32,
+            "max_stagnation_streak": 6,
+            "horizontal_direction_reversals": 2
+          }
+        },
+        {
+          "run_id": "a98e2f42-509f-4eef-b193-9c83907400e3",
+          "preset": "original-wall",
+          "repeat": 3,
+          "cycle_count": 60,
+          "status": "BUDGET_EXCEEDED",
+          "reason": "Decision budget reached",
+          "final_position": [
+            -22.203864418803057,
+            81.0,
+            21.666236975430042
+          ],
+          "final_goal_distance": 22.733797927980525,
+          "arrival": false,
+          "wall_execution": true,
+          "trace_sha256": "526bc955589510837aaf7250dde3d788817b3942f778f1f56cea434d7b44243e",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 283.0,
+            "p95_nearest_rank": 390.0,
+            "max": 752.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 37,
+            "max_stagnation_streak": 10,
+            "horizontal_direction_reversals": 1
+          }
+        },
+        {
+          "run_id": "f27b7483-78f6-4920-b511-db8553adf984",
+          "preset": "mirrored-wall",
+          "repeat": 1,
+          "cycle_count": 25,
+          "status": "GOAL_REACHED",
+          "reason": "Actual player position within goal radius",
+          "final_position": [
+            1.3571695263135015,
+            81.0,
+            19.98521295354333
+          ],
+          "final_goal_distance": 0.9998726419100064,
+          "arrival": true,
+          "wall_execution": true,
+          "trace_sha256": "b50c53f1382941ff52a1b0ca0736378a45b784428e3da4b33099603eb08a2231",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 282.0,
+            "p95_nearest_rank": 339.0,
+            "max": 656.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 2,
+            "max_stagnation_streak": 2,
+            "horizontal_direction_reversals": 0
+          }
+        },
+        {
+          "run_id": "137f5960-0416-49a6-9300-32ed2ae9a12f",
+          "preset": "mirrored-wall",
+          "repeat": 2,
+          "cycle_count": 25,
+          "status": "GOAL_REACHED",
+          "reason": "Actual player position within goal radius",
+          "final_position": [
+            1.3571695263135015,
+            81.0,
+            19.990185734511947
+          ],
+          "final_goal_distance": 0.9973215038971314,
+          "arrival": true,
+          "wall_execution": true,
+          "trace_sha256": "5c21e35649d0276fa8a2311301fbb045853921d00a263928b2c8579e4ebdae7c",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 287.0,
+            "p95_nearest_rank": 363.0,
+            "max": 719.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 2,
+            "max_stagnation_streak": 2,
+            "horizontal_direction_reversals": 0
+          }
+        },
+        {
+          "run_id": "44bffec5-04e6-4138-8a4f-2972a12aa5a7",
+          "preset": "mirrored-wall",
+          "repeat": 3,
+          "cycle_count": 25,
+          "status": "GOAL_REACHED",
+          "reason": "Actual player position within goal radius",
+          "final_position": [
+            1.3571695263135015,
+            81.0,
+            19.98622098803561
+          ],
+          "final_goal_distance": 0.9993540263468292,
+          "arrival": true,
+          "wall_execution": true,
+          "trace_sha256": "4beafd1dd43607e0e97b4413dd575145d918871d4ea92989a9bac9e97c1254ae",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 287.0,
+            "p95_nearest_rank": 345.0,
+            "max": 755.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 2,
+            "max_stagnation_streak": 2,
+            "horizontal_direction_reversals": 0
+          }
+        },
+        {
+          "run_id": "57678f15-b175-4313-82eb-2808d9f8e74a",
+          "preset": "initial-yaw",
+          "repeat": 1,
+          "cycle_count": 60,
+          "status": "BUDGET_EXCEEDED",
+          "reason": "Decision budget reached",
+          "final_position": [
+            -7.936859868241671,
+            81.0,
+            -12.442070870624445
+          ],
+          "final_goal_distance": 34.00530308174874,
+          "arrival": false,
+          "wall_execution": true,
+          "trace_sha256": "d10e8eb1c82518272eaa57324f83f734c1662e6fc2bf0906158f698d66add6ea",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 276.5,
+            "p95_nearest_rank": 347.0,
+            "max": 757.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 43,
+            "max_stagnation_streak": 6,
+            "horizontal_direction_reversals": 17
+          }
+        },
+        {
+          "run_id": "0960b89e-8840-4949-ac73-d84e01a32d6a",
+          "preset": "initial-yaw",
+          "repeat": 2,
+          "cycle_count": 60,
+          "status": "BUDGET_EXCEEDED",
+          "reason": "Decision budget reached",
+          "final_position": [
+            -4.194767454067498,
+            81.0,
+            0.1821344305559564
+          ],
+          "final_goal_distance": 20.85321324750148,
+          "arrival": false,
+          "wall_execution": true,
+          "trace_sha256": "e5d4ee41100cde0f8004c8341a86ecf2048c115744921104e49d10cb9b0995f0",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 274.0,
+            "p95_nearest_rank": 352.0,
+            "max": 714.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 35,
+            "max_stagnation_streak": 6,
+            "horizontal_direction_reversals": 39
+          }
+        },
+        {
+          "run_id": "f155a1fa-faef-4c66-88ba-394f437ea93b",
+          "preset": "initial-yaw",
+          "repeat": 3,
+          "cycle_count": 60,
+          "status": "BUDGET_EXCEEDED",
+          "reason": "Decision budget reached",
+          "final_position": [
+            -4.225118192803587,
+            81.0,
+            -0.9911767030443444
+          ],
+          "final_goal_distance": 22.00448631569116,
+          "arrival": false,
+          "wall_execution": true,
+          "trace_sha256": "bf5b91983ca2b4764a7c25f592393f14c15f3edb2d1b321340fab751a1a24636",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 271.0,
+            "p95_nearest_rank": 354.0,
+            "max": 707.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 35,
+            "max_stagnation_streak": 6,
+            "horizontal_direction_reversals": 42
+          }
+        }
+      ],
+      "completed_cycles": 435,
+      "cleanup_verified_no_bot": true
+    },
+    {
+      "directory": ".runtime-harness/p1a-development-84b7243af570",
+      "variant": "development-1",
+      "status": "COMPLETED_WITH_FAILURES",
+      "audit_status": "EVIDENCE_VALID",
+      "plan_sha256": "7c517dcc7060f2946db4ba5102cc051af71189391898a225081465bf116ba87b",
+      "report_sha256": "314ba4b5433923032f2417ee1ee019a4e57282e86e4da79a229a0b5d9ae56f4a",
+      "audit_file": "audit-c0a854d2.json",
+      "audit_sha256": "0c25d468917e97f0760c3bfe6598db374e9a62098652dc083b15ad664d51e50f",
+      "artifact_sha256": "01e1b492da0cf7346480cb0f2af5c403e6e48ea3519307fd2835cb1ea0e95d7a",
+      "source_commit": "cae3e3c0a6e66c97281e38ab305d42488544a82b",
+      "source_tree_git_oid": "a9289a1790aafae39685edde892ad6e689820311",
+      "tracked_diff_sha256": "3638a7fa3e27486fe8a7e256b7709ca9387701322850ac062b4c4d7224971365",
+      "harness_sha256": "2fc8199e725142d9de6ed206f13221f859df319da4fa423d0a97c668d527564d",
+      "config": {
+        "model": "jev-1.13.0",
+        "actionTicks": 4,
+        "timeoutSeconds": 10,
+        "maxObservationAgeTicks": 200,
+        "maxDecisions": 60,
+        "maxRunSeconds": 120,
+        "observationRadius": 3,
+        "goalRadius": 1.0,
+        "maxDistanceFromSpawn": 64.0
+      },
+      "runs": [
+        {
+          "run_id": "e62a4e4b-3ecf-415c-9acb-246df7cf12b4",
+          "preset": "original-wall",
+          "repeat": 1,
+          "cycle_count": 60,
+          "status": "BUDGET_EXCEEDED",
+          "reason": "Decision budget reached",
+          "final_position": [
+            1.9963579995526786,
+            81.0,
+            3.4697368480140334
+          ],
+          "final_goal_distance": 17.095875241961622,
+          "arrival": false,
+          "wall_execution": true,
+          "trace_sha256": "42e189980cc1fad5a2d51fc286482d4f415fde80f18734fc267f4e06e3248071",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 274.5,
+            "p95_nearest_rank": 359.0,
+            "max": 836.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 47,
+            "max_stagnation_streak": 16,
+            "horizontal_direction_reversals": 5
+          }
+        },
+        {
+          "run_id": "966b8d06-5a0d-4205-ac15-0663e78c109c",
+          "preset": "mirrored-wall",
+          "repeat": 1,
+          "cycle_count": 25,
+          "status": "GOAL_REACHED",
+          "reason": "Actual player position within goal radius",
+          "final_position": [
+            1.3571695263135015,
+            81.0,
+            19.987249899147407
+          ],
+          "final_goal_distance": 0.9988254415886975,
+          "arrival": true,
+          "wall_execution": true,
+          "trace_sha256": "f6babade12340d7c8cec626d3d1c497ec2f4f40ea8bd616e212410919b7ff06e",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 281.0,
+            "p95_nearest_rank": 367.0,
+            "max": 715.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 2,
+            "max_stagnation_streak": 2,
+            "horizontal_direction_reversals": 0
+          }
+        },
+        {
+          "run_id": "43850b79-fa1a-4b70-a2f6-660739f06a9e",
+          "preset": "initial-yaw",
+          "repeat": 1,
+          "cycle_count": 34,
+          "status": "GOAL_REACHED",
+          "reason": "Actual player position within goal radius",
+          "final_position": [
+            0.5794212376418686,
+            81.0,
+            19.75175049210432
+          ],
+          "final_goal_distance": 0.7524526955594562,
+          "arrival": true,
+          "wall_execution": true,
+          "trace_sha256": "fb9f257f1bcf5aab33b4b1f46b724b32f747bf9a31368d68d9a364a647122aa2",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 257.5,
+            "p95_nearest_rank": 463.0,
+            "max": 687.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 8,
+            "max_stagnation_streak": 5,
+            "horizontal_direction_reversals": 6
+          }
+        }
+      ],
+      "completed_cycles": 119,
+      "cleanup_verified_no_bot": true
+    },
+    {
+      "directory": ".runtime-harness/p1a-development-4e38ea89fa27",
+      "variant": "development-2",
+      "status": "COMPLETED_WITH_FAILURES",
+      "audit_status": "EVIDENCE_VALID",
+      "plan_sha256": "ce0ea708fe1034ab74e3b132ea9092ccea1004ca16d0e475657d856f5611b457",
+      "report_sha256": "7050686517fd4df06f5419b2af64bf4a31017c165360342ebabede16c5ac8080",
+      "audit_file": "audit-d1c2ce37.json",
+      "audit_sha256": "6d0fa00ebf1f3e3e7776bec3043a43330516be3303cbb418333f48d0e77432bc",
+      "artifact_sha256": "f06d09fa8c24bec201cd931ac9627f5763c59b312fe32122b3a69dfb7dff3545",
+      "source_commit": "cae3e3c0a6e66c97281e38ab305d42488544a82b",
+      "source_tree_git_oid": "a9289a1790aafae39685edde892ad6e689820311",
+      "tracked_diff_sha256": "89142d0b8dabc81938411e7d975f1d28ab16b8d76c777bdeb9cbaecff72fd2ee",
+      "harness_sha256": "2cfaea81adaf858276fec36d587bf098da9e49d95e8891d91d4b7029a1562626",
+      "config": {
+        "model": "jev-1.13.0",
+        "actionTicks": 4,
+        "timeoutSeconds": 10,
+        "maxObservationAgeTicks": 200,
+        "maxDecisions": 60,
+        "maxRunSeconds": 120,
+        "observationRadius": 3,
+        "goalRadius": 1.0,
+        "maxDistanceFromSpawn": 64.0
+      },
+      "runs": [
+        {
+          "run_id": "1eeae578-5e0e-4bf5-a33d-16ae7a0e6f5d",
+          "preset": "original-wall",
+          "repeat": 1,
+          "cycle_count": 60,
+          "status": "BUDGET_EXCEEDED",
+          "reason": "Decision budget reached",
+          "final_position": [
+            1.9963579995526777,
+            81.0,
+            3.0730936018306076
+          ],
+          "final_goal_distance": 17.49103066927111,
+          "arrival": false,
+          "wall_execution": true,
+          "trace_sha256": "0472d8dbcd4ffca2c7dc0c8f09c6cf03594c455b1f0eced7132d82a72c32f697",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 262.0,
+            "p95_nearest_rank": 368.0,
+            "max": 874.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 32,
+            "max_stagnation_streak": 11,
+            "horizontal_direction_reversals": 12
+          }
+        },
+        {
+          "run_id": "60c74e3e-63bb-4e13-88b7-ec1f60226c00",
+          "preset": "mirrored-wall",
+          "repeat": 1,
+          "cycle_count": 26,
+          "status": "GOAL_REACHED",
+          "reason": "Actual player position within goal radius",
+          "final_position": [
+            1.3571695263135015,
+            81.0,
+            19.993489620799465
+          ],
+          "final_goal_distance": 0.995636661176346,
+          "arrival": true,
+          "wall_execution": true,
+          "trace_sha256": "bbd8ebc38417d15b02abcf7763eae22555f24f120dbed009d0812dcc221a0272",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 284.0,
+            "p95_nearest_rank": 446.0,
+            "max": 765.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 3,
+            "max_stagnation_streak": 3,
+            "horizontal_direction_reversals": 0
+          }
+        },
+        {
+          "run_id": "5fb9e893-4927-4397-b0a0-bf41929df342",
+          "preset": "initial-yaw",
+          "repeat": 1,
+          "cycle_count": 43,
+          "status": "GOAL_REACHED",
+          "reason": "Actual player position within goal radius",
+          "final_position": [
+            0.24333972485585126,
+            81.0,
+            19.713802233662115
+          ],
+          "final_goal_distance": 0.8270316950587505,
+          "arrival": true,
+          "wall_execution": true,
+          "trace_sha256": "9da288d75c84acb32d92bceebd14633b26e9bd78750ebd94e554b184c58877dc",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 281.0,
+            "p95_nearest_rank": 418.0,
+            "max": 686.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 16,
+            "max_stagnation_streak": 5,
+            "horizontal_direction_reversals": 10
+          }
+        }
+      ],
+      "completed_cycles": 129,
+      "cleanup_verified_no_bot": true
+    },
+    {
+      "directory": ".runtime-harness/p1a-development-314d5cb57807",
+      "variant": "development-3",
+      "status": "COMPLETED_WITH_FAILURES",
+      "audit_status": "EVIDENCE_VALID",
+      "plan_sha256": "b49d31d83759618772f49816c4de4d43d5605f45e650ca63b7f64cda00cffa78",
+      "report_sha256": "3fea129878d561de8e671bbb649eabf20b1f0e43908bae030d555fb72ac64640",
+      "audit_file": "audit-c1dd850b.json",
+      "audit_sha256": "b5869452ae0fbef03e88d9dcbfc8afc33fbb7b95e44f12daea98783a35108b0d",
+      "artifact_sha256": "1131355d680b8e8b84279adaf04f9340c845b493db1424bb2d2cd240e52f63c6",
+      "source_commit": "cae3e3c0a6e66c97281e38ab305d42488544a82b",
+      "source_tree_git_oid": "a9289a1790aafae39685edde892ad6e689820311",
+      "tracked_diff_sha256": "fd25b9f4aca1b9753b694f2c1e757df003b51fea6e9e442f9f915579709031c0",
+      "harness_sha256": "88cd08bf5ccdab15ea777a8261d9be98867e06ab949166261b1e7a58208effb7",
+      "config": {
+        "model": "jev-1.13.0",
+        "actionTicks": 4,
+        "timeoutSeconds": 10,
+        "maxObservationAgeTicks": 200,
+        "maxDecisions": 60,
+        "maxRunSeconds": 120,
+        "observationRadius": 3,
+        "goalRadius": 1.0,
+        "maxDistanceFromSpawn": 64.0
+      },
+      "runs": [
+        {
+          "run_id": "ea93720e-7a13-4dfa-9559-f7dbc31bcea7",
+          "preset": "original-wall",
+          "repeat": 1,
+          "cycle_count": 60,
+          "status": "BUDGET_EXCEEDED",
+          "reason": "Decision budget reached",
+          "final_position": [
+            0.5,
+            81.0,
+            3.699999988079071
+          ],
+          "final_goal_distance": 16.80000001192093,
+          "arrival": false,
+          "wall_execution": true,
+          "trace_sha256": "22c12838145e69034bc28029fe5a4de356c3200e9496b61f721a591b56c9bfae",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 245.5,
+            "p95_nearest_rank": 300.0,
+            "max": 679.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 56,
+            "max_stagnation_streak": 56,
+            "horizontal_direction_reversals": 0
+          }
+        },
+        {
+          "run_id": "2be9a40f-3f6b-4c6b-9cd8-7931035f1c8d",
+          "preset": "mirrored-wall",
+          "repeat": 1,
+          "cycle_count": 60,
+          "status": "BUDGET_EXCEEDED",
+          "reason": "Decision budget reached",
+          "final_position": [
+            0.5,
+            81.0,
+            3.699999988079071
+          ],
+          "final_goal_distance": 16.80000001192093,
+          "arrival": false,
+          "wall_execution": true,
+          "trace_sha256": "238545ea529d1a094cdbdb1c846700eeb85cf893ce63040d9dbabacddfdd98c9",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 258.0,
+            "p95_nearest_rank": 346.0,
+            "max": 546.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 56,
+            "max_stagnation_streak": 56,
+            "horizontal_direction_reversals": 0
+          }
+        },
+        {
+          "run_id": "15e10c21-090c-49e0-948c-a55412e3807e",
+          "preset": "initial-yaw",
+          "repeat": 1,
+          "cycle_count": 60,
+          "status": "BUDGET_EXCEEDED",
+          "reason": "Decision budget reached",
+          "final_position": [
+            1.246187738895092,
+            81.0,
+            9.132818771240768
+          ],
+          "final_goal_distance": 11.391646291433632,
+          "arrival": false,
+          "wall_execution": true,
+          "trace_sha256": "b2478902cf782ccae88eaa4e0f323107081cd69d01b1ef01dcc04e1d2118ee8b",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 263.0,
+            "p95_nearest_rank": 317.0,
+            "max": 538.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 25,
+            "max_stagnation_streak": 3,
+            "horizontal_direction_reversals": 12
+          }
+        }
+      ],
+      "completed_cycles": 180,
+      "cleanup_verified_no_bot": true
+    },
+    {
+      "directory": ".runtime-harness/p1a-development-1c552322f0aa",
+      "variant": "development-4",
+      "status": "COMPLETED_WITH_FAILURES",
+      "audit_status": "EVIDENCE_VALID",
+      "plan_sha256": "6ad082d902169b90d542d6c77c898577903afd4be6cf9aa8616cc69166405a3f",
+      "report_sha256": "9cb3fb14890aa1a46371c16b471ec57bfcdf0e0b271c023eb0432ba1b1cc3fee",
+      "audit_file": "audit-d0d4312f.json",
+      "audit_sha256": "85bd36bd9d243695e7f4bab5c2ae9b17eb1afcaf10647b9f28227468b2c887ad",
+      "artifact_sha256": "efb478b18de96536a3b2230b42d1fa759cfb56ee2b0c2b564981065bd08a300d",
+      "source_commit": "cae3e3c0a6e66c97281e38ab305d42488544a82b",
+      "source_tree_git_oid": "a9289a1790aafae39685edde892ad6e689820311",
+      "tracked_diff_sha256": "d4df53f0f59cfc777dfcd2c6c2d7088f76b73c7b965a79b9fdae0a70cecff3e0",
+      "harness_sha256": "295e11c6ddcbab3535dab2dc363ac699b1eee976e75dc361c25640367531f3f6",
+      "config": {
+        "model": "jev-1.13.0",
+        "actionTicks": 4,
+        "timeoutSeconds": 10,
+        "maxObservationAgeTicks": 200,
+        "maxDecisions": 60,
+        "maxRunSeconds": 120,
+        "observationRadius": 3,
+        "goalRadius": 1.0,
+        "maxDistanceFromSpawn": 64.0
+      },
+      "runs": [
+        {
+          "run_id": "ec566698-819c-4874-9d18-f4a31f3daedd",
+          "preset": "original-wall",
+          "repeat": 1,
+          "cycle_count": 60,
+          "status": "BUDGET_EXCEEDED",
+          "reason": "Decision budget reached",
+          "final_position": [
+            0.5,
+            81.0,
+            3.699999988079071
+          ],
+          "final_goal_distance": 16.80000001192093,
+          "arrival": false,
+          "wall_execution": true,
+          "trace_sha256": "18126e553ad6005767b66f1f923c2ffb0c0e8f683c2759b04d2b3767445905a5",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 254.5,
+            "p95_nearest_rank": 355.0,
+            "max": 788.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 56,
+            "max_stagnation_streak": 56,
+            "horizontal_direction_reversals": 0
+          }
+        },
+        {
+          "run_id": "f04ab2c1-8eb2-4b26-8bfa-a29e14d38162",
+          "preset": "mirrored-wall",
+          "repeat": 1,
+          "cycle_count": 60,
+          "status": "BUDGET_EXCEEDED",
+          "reason": "Decision budget reached",
+          "final_position": [
+            0.5,
+            81.0,
+            3.699999988079071
+          ],
+          "final_goal_distance": 16.80000001192093,
+          "arrival": false,
+          "wall_execution": true,
+          "trace_sha256": "d95b3c065f5461dbde567066bb96011467687db0cecd1d5652c9ceb468e7640a",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 246.0,
+            "p95_nearest_rank": 324.0,
+            "max": 559.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 56,
+            "max_stagnation_streak": 56,
+            "horizontal_direction_reversals": 0
+          }
+        },
+        {
+          "run_id": "49814e24-7bd1-4388-b676-5024b70ca63d",
+          "preset": "initial-yaw",
+          "repeat": 1,
+          "cycle_count": 60,
+          "status": "BUDGET_EXCEEDED",
+          "reason": "Decision budget reached",
+          "final_position": [
+            0.301011809727992,
+            81.0,
+            3.699999988079071
+          ],
+          "final_goal_distance": 16.80117843189611,
+          "arrival": false,
+          "wall_execution": true,
+          "trace_sha256": "02150cf009fd00eb3d222edf762e9de2f4086f6d660fccd09cc3fe0eda2c9a85",
+          "legal_candidate_count_range": [
+            7,
+            8
+          ],
+          "latency_ms": {
+            "median": 247.5,
+            "p95_nearest_rank": 322.0,
+            "max": 568.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 54,
+            "max_stagnation_streak": 42,
+            "horizontal_direction_reversals": 0
+          }
+        }
+      ],
+      "completed_cycles": 180,
+      "cleanup_verified_no_bot": true
+    },
+    {
+      "directory": ".runtime-harness/p1a-development-daa7e8015900",
+      "variant": "development-5",
+      "status": "COMPLETED_WITH_FAILURES",
+      "audit_status": "EVIDENCE_VALID",
+      "plan_sha256": "ade3807c4d0033307a58281137b6c56419482d45e7b2b0c21bf544d0941f9d5a",
+      "report_sha256": "5f2b64863010eb11cf3d786acb0ffcdab5fc728842c2f9f15a96402aaf6c3b70",
+      "audit_file": "audit-ee499ce6.json",
+      "audit_sha256": "852153e141a1d93da4ed983bb346ce5792ef24c93fbe3510b0dbd2b224ad06e4",
+      "artifact_sha256": "731b4cef4d8b6d3426af4b56507374aaa596c8a586e1e790a8c83c23c85838d3",
+      "source_commit": "cae3e3c0a6e66c97281e38ab305d42488544a82b",
+      "source_tree_git_oid": "a9289a1790aafae39685edde892ad6e689820311",
+      "tracked_diff_sha256": "c5983c235d1bd4adfe38cc61d1037e9af296e4c3626d4c699e9ecae204722d89",
+      "harness_sha256": "295e11c6ddcbab3535dab2dc363ac699b1eee976e75dc361c25640367531f3f6",
+      "config": {
+        "model": "jev-1.13.0",
+        "actionTicks": 4,
+        "timeoutSeconds": 10,
+        "maxObservationAgeTicks": 200,
+        "maxDecisions": 60,
+        "maxRunSeconds": 120,
+        "observationRadius": 3,
+        "goalRadius": 1.0,
+        "maxDistanceFromSpawn": 64.0
+      },
+      "runs": [
+        {
+          "run_id": "9bdd274b-d341-4855-8fae-6f1139fa5bcc",
+          "preset": "original-wall",
+          "repeat": 1,
+          "cycle_count": 60,
+          "status": "BUDGET_EXCEEDED",
+          "reason": "Decision budget reached",
+          "final_position": [
+            0.5,
+            81.0,
+            3.699999988079071
+          ],
+          "final_goal_distance": 16.80000001192093,
+          "arrival": false,
+          "wall_execution": true,
+          "trace_sha256": "92ea9cb51d1812d8c30ffbd1f14d3fb972f533b0c69938fe53dc993ded1a07fa",
+          "legal_candidate_count_range": [
+            7,
+            8
+          ],
+          "latency_ms": {
+            "median": 250.0,
+            "p95_nearest_rank": 309.0,
+            "max": 757.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 52,
+            "max_stagnation_streak": 21,
+            "horizontal_direction_reversals": 0
+          }
+        },
+        {
+          "run_id": "68be87bf-c82e-4c50-bb47-c0e7c5e55094",
+          "preset": "mirrored-wall",
+          "repeat": 1,
+          "cycle_count": 60,
+          "status": "BUDGET_EXCEEDED",
+          "reason": "Decision budget reached",
+          "final_position": [
+            0.5,
+            81.0,
+            3.699999988079071
+          ],
+          "final_goal_distance": 16.80000001192093,
+          "arrival": false,
+          "wall_execution": true,
+          "trace_sha256": "fe781aa29789604c3198688cfe1f6d41a30c738139484b9443b5550e700521a4",
+          "legal_candidate_count_range": [
+            7,
+            8
+          ],
+          "latency_ms": {
+            "median": 243.5,
+            "p95_nearest_rank": 323.0,
+            "max": 617.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 53,
+            "max_stagnation_streak": 36,
+            "horizontal_direction_reversals": 1
+          }
+        },
+        {
+          "run_id": "162465c2-0bee-49da-9245-cc67b3db3cb5",
+          "preset": "initial-yaw",
+          "repeat": 1,
+          "cycle_count": 38,
+          "status": "GOAL_REACHED",
+          "reason": "Actual player position within goal radius",
+          "final_position": [
+            0.24960611914769282,
+            81.0,
+            19.74171963912458
+          ],
+          "final_goal_distance": 0.798552566370955,
+          "arrival": true,
+          "wall_execution": true,
+          "trace_sha256": "9b4cee2add50c774c6d3e95acdf80638ca640d430cc0bc61e34172689dc1c3c1",
+          "legal_candidate_count_range": [
+            7,
+            8
+          ],
+          "latency_ms": {
+            "median": 250.5,
+            "p95_nearest_rank": 327.0,
+            "max": 580.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 11,
+            "max_stagnation_streak": 6,
+            "horizontal_direction_reversals": 2
+          }
+        }
+      ],
+      "completed_cycles": 158,
+      "cleanup_verified_no_bot": true
+    },
+    {
+      "directory": ".runtime-harness/p1a-final-8f326862806d",
+      "variant": "final-variant-1",
+      "status": "COMPLETED_WITH_FAILURES",
+      "audit_status": "FAILED",
+      "plan_sha256": "170211032bdea6fd9cc6e22675966cacbac8aa9b9d8d9e7094496406060c6c24",
+      "report_sha256": "30bd4a9e48958a0260689299529b6e8ee522d09f3779a219ca4dc642a3ebb731",
+      "audit_file": "audit-ea690dd5.json",
+      "audit_sha256": "b89b9bb976ec662407ac1d7e879d918c545fc3c8af30048923ed01c02fea4e93",
+      "artifact_sha256": "01e1b492da0cf7346480cb0f2af5c403e6e48ea3519307fd2835cb1ea0e95d7a",
+      "source_commit": "9e8e2ca3151a1ce8350b42fde8e17bb5fadd988f",
+      "source_tree_git_oid": "6feb36f17efc3472ac82f0ed75d16dbb6388535c",
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "harness_sha256": "29abd4a56c3f342fe0658d5618d3d65197794dcc5ff7957651e73f7bc395cb39",
+      "config": {
+        "model": "jev-1.13.0",
+        "actionTicks": 4,
+        "timeoutSeconds": 10,
+        "maxObservationAgeTicks": 200,
+        "maxDecisions": 60,
+        "maxRunSeconds": 120,
+        "observationRadius": 3,
+        "goalRadius": 1.0,
+        "maxDistanceFromSpawn": 64.0
+      },
+      "runs": [
+        {
+          "run_id": "4d9ff70a-98c5-47c9-b420-7034af4d5883",
+          "preset": "original-wall",
+          "repeat": 1,
+          "cycle_count": 60,
+          "status": "BUDGET_EXCEEDED",
+          "reason": "Decision budget reached",
+          "final_position": [
+            1.6730936256724651,
+            81.0,
+            18.224982054006883
+          ],
+          "final_goal_distance": 2.559659217392837,
+          "arrival": false,
+          "wall_execution": true,
+          "trace_sha256": "9da6663558773000fecd45ebd31d86ff1d450cab3427f7465dd3054b3346b473",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 280.0,
+            "p95_nearest_rank": 332.0,
+            "max": 860.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 29,
+            "max_stagnation_streak": 9,
+            "horizontal_direction_reversals": 19
+          }
+        },
+        {
+          "run_id": "4f14932d-6935-4ce2-ad32-cd9306ced033",
+          "preset": "original-wall",
+          "repeat": 2,
+          "cycle_count": 60,
+          "status": "BUDGET_EXCEEDED",
+          "reason": "Decision budget reached",
+          "final_position": [
+            11.412940702010488,
+            81.0,
+            19.992460709687666
+          ],
+          "final_goal_distance": 10.92473665114212,
+          "arrival": false,
+          "wall_execution": true,
+          "trace_sha256": "6006ac70c3a6d7bdfbd587339dc110e2dfa0d84b651a9ea181633f5203efac4c",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 283.0,
+            "p95_nearest_rank": 360.0,
+            "max": 756.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 27,
+            "max_stagnation_streak": 3,
+            "horizontal_direction_reversals": 5
+          }
+        },
+        {
+          "run_id": "6d7269c8-e12a-44d2-8079-15d5ad8cae2f",
+          "preset": "original-wall",
+          "repeat": 3,
+          "cycle_count": 60,
+          "status": "BUDGET_EXCEEDED",
+          "reason": "Decision budget reached",
+          "final_position": [
+            15.784449292871921,
+            81.0,
+            20.859365959301893
+          ],
+          "final_goal_distance": 15.28867339173278,
+          "arrival": false,
+          "wall_execution": true,
+          "trace_sha256": "06a9737612175b1a67e5303190ca020d39fbef5f0e62d5616a3ddd19ceb7a360",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 286.0,
+            "p95_nearest_rank": 370.0,
+            "max": 667.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 31,
+            "max_stagnation_streak": 6,
+            "horizontal_direction_reversals": 4
+          }
+        },
+        {
+          "run_id": "6c04fbd4-107c-49cf-a21c-b3c74b509578",
+          "preset": "mirrored-wall",
+          "repeat": 1,
+          "cycle_count": 24,
+          "status": "GOAL_REACHED",
+          "reason": "Actual player position within goal radius",
+          "final_position": [
+            1.3571695263135015,
+            81.0,
+            19.993489620799462
+          ],
+          "final_goal_distance": 0.9956366611763477,
+          "arrival": true,
+          "wall_execution": true,
+          "trace_sha256": "0b7b41e59cf731c777a6f57fa568c207b9490e1f470c7e867564cca864fcce4e",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 262.5,
+            "p95_nearest_rank": 345.0,
+            "max": 712.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 1,
+            "max_stagnation_streak": 1,
+            "horizontal_direction_reversals": 0
+          }
+        },
+        {
+          "run_id": "4d44a7db-1b8f-4447-8a84-196938d00dc4",
+          "preset": "mirrored-wall",
+          "repeat": 2,
+          "cycle_count": 25,
+          "status": "GOAL_REACHED",
+          "reason": "Actual player position within goal radius",
+          "final_position": [
+            1.3571695263135015,
+            81.0,
+            19.993489620799465
+          ],
+          "final_goal_distance": 0.995636661176346,
+          "arrival": true,
+          "wall_execution": true,
+          "trace_sha256": "5794e760296d6c50eb2f129d98674b5fc83ee369934d25c4aa4f227722becb96",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 269.0,
+            "p95_nearest_rank": 366.0,
+            "max": 704.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 2,
+            "max_stagnation_streak": 2,
+            "horizontal_direction_reversals": 0
+          }
+        },
+        {
+          "run_id": "2735bbd5-d765-4cf0-ad6f-cd786d22219d",
+          "preset": "mirrored-wall",
+          "repeat": 3,
+          "cycle_count": 25,
+          "status": "GOAL_REACHED",
+          "reason": "Actual player position within goal radius",
+          "final_position": [
+            1.3571695263135015,
+            81.0,
+            19.993493961119903
+          ],
+          "final_goal_distance": 0.9956344531315292,
+          "arrival": true,
+          "wall_execution": true,
+          "trace_sha256": "055a05811a4966c287f02993cd86c6bb0ba9d2568a421b724b66f488cf832e98",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 286.0,
+            "p95_nearest_rank": 413.0,
+            "max": 728.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 2,
+            "max_stagnation_streak": 2,
+            "horizontal_direction_reversals": 0
+          }
+        },
+        {
+          "run_id": "4afb4f9e-aed7-4df7-a963-5145d83ba285",
+          "preset": "initial-yaw",
+          "repeat": 1,
+          "cycle_count": 34,
+          "status": "GOAL_REACHED",
+          "reason": "Actual player position within goal radius",
+          "final_position": [
+            0.8159240993589636,
+            81.0,
+            19.975747001399803
+          ],
+          "final_goal_distance": 0.6120859768832074,
+          "arrival": true,
+          "wall_execution": true,
+          "trace_sha256": "fdf54eb6ef010d0cd373537249f7439bf58d587f069ed3bc16643418dbe2dcc0",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 268.0,
+            "p95_nearest_rank": 399.0,
+            "max": 711.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 8,
+            "max_stagnation_streak": 5,
+            "horizontal_direction_reversals": 6
+          }
+        },
+        {
+          "run_id": "bb507014-4756-4d7b-b823-00db3ae7b520",
+          "preset": "initial-yaw",
+          "repeat": 2,
+          "cycle_count": 45,
+          "status": "GOAL_REACHED",
+          "reason": "Actual player position within goal radius",
+          "final_position": [
+            1.0789578846632106,
+            81.0,
+            19.88219455873245
+          ],
+          "final_goal_distance": 0.8466851808514726,
+          "arrival": true,
+          "wall_execution": true,
+          "trace_sha256": "6b586a38f4fdad67e5753a15ee27092809f915e303392c84cd74c73fc2f81f67",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 274.0,
+            "p95_nearest_rank": 368.0,
+            "max": 751.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 18,
+            "max_stagnation_streak": 5,
+            "horizontal_direction_reversals": 10
+          }
+        },
+        {
+          "run_id": "723d2068-668a-4706-88f2-00e8a9c90bf2",
+          "preset": "initial-yaw",
+          "repeat": 3,
+          "cycle_count": 34,
+          "status": "GOAL_REACHED",
+          "reason": "Actual player position within goal radius",
+          "final_position": [
+            0.8446735126586303,
+            81.0,
+            19.89863562739224
+          ],
+          "final_goal_distance": 0.6931370275568648,
+          "arrival": true,
+          "wall_execution": true,
+          "trace_sha256": "c41034ffa16804f487575e5d8c24041feaddcc13807cb5f03123a13a1f1ca9c6",
+          "legal_candidate_count_range": [
+            8,
+            8
+          ],
+          "latency_ms": {
+            "median": 273.0,
+            "p95_nearest_rank": 457.0,
+            "max": 823.0
+          },
+          "progress_metrics": {
+            "non_progress_cycles": 8,
+            "max_stagnation_streak": 5,
+            "horizontal_direction_reversals": 6
+          }
+        }
+      ],
+      "completed_cycles": 367,
+      "cleanup_verified_no_bot": true
+    }
+  ]
+}
