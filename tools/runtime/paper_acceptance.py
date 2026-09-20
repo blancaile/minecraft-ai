@@ -118,7 +118,7 @@ def audit_directory(directory, shared=False):
     manifest=json.loads((directory/('live-experiment.json' if shared else 'verification.json')).read_text(encoding='utf-8'))
     if shared:
         assert manifest['status']=='GOAL_REACHED_PENDING_TRACE_VERIFICATION'
-        assert manifest['config_restored'] and not manifest['cleanup_errors']
+        assert (manifest.get('config_restored') or manifest.get('config_untouched')) and not manifest['cleanup_errors']
         trace=Path(manifest['terminal'].split(' trace=')[1]).name
         runs=[summarize(directory/trace)]
         assert len(runs)==1 and runs[0]['status']=='GOAL_REACHED' and runs[0]['cycles']>0 and not runs[0]['fault_fixture']

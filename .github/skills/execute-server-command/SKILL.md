@@ -17,6 +17,8 @@ tools/runtime/remote.ps1 -Action Command -Command 'jev smoke'
 `receipts/<UUID>.json` でコマンド成否を確認する。smoke/start等の非同期処理は受付成功後に `jev status` とtraceで最終状態を確認する。
 timeoutは結果不明として停止する。キュー投入成功を実行成功と扱わず、自動再送しない。残った `.processing` は再起動時にも再実行しない。
 
+`jev key-status`はキー値なしで常設状況/権限を表示する。`key-prepare`/`key-install`はdeploy skillのprovisionスクリプトからのみ使い、平文のAPIキーをコマンドへ入れない。通常コマンドの256文字上限は維持し、RSA暗号文512文字の専用形式だけ例外とする。
+
 Jev以外のコンソールコマンド:
 
 ```powershell

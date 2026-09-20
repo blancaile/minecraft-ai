@@ -1,5 +1,6 @@
 param(
-    [Parameter(Mandatory=$true)][string]$KeyFile,
+    [string]$KeyFile,
+    [switch]$UseConfiguredKey,
     [string]$Player = 'Philia_Gray',
     [switch]$Execute
 )
@@ -7,11 +8,13 @@ $ErrorActionPreference='Stop'
 $repo=(Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
 $remote=Join-Path $PSScriptRoot 'remote.ps1'
 $budget=@{maxDecisions=20;maxRunSeconds=120;timeoutSeconds=10;maxObservationAgeTicks=200}
+if ($UseConfiguredKey -and $KeyFile) {throw 'Choose existing server credentials OR temporary provisioning, not both'}
 if (!$Execute) {
-    @{mode='PLAN';player=$Player;goal_offset=@(0,0,3);budget=$budget;model='jev-1.13.0';cleanup='stop/despawn; restore original config; collect evidence'} | ConvertTo-Json -Depth 5
+    @{mode='PLAN';player=$Player;goal_offset=@(0,0,3);budget=$budget;model='jev-1.13.0';use_configured_key=$UseConfiguredKey.IsPresent;cleanup=if($UseConfiguredKey){'stop/despawn; leave config untouched; collect evidence'}else{'stop/despawn; restore original config; collect evidence'}} | ConvertTo-Json -Depth 5
     return
 }
 if ($Player -notmatch '^[A-Za-z0-9_]{1,16}$') {throw 'Invalid player name'}
+if (!$UseConfiguredKey -and !$KeyFile) {throw 'Specify -UseConfiguredKey or an explicitly authorized temporary -KeyFile'}
 $runId='live-'+[guid]::NewGuid().ToString()
 $directory=Join-Path $repo ".runtime-harness/remote-$runId"
 [IO.Directory]::CreateDirectory($directory) | Out-Null
@@ -34,6 +37,13 @@ try {
     $initial=Invoke-Jev 'jev status'
     if (($initial.output -join ' ') -notmatch 'bot=none') {throw 'Existing bot present; refusing takeover'}
     Invoke-Jev "jev site $Player" | Out-Null
+    if ($UseConfiguredKey) {
+        $receipt=Invoke-Jev 'jev key-status'
+        $existing=($receipt.output[0] -replace '^JEV_OK ','') | ConvertFrom-Json
+        if (!$existing.configured) {throw 'The server credential is not configured'}
+        $manifest.server_config=$existing
+        $manifest.config_untouched=$true
+    } else {
     # Reuse exactly the README's loader; capture stdout privately, never print the key.
     $loader='import sys; from pathlib import Path; sys.path.insert(0, sys.argv[1]); from jev_client import load_jev_api_key; print(load_jev_api_key(Path(sys.argv[2])))'
     $key=& python -c $loader (Join-Path $repo 'tools/probes') $KeyFile
@@ -57,6 +67,7 @@ try {
     $check=$client.ReadAllText($configPath) | ConvertFrom-Json
     if ($check.apiKey -cne $key) {throw 'Credential provisioning verification failed'}
     $key=$null; $check=$null; $config=$null
+    }
     $ownsBot=$true # A timeout has unknown outcome: always attempt scoped cleanup.
     $spawn=Invoke-Jev "jev spawn-near $Player"
     $site=($spawn.output[0] -replace '^JEV_OK Spawned JevBot ','') | ConvertFrom-Json
@@ -73,6 +84,7 @@ try {
         $state=$status.output -join ' '
         Write-Host ($state -replace ' trace=.*$','')
         if ($state -match 'state=(ERROR|DEAD_OR_DISCONNECTED|CANCELLED)') {throw $state}
+        if ($UseConfiguredKey -and $state -match 'decisions=(\d+)' -and [int]$Matches[1] -ge $budget.maxDecisions) {throw 'Operator decision budget reached; stopping without changing server configuration'}
     } until ($state -match 'state=(GOAL_REACHED|BUDGET_EXCEEDED)' -or [DateTime]::UtcNow -ge $deadline)
     $manifest.terminal=$state
     if ($state -notmatch 'state=GOAL_REACHED') {throw 'Simple live probe did not reach its goal within the declared budget'}

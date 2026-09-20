@@ -43,6 +43,14 @@ LastOrderへ `bukkit:reload confirm` を送信し、今回のmarker以降の `JE
 
 ## キーなし身体実験
 
+### 常設キーと手動検証
+
+ユーザー承認のうえ、`tools/runtime/provision-credential.ps1 -KeyFile <既存.env> -Execute` で常設します。SFTPでconfigに生のキーを書き込まず、RSA-OAEP SHA256で暗号化した値を受信口へ渡し、サーバー自身がconfigと復号秘密鍵を所有者限定600、secretsディレクトリを700にします。WindowsなどPOSIX非対応の常設はサーバー環境変数を使ってください。同一JVMのプラグインやroot/サーバー所有者から隔離するものではありません。
+
+`/jev key-status`で `configured:true` / `storage:SEALED_RSA_OAEP256` を確認後、平坦な地面に立って移動せず `/jev spawn` → `/jev goal ~ ~ ~5` → `/jev start` → `/jev status`。目標は視線方向ではなく同じ高さの南(+Z)5ブロック。`/jev stop`で入力停止、`/jev despawn`で除去します。常設キーはreload後も残り、試験後に空へ戻しません。
+
+常設済みの自動検証は `tools/runtime/live-near-player.ps1 -UseConfiguredKey -Player Philia_Gray -Execute`。このモードはconfigを変更せず、operator側で20判断/120秒を上限に待ち、証拠回収・bot除去まで行います。
+
 実JevのキーはREADME記載の `.env` の `jev_api_key` を既存loaderで取得できます。繰り返し検証には `.github/skills/runtime-experiment/SKILL.md` のlive手順を使います。隔離サーバーでは `apiKey: "env:JEV_API_KEY"` を指定し、キーを設定ファイルへ保存せず子Javaプロセスの環境変数から読みます。共有サーバーの短い試験は元設定を終了時に復元します。
 
 特定のオンラインプレイヤーの近くで試験してよい場合は、`jev site PLAYER`で現在位置と近傍の候補を読み、`jev spawn-near PLAYER`で生成直前に再検査できます。現在位置の水平10ブロック・上下3ブロック以内で、ロード済みの3x7の平坦な通常ブロック床、3ブロック高の空間、entity不在を確認します。地形変更やプレイヤー移動はしません。条件を満たす場所がなければ停止します。

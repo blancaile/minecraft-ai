@@ -46,6 +46,10 @@ public record ControlConfig(String apiKey, String model, int actionTicks, int ti
             if (key == null || key.isBlank()) throw new IllegalArgumentException("JEV_API_KEY is not configured");
             json.addProperty("apiKey", key);
         }
+        if (json.get("apiKey").getAsString().startsWith(SealedCredentials.PREFIX)) {
+            json.addProperty("apiKey", SealedCredentials.decrypt(path,
+                    json.get("apiKey").getAsString().substring(SealedCredentials.PREFIX.length())));
+        }
         var config = new GsonBuilder().create().fromJson(json, ControlConfig.class);
         config.validate();
         return config;

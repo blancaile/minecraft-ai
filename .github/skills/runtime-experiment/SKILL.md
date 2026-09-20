@@ -24,6 +24,8 @@ tools/runtime/experiment.ps1 -Scenario tools/runtime/smoke.example.json -Deploy 
 
 ## 実Jevと障害試験
 
+常設済みサーバーでは `tools/runtime/live-near-player.ps1 -UseConfiguredKey -Player Philia_Gray -Execute` を使用する。設定・キーは読出し/上書き/復元せず、`jev key-status` の非秘密情報で構成を確認する。終了時はこの試験のbotだけstop/despawn。以下の一時キー手順を常設サーバーへ適用しない。常設・ローテーションは `deploy/SKILL.md` の暗号化provision手順へ。
+
 READMEの `.env` の `jev_api_key` は `tools/probes/jev_client.py::load_jev_api_key` で読む。キーの再入力をユーザーへ求める前にこの既存設定を確認する。値や認証header、`.env`の内容は出力・証拠保存・commitしない。実API呼出しの明示許可がある場合だけ `-Execute` / `--execute` を使う。
 
 共有サーバーの許可されたプレイヤー近傍の短い実Jev試験:

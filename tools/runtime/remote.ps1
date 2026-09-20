@@ -29,7 +29,8 @@ $target = "$plugins/jev-control-paper.jar"
 $safeId = $RunId -replace '[^a-zA-Z0-9_-]','_'
 $output = Join-Path $repo ".runtime-harness/remote-$safeId"
 if ($Action -eq 'Reload') { $Transport='LastOrder'; $Command='bukkit:reload confirm' }
-if ($Action -in @('Command','Reload') -and (!$Command -or $Command.Contains("`n") -or $Command.Contains("`r") -or $Command.Length -gt 256)) { throw 'Expected one bounded console command' }
+$sealedInstall=$Transport -eq 'Jev' -and $Command -cmatch '^jev key-install [A-Za-z0-9+/]{512}$'
+if ($Action -in @('Command','Reload') -and (!$Command -or $Command.Contains("`n") -or $Command.Contains("`r") -or (!$sealedInstall -and $Command.Length -gt 256))) { throw 'Expected one bounded console command' }
 if ($Action -eq 'Deploy') {
     if (![IO.Path]::IsPathRooted($Artifact)) { $Artifact=Join-Path $repo $Artifact }
     $Artifact=(Resolve-Path -LiteralPath $Artifact).Path
@@ -133,7 +134,8 @@ try {
                 $id=Queue-LastOrder $Command
                 $result=[ordered]@{id=$id;status='QUEUED_NOT_VERIFIED';transport=$Transport}
             } else {
-                if ($Command -notmatch '^jev (site|spawn-near|spawn|despawn|status|observe|goal|smoke|step|start|stop)( |$)') {throw 'Jev inbox accepts jev commands only; use LastOrder for its allowed console commands'}
+                if ($Command -notmatch '^jev (key-prepare|key-install|key-status|site|spawn-near|spawn|despawn|status|observe|goal|smoke|step|start|stop)( |$)') {throw 'Jev inbox accepts jev commands only; use LastOrder for its allowed console commands'}
+                if ($Command -match '^jev key-install( |$)' -and !$sealedInstall) {throw 'key-install accepts a sealed RSA ciphertext only, never plaintext'}
                 $id=[guid]::NewGuid().ToString()
                 $request=@{id=$id;command=$Command;expires_at_ms=[DateTimeOffset]::UtcNow.AddSeconds($TimeoutSeconds).ToUnixTimeMilliseconds()} | ConvertTo-Json -Compress
                 $stage="$data/inbox/.$id.upload"

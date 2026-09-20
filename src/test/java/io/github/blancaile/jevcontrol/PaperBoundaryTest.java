@@ -23,6 +23,12 @@ class PaperBoundaryTest {
         assertThrows(IllegalArgumentException.class, () -> QueueRequest.parse("other.json", request("jev status", 2000), 1000));
         assertThrows(IllegalArgumentException.class, () -> QueueRequest.parse(ID + ".json", "{}", 1000));
     }
+    @Test void credentialTransportAcceptsOnlyFixedSizeCiphertext() {
+        String sealed = "jev key-install " + "A".repeat(512);
+        assertEquals(sealed, QueueRequest.parse(ID + ".json", request(sealed, 2000), 1000).command());
+        for (String bad : new String[]{"jev key-install cleartext-key", sealed + "A", sealed + "\n", "jev goal " + "A".repeat(512)})
+            assertThrows(IllegalArgumentException.class, () -> QueueRequest.parse(ID + ".json", request(bad, 2000), 1000));
+    }
     @Test void coordinatesRejectNonFiniteAndSupportRelative() {
         assertEquals(12, Coordinate.parse("~2", 10));
         assertEquals(10, Coordinate.parse("~", 10));

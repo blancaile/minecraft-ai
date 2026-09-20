@@ -10,6 +10,8 @@
 
 [実Jev検証結果](docs/operations/jev-control-live-acceptance-2026-09-20.md): 4run・129判断、3方向の目標到達、障害物適応の失敗、異常時停止、共有サーバー反映を記録。
 
+手動で試すにはサーバー側の常設キーが必要です。`/jev key-status`で設定を確認できます。[暗号化・権限付きの常設手順](docs/operations/jev-control-quickstart.md#常設キーと手動検証)は平文のキーをconfig/コマンドへ書かず、試験後もキーを消しません。
+
 ```powershell
 .\gradlew.bat clean build
 ```

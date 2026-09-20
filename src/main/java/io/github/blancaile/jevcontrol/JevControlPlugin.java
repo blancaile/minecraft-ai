@@ -54,6 +54,17 @@ public final class JevControlPlugin extends JavaPlugin implements CommandExecuto
             var verb = args.length == 0 ? "help" : args[0].toLowerCase(Locale.ROOT);
             var location = sender instanceof Player player ? player.getLocation() : Bukkit.getWorlds().getFirst().getSpawnLocation();
             String message = switch (verb) {
+                case "key-prepare" -> {
+                    if (args.length != 1) throw new IllegalArgumentException("Usage: jev key-prepare");
+                    SealedCredentials.prepare(getDataFolder().toPath().resolve("jev-control.json"));
+                    yield "Credential public key ready: credential-public.json";
+                }
+                case "key-install" -> {
+                    if (args.length != 2) throw new IllegalArgumentException("Use the credential provisioning harness; never put a plaintext key in a command");
+                    SealedCredentials.install(getDataFolder().toPath().resolve("jev-control.json"), args[1]);
+                    yield "Encrypted credential installed; config/private-key=600, secrets-directory=700";
+                }
+                case "key-status" -> SealedCredentials.status(getDataFolder().toPath().resolve("jev-control.json")).toString();
                 case "site", "spawn-near" -> {
                     if (args.length != 2) throw new IllegalArgumentException("Usage: jev " + verb + " PLAYER");
                     var reference = Bukkit.getPlayerExact(args[1]);
