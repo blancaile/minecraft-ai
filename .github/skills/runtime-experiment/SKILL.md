@@ -22,6 +22,16 @@ tools/runtime/experiment.ps1 -Scenario tools/runtime/smoke.example.json -Deploy 
 実験→仮説→最小修正→unit/smoke→同じ実験の順で進める。診断用ログを追加した場合は `RUNTIME-DIAG` を付け、修正後に削除してbuild検査を通す。実Jev runでは事前固定の予算・全run結果・未達条件を残し、APIキーや認証headerは証拠に含めない。
 同じ症状で新しい証拠が得られない場合は、reloadを反復せず、manifest・receipt・traceを使って仮説を見直す。
 
+## Issueタスクの終了時報告（必須）
+
+Issueに紐づく実験では、ルート `AGENTS.md` の「Issueに紐づくタスクの必須報告」を終了条件として適用する。対象Issueと受入条件を実行前に確認し、終了時は次の順序で報告する。
+
+1. 成功・失敗・中断を含む全試行の証跡を保存し、再現手順・設定・source/model/artifact・予算・停止理由・後始末の結果を報告書にまとめる。問題は観測された事実と原因仮説を分け、比較結果と未解決点を書く。
+2. 対象Issue本文に結論、受入条件ごとの達否、問題の要約、報告書への直接リンクを追記する。小規模な作業ではIssue本文を報告書としてよい。`verification.json` の生成だけでこの手順を完了したと扱わない。
+3. Issueの反映を読み戻して確認する。最終回答にも報告書とIssueへの直接リンクを必ず含める。更新できない場合はローカル報告書の場所と同期未完了を明記する。
+
+ローカルテストやCIの成功は実機目標の達成と区別する。受入基準未達なら失敗のFindingを残し、成功としてIssueをcloseしない。
+
 ## 実Jevと障害試験
 
 常設済みサーバーでは `tools/runtime/live-near-player.ps1 -UseConfiguredKey -Player Philia_Gray -Execute` を使用する。設定・キーは読出し/上書き/復元せず、`jev key-status` の非秘密情報で構成を確認する。終了時はこの試験のbotだけstop/despawn。以下の一時キー手順を常設サーバーへ適用しない。常設・ローテーションは `deploy/SKILL.md` の暗号化provision手順へ。
