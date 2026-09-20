@@ -5,6 +5,8 @@ description: Jevのデプロイ・reload・実験コマンド・結果待ち・�
 
 # Experiment loop
 
+Issue #40は共有サーバーへの配置・実Jevでの動作・生trace検証までが完了条件（ユーザー追加指示）。最終artifactをdeploy/reloadスキルで反映してから、設定済みの接続環境で `python tools/runtime/shared_p1b.py --player Philia_Gray --execute` を使う。常設キーと地形を変更せず、4方向到達と実移動後の取消を最大5runで確認する。既存botは引き継がず停止し、失敗時にもこの試験のbotだけを後始末する。`--audit-directory <証拠ディレクトリ>`で再監査する。共有の取消がAPI待ち中だった場合、区間入力途中の取消として報告しない。
+
 Issue #40の新実装は `tools/runtime/p1b_acceptance.py`。[固定計画](../../../docs/operations/jev-control-p1b-plan-2026-09-20.md)に従い、`--phase smoke --execute`で模擬判断の隔離Paper検証、`--phase diagnostic`で計画出力。実APIは2026-09-20のユーザー指示で継続的に許可済み。再確認せず `--phase diagnostic --key-file <既存キー設定ファイル> --execute` を使える。固定最終比較には診断4/4と `--diagnostic-directory` が必要。artifact変更後は開発枠で再診断し、古い成功を新artifactへ流用しない。`--audit-directory`で生traceから再検証する。模擬判断の到達は実Jev受入へ数えない。Python依存は `tools/runtime/requirements.txt`。
 
 現在の主作業はIssue #40のJev判断＋有限区間の実行補助。`docs/research/jev-assisted-control-plan-2026-09-20.md`を参照する。以下のP0/P1aコマンドは既存の直接操作方式の手順であり、補助付き制御の実装・合格を意味しない。新比較では方式・区間・実入力tick・壁介入条件を固定し、P1aの過去の結果は保存する。

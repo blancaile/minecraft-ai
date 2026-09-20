@@ -1,0 +1,563 @@
+{
+  "passed": true,
+  "issue": 40,
+  "artifact_sha256": "d2efa94f3cb5def7a15cf6212614c1e27e4c3092989aedeff4a36a244c9afd02",
+  "source_commit": "30d4bb330145eb31c1f613d921b25f2172175ec6",
+  "plan_sha256": "6c59985df519c2fb03052d84d6f744a206bb9554550a6cdf30661ecc23491e5c",
+  "manifest_sha256": "9cd2833bfb6e7e6e21b3f5d749e5f679c8292ac0b648755115ad7efaf4873f0b",
+  "runs": [
+    {
+      "run_id": "acbb99a2-cac4-4c00-802f-55ddcfa40b5d",
+      "mode": "assisted",
+      "artifact_sha256": "d2efa94f3cb5def7a15cf6212614c1e27e4c3092989aedeff4a36a244c9afd02",
+      "config": {
+        "model": "jev-1.13.0",
+        "actionTicks": 4,
+        "timeoutSeconds": 10,
+        "maxObservationAgeTicks": 200,
+        "maxDecisions": 200,
+        "maxRunSeconds": 600,
+        "observationRadius": 3,
+        "goalRadius": 1.0,
+        "maxDistanceFromSpawn": 64.0
+      },
+      "fault_fixture": false,
+      "spawn": [
+        -17.5,
+        -60.0,
+        2.5
+      ],
+      "goal": [
+        -17.5,
+        -60.0,
+        5.5
+      ],
+      "initial": {
+        "position": [
+          -17.5,
+          -60.0,
+          2.5
+        ],
+        "velocity": [
+          0.0,
+          -0.0784000015258789,
+          0.0
+        ],
+        "yaw": 0.0,
+        "pitch": 0.0,
+        "on_ground": true,
+        "health": 20.0,
+        "hunger": 20,
+        "horizontal_collision": false
+      },
+      "status": "GOAL_REACHED",
+      "arrival": true,
+      "final_distance": 0.8687872053596468,
+      "input_ticks": 13,
+      "decisions": 3,
+      "elapsed_ms": 2444,
+      "wall_chain": [],
+      "cycles": [
+        {
+          "request_id": "07561223-99c2-47ef-ab88-e23a33ccc6eb",
+          "choice": "S",
+          "ticks": 5,
+          "goal_distance": 2.2662419444591304,
+          "latency_ms": 839,
+          "reason": "ENDPOINT_REACHED"
+        },
+        {
+          "request_id": "4bd9db0a-8a4e-490f-8f0e-c00a10e644d9",
+          "choice": "S",
+          "ticks": 4,
+          "goal_distance": 1.567902165041859,
+          "latency_ms": 480,
+          "reason": "ENDPOINT_REACHED"
+        },
+        {
+          "request_id": "dfb5f760-62da-4892-8fc8-136d00e7250a",
+          "choice": "S",
+          "ticks": 4,
+          "goal_distance": 0.8687872053596468,
+          "latency_ms": 390,
+          "reason": "ENDPOINT_REACHED"
+        }
+      ],
+      "trace_sha256": "244ca747376e7584805da75304dffa6e9b4655d4a1ab844a02440145cb34930c",
+      "condition": "south",
+      "settled": {
+        "position": [
+          -17.5,
+          -60.0,
+          4.787189082178262
+        ],
+        "velocity": [
+          0.0,
+          -0.0784000015258789,
+          0.0
+        ],
+        "yaw": -0.0,
+        "pitch": 0.0,
+        "on_ground": true,
+        "health": 20.0,
+        "hunger": 20,
+        "horizontal_collision": false
+      },
+      "settled_trace_sha256": "23c4c5359a27c75a29ad82eea4bfe56784e75f553a8e9e42c17c4d8b02460ad5",
+      "api_requests": 3,
+      "snapshot_age_ticks": [
+        18,
+        10,
+        8
+      ],
+      "final_position": [
+        -17.5,
+        -60.0,
+        4.631212794640353
+      ],
+      "max_tick_gap_ms": 51.608229
+    },
+    {
+      "run_id": "514ee916-3b73-46b2-b944-712e31eb37d5",
+      "mode": "assisted",
+      "artifact_sha256": "d2efa94f3cb5def7a15cf6212614c1e27e4c3092989aedeff4a36a244c9afd02",
+      "config": {
+        "model": "jev-1.13.0",
+        "actionTicks": 4,
+        "timeoutSeconds": 10,
+        "maxObservationAgeTicks": 200,
+        "maxDecisions": 200,
+        "maxRunSeconds": 600,
+        "observationRadius": 3,
+        "goalRadius": 1.0,
+        "maxDistanceFromSpawn": 64.0
+      },
+      "fault_fixture": false,
+      "spawn": [
+        -17.5,
+        -60.0,
+        2.5
+      ],
+      "goal": [
+        -16.25,
+        -60.0,
+        2.5
+      ],
+      "initial": {
+        "position": [
+          -17.5,
+          -60.0,
+          2.5
+        ],
+        "velocity": [
+          0.0,
+          -0.0784000015258789,
+          0.0
+        ],
+        "yaw": 0.0,
+        "pitch": 0.0,
+        "on_ground": true,
+        "health": 20.0,
+        "hunger": 20,
+        "horizontal_collision": false
+      },
+      "status": "GOAL_REACHED",
+      "arrival": true,
+      "final_distance": 0.5162419444591286,
+      "input_ticks": 5,
+      "decisions": 1,
+      "elapsed_ms": 1095,
+      "wall_chain": [],
+      "cycles": [
+        {
+          "request_id": "77464574-84cd-425a-84d1-064227c08b7d",
+          "choice": "E",
+          "ticks": 5,
+          "goal_distance": 0.5162419444591286,
+          "latency_ms": 834,
+          "reason": "ENDPOINT_REACHED"
+        }
+      ],
+      "trace_sha256": "05d7eac7a6416fe0e2d8fc8163336d3bd4166c3006e4388fd820d78e4661f89c",
+      "condition": "east",
+      "settled": {
+        "position": [
+          -16.611257569764007,
+          -60.0,
+          2.5
+        ],
+        "velocity": [
+          0.0,
+          -0.0784000015258789,
+          0.0
+        ],
+        "yaw": -90.0,
+        "pitch": 0.0,
+        "on_ground": true,
+        "health": 20.0,
+        "hunger": 20,
+        "horizontal_collision": false
+      },
+      "settled_trace_sha256": "31e5c36af189fba090dbca299558deeb7aa10fc88825fc9a624b6706cc1cc21c",
+      "api_requests": 1,
+      "snapshot_age_ticks": [
+        17
+      ],
+      "final_position": [
+        -16.76624194445913,
+        -60.0,
+        2.5
+      ],
+      "max_tick_gap_ms": 51.248759
+    },
+    {
+      "run_id": "664cc067-916e-4b46-b9b2-ceeb0d31338d",
+      "mode": "assisted",
+      "artifact_sha256": "d2efa94f3cb5def7a15cf6212614c1e27e4c3092989aedeff4a36a244c9afd02",
+      "config": {
+        "model": "jev-1.13.0",
+        "actionTicks": 4,
+        "timeoutSeconds": 10,
+        "maxObservationAgeTicks": 200,
+        "maxDecisions": 200,
+        "maxRunSeconds": 600,
+        "observationRadius": 3,
+        "goalRadius": 1.0,
+        "maxDistanceFromSpawn": 64.0
+      },
+      "fault_fixture": false,
+      "spawn": [
+        -17.5,
+        -60.0,
+        2.5
+      ],
+      "goal": [
+        -18.75,
+        -60.0,
+        2.5
+      ],
+      "initial": {
+        "position": [
+          -17.5,
+          -60.0,
+          2.5
+        ],
+        "velocity": [
+          0.0,
+          -0.0784000015258789,
+          0.0
+        ],
+        "yaw": 0.0,
+        "pitch": 0.0,
+        "on_ground": true,
+        "health": 20.0,
+        "hunger": 20,
+        "horizontal_collision": false
+      },
+      "status": "GOAL_REACHED",
+      "arrival": true,
+      "final_distance": 0.5162419444591286,
+      "input_ticks": 5,
+      "decisions": 1,
+      "elapsed_ms": 1095,
+      "wall_chain": [],
+      "cycles": [
+        {
+          "request_id": "d837eee6-1294-4148-8934-36434ad56256",
+          "choice": "W",
+          "ticks": 5,
+          "goal_distance": 0.5162419444591286,
+          "latency_ms": 799,
+          "reason": "ENDPOINT_REACHED"
+        }
+      ],
+      "trace_sha256": "33733a2eb4d8cc9e9833c30d0bb596a4af40f2c735ee61b21c4af17c9e3e7905",
+      "condition": "west",
+      "settled": {
+        "position": [
+          -18.388742430235993,
+          -60.0,
+          2.5
+        ],
+        "velocity": [
+          0.0,
+          -0.0784000015258789,
+          0.0
+        ],
+        "yaw": 90.0,
+        "pitch": 0.0,
+        "on_ground": true,
+        "health": 20.0,
+        "hunger": 20,
+        "horizontal_collision": false
+      },
+      "settled_trace_sha256": "c4ed843b7ec54b83086cdb319e57beb54c4012f2520950ebb73c8bc566c9a363",
+      "api_requests": 1,
+      "snapshot_age_ticks": [
+        17
+      ],
+      "final_position": [
+        -18.23375805554087,
+        -60.0,
+        2.5
+      ],
+      "max_tick_gap_ms": 51.320466
+    },
+    {
+      "run_id": "b04de9ef-f053-4326-b8ea-1e32c5bdcd14",
+      "mode": "assisted",
+      "artifact_sha256": "d2efa94f3cb5def7a15cf6212614c1e27e4c3092989aedeff4a36a244c9afd02",
+      "config": {
+        "model": "jev-1.13.0",
+        "actionTicks": 4,
+        "timeoutSeconds": 10,
+        "maxObservationAgeTicks": 200,
+        "maxDecisions": 200,
+        "maxRunSeconds": 600,
+        "observationRadius": 3,
+        "goalRadius": 1.0,
+        "maxDistanceFromSpawn": 64.0
+      },
+      "fault_fixture": false,
+      "spawn": [
+        -17.5,
+        -60.0,
+        2.5
+      ],
+      "goal": [
+        -17.5,
+        -60.0,
+        1.25
+      ],
+      "initial": {
+        "position": [
+          -17.5,
+          -60.0,
+          2.5
+        ],
+        "velocity": [
+          0.0,
+          -0.0784000015258789,
+          0.0
+        ],
+        "yaw": 0.0,
+        "pitch": 0.0,
+        "on_ground": true,
+        "health": 20.0,
+        "hunger": 20,
+        "horizontal_collision": false
+      },
+      "status": "GOAL_REACHED",
+      "arrival": true,
+      "final_distance": 0.5162419444591304,
+      "input_ticks": 5,
+      "decisions": 1,
+      "elapsed_ms": 1095,
+      "wall_chain": [],
+      "cycles": [
+        {
+          "request_id": "af8ce2d7-08bf-4be5-9705-fcdef67d20a6",
+          "choice": "N",
+          "ticks": 5,
+          "goal_distance": 0.5162419444591304,
+          "latency_ms": 835,
+          "reason": "ENDPOINT_REACHED"
+        }
+      ],
+      "trace_sha256": "ac82ce6f12255508ab34742cef18908549533d47e65c660ef4ddcd21dd48eacd",
+      "condition": "north",
+      "settled": {
+        "position": [
+          -17.5,
+          -60.0,
+          1.611257569764007
+        ],
+        "velocity": [
+          0.0,
+          -0.0784000015258789,
+          0.0
+        ],
+        "yaw": -180.0,
+        "pitch": 0.0,
+        "on_ground": true,
+        "health": 20.0,
+        "hunger": 20,
+        "horizontal_collision": false
+      },
+      "settled_trace_sha256": "90728d33c1ddacad12d54713d4030856ac34cf48f9da6ee5878cb7b889d5cca0",
+      "api_requests": 1,
+      "snapshot_age_ticks": [
+        17
+      ],
+      "final_position": [
+        -17.5,
+        -60.0,
+        1.7662419444591304
+      ],
+      "max_tick_gap_ms": 67.779153
+    },
+    {
+      "run_id": "75fdb1b0-555d-4a19-8ffc-e8a9c7662875",
+      "mode": "assisted",
+      "artifact_sha256": "d2efa94f3cb5def7a15cf6212614c1e27e4c3092989aedeff4a36a244c9afd02",
+      "config": {
+        "model": "jev-1.13.0",
+        "actionTicks": 4,
+        "timeoutSeconds": 10,
+        "maxObservationAgeTicks": 200,
+        "maxDecisions": 200,
+        "maxRunSeconds": 600,
+        "observationRadius": 3,
+        "goalRadius": 1.0,
+        "maxDistanceFromSpawn": 64.0
+      },
+      "fault_fixture": false,
+      "spawn": [
+        -17.5,
+        -60.0,
+        2.5
+      ],
+      "goal": [
+        -17.5,
+        -60.0,
+        7.5
+      ],
+      "initial": {
+        "position": [
+          -17.5,
+          -60.0,
+          2.5
+        ],
+        "velocity": [
+          0.0,
+          -0.0784000015258789,
+          0.0
+        ],
+        "yaw": 0.0,
+        "pitch": 0.0,
+        "on_ground": true,
+        "health": 20.0,
+        "hunger": 20,
+        "horizontal_collision": false
+      },
+      "status": "CANCELLED",
+      "arrival": false,
+      "final_distance": 1.3148916994124251,
+      "input_ticks": 21,
+      "decisions": 5,
+      "elapsed_ms": 3994,
+      "wall_chain": [],
+      "cycles": [
+        {
+          "request_id": "557ab758-4071-47b9-b172-c7ea5c7743f2",
+          "choice": "S",
+          "ticks": 5,
+          "goal_distance": 4.26624194445913,
+          "latency_ms": 764,
+          "reason": "ENDPOINT_REACHED"
+        },
+        {
+          "request_id": "aafdfda2-cb33-4f30-af13-07a84348dce3",
+          "choice": "S",
+          "ticks": 4,
+          "goal_distance": 3.567902165041859,
+          "latency_ms": 390,
+          "reason": "ENDPOINT_REACHED"
+        },
+        {
+          "request_id": "7526702e-1172-43d0-a666-f77b15b5d2a1",
+          "choice": "S",
+          "ticks": 4,
+          "goal_distance": 2.868787205359647,
+          "latency_ms": 392,
+          "reason": "ENDPOINT_REACHED"
+        },
+        {
+          "request_id": "a700aab1-b1b3-48ca-8f4d-185c5e557da5",
+          "choice": "S",
+          "ticks": 4,
+          "goal_distance": 2.169912391232474,
+          "latency_ms": 445,
+          "reason": "ENDPOINT_REACHED"
+        },
+        {
+          "request_id": "63b74756-4c9f-4383-8e08-3d00c385789b",
+          "choice": "S",
+          "ticks": 4,
+          "goal_distance": 1.4709631811923884,
+          "latency_ms": 417,
+          "reason": "ENDPOINT_REACHED"
+        }
+      ],
+      "trace_sha256": "1b38310e1fb20dd284e09c390895c4d011e1e33c15f78ee00d10d471c6bf75d0",
+      "condition": "cancel",
+      "settled": {
+        "position": [
+          -17.5,
+          -60.0,
+          6.185108300587575
+        ],
+        "velocity": [
+          0.0,
+          -0.0784000015258789,
+          0.0
+        ],
+        "yaw": -0.0,
+        "pitch": 0.0,
+        "on_ground": true,
+        "health": 20.0,
+        "hunger": 20,
+        "horizontal_collision": false
+      },
+      "settled_trace_sha256": "c532e4e53dbaee75479bb1a63492ab79245ff89883c2343cf83237f47ca7a7e0",
+      "api_requests": 6,
+      "snapshot_age_ticks": [
+        16,
+        8,
+        8,
+        9,
+        9
+      ],
+      "final_position": [
+        -17.5,
+        -60.0,
+        6.185108300587575
+      ],
+      "max_tick_gap_ms": 68.293405
+    }
+  ],
+  "config_preserved": true,
+  "terrain_changed": false,
+  "final_bot_absent": true,
+  "evidence_directory": ".runtime-harness\\remote-p1b-shared-aa2b16f5d329",
+  "availability": "Raw JSONL, receipts, logs and prior JAR retained locally only",
+  "deployment": {
+    "deploy": {
+      "receipt": {
+        "action": "Deploy",
+        "target": "/test_server/plugins/jev-control-paper.jar",
+        "sha256": "d2efa94f3cb5def7a15cf6212614c1e27e4c3092989aedeff4a36a244c9afd02",
+        "verified": true,
+        "backup": "C:\\github_folder\\minecraft-ai-jev-embodied-control\\.runtime-harness\\remote-p1b-shared-deploy-20260920\\previous-jev-control-paper.jar",
+        "activated": false
+      },
+      "receipt_sha256": "5bc50bdc0089590b45ebdd46b8d6aeb57105d085be907b7de0f67cc6af072015"
+    },
+    "activate": {
+      "receipt": {
+        "action": "Reload",
+        "sha256": "d2efa94f3cb5def7a15cf6212614c1e27e4c3092989aedeff4a36a244c9afd02",
+        "activated": true,
+        "marker": "JEV_ACTIVATE_p1b-shared-activate-20260920"
+      },
+      "receipt_sha256": "99df3026d1896424d300063aa6a0da9843f9cfbbc4bf6505fd8844503a8deccf"
+    },
+    "previous_artifact_sha256": "ccd880f347345c2e81415fd77e11162a7f17df34512b62f4ce4433c6b6222c54"
+  },
+  "aggregate": {
+    "decisions": 11,
+    "api_requests": 12,
+    "input_ticks": 49,
+    "elapsed_ms": 9723
+  }
+}

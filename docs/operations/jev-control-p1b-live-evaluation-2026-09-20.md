@@ -2,6 +2,8 @@
 
 対象：[Issue #40](https://github.com/blancaile/minecraft-ai/issues/40)。[固定条件・予算・batch事前計画](jev-control-p1b-plan-2026-09-20.md)。[初回実装と模擬試験](jev-control-p1b-report-2026-09-20.md)。
 
+追記：ユーザー指示により共有サーバーでの配置・実動作・実検証も完了条件に含め、隔離合格だけでcloseした判断を訂正した。[共有サーバーでの配置と実Jev5試行の報告](jev-control-p1b-shared-2026-09-20.md)を最終的な運用検証として参照する。以下は隔離評価の記録。
+
 **結論：第2固定比較でassistedは各壁3/3、計9/9到達し、Issue #40の到達基準を達成した。directは6/9。** 第1固定比較の未達を保存し、履歴追加と迂回継続promptの2段階で実験を進めた。実Jevは全55run、1,679判断、1,690 API requests、7,086入力tick。到達42件・予算切れ13件、実API異常0件。全件の整合性・後始末を生traceから再検証した。開発を含む42/55を最終版の到達率とはしない。
 
 ## 目的・仮説・境界
@@ -106,7 +108,7 @@ source `aebad6ffc843f3db74debd95972decfa77d015aa`、JAR `d2efa94f3cb5def7a15cf62
 | 全試行・距離推移・時間・latency・後始末・source等の保存 | 55実Jev件と失敗fixtureを保持、公開要約に指標・ハッシュ・ローカル所在を記載 |
 | 報告 | 本文と[全55件のJSON](jev-control-p1b-live-results-2026-09-20.json)、Issue本文の結論・直接リンクを参照 |
 
-第1固定比較の未達は取り消さない。第2固定比較は同じ到達基準を満たし、Issue #40の技術的な受入残件はない。共有配置・未知地形の汎化は未実施であり、今回の合格へ含めない。
+第1固定比較の未達は取り消さない。第2固定比較は当初の隔離評価基準を満たした。追加された共有環境の完了条件は[共有検証報告](jev-control-p1b-shared-2026-09-20.md)へ記載する。未知地形の汎化は未検証。
 
 同じ履歴版JARのUNKNOWN停止を実Paperで追加検証した。開いたフェンスゲートでspawnへの水流を止め、隣接する水が支持面への視線を遮るfixtureを使用。観測では `(1,80,0)` が `UNKNOWN/occluded`、水と開いたゲートのcollision boxは空。模擬policyのE選択をUNKNOWNで0入力tickのまま解除し、実位置不変・水平速度0・生存・despawnを確認した（`.runtime-harness/p1b-smoke-de421bb6e33c/`、PASS）。観測を人工的に書き換えていない。これにより初回報告のUNKNOWN実機確認の残件を解消した。
 
